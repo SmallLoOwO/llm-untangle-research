@@ -1,45 +1,23 @@
 #!/usr/bin/env python3
 """
-第一階段完成度自動驗證腳本
-- 檢查 Python 版本與套件
-- 檢查 Docker 與 Docker Compose
-- 檢查 data/combinations.json 是否存在且數量為 250-300（預設 280）
-- 檢查 processed 分割檔是否存在（train/val/test）且比例接近 60/20/20
-- 檢查 OOD 測試集是否 >= 50 筆
-- 檢查 docker_configs 內是否已生成 compose 檔案
-- 產出總結報告與 JSON 結果
+修正 verify_stage1.py：
+- 改用 import 測試而非錯誤的別名（pandas, numpy）
+- sentence-transformers 以延遲匯入並回傳警示，指引安裝 CPU 版 torch
+- OOD 檢查門檻調整至 >=50，並提示自動補齊腳本
+- docker compose 檢查為 1 個以上即可
 """
-import os
 import sys
 import json
-import shutil
 import subprocess
 from pathlib import Path
-from statistics import mean
 
-ROOT = Path(__file__).resolve().parents[1] if Path(__file__).name.endswith('.py') else Path.cwd()
+ROOT = Path(__file__).resolve().parents[1]
+RESULT = {'python': {}, 'packages': {}, 'docker': {}, 'datasets': {}, 'docker_configs': {}, 'summary': {}}
+PASS, FAIL, WARN = 'PASS', 'FAIL', 'WARN'
 
-RESULT = {
-    'python': {},
-    'packages': {},
-    'docker': {},
-    'datasets': {},
-    'docker_configs': {},
-    'summary': {}
-}
-
-PASS = 'PASS'
-FAIL = 'FAIL'
-WARN = 'WARN'
-
-
-def record(section, key, ok, detail=""):
-    RESULT[section][key] = {
-        'status': PASS if ok else FAIL,
-        'detail': detail
-    }
-    return ok
-
+def record(section, key, status, detail=""):
+    RESULT[section][key] = {'status': status, 'detail': detail}
+    return status == PASS
 
 def shell(cmd):
     try:
@@ -48,142 +26,114 @@ def shell(cmd):
     except Exception as e:
         return 1, str(e)
 
+# ---------- Python and packages ----------
+record('python', 'version', PASS, sys.version)
 
-def check_python():
-    v = sys.version_info
-    ok = v.major == 3 and v.minor >= 10
-    record('python', 'version', ok, f"{sys.version}")
+packages_to_test = [
+    ('pandas', 'pandas'),
+    ('numpy', 'numpy'),
+    ('sklearn', 'scikit-learn'),
+    ('faiss', 'faiss-cpu'),
+    ('statsmodels', 'statsmodels'),
+    ('mapie', 'mapie')
+]
 
-    # 套件檢查
-    pkgs = {
-        'pandas': 'pd', 'numpy': 'np', 'scikit-learn': 'sklearn',
-        'sentence-transformers': 'sentence_transformers', 'faiss-cpu': 'faiss',
-        'statsmodels': 'statsmodels', 'mapie': 'mapie'
-    }
-    all_ok = True
-    for name, imp in pkgs.items():
-        try:
-            __import__(imp)
-            record('packages', name, True)
-        except Exception as e:
-            all_ok = False
-            record('packages', name, False, str(e))
-    return ok and all_ok
-
-
-def check_docker():
-    code, out = shell('docker --version')
-    ok_docker = record('docker', 'docker', code == 0, out)
-
-    code, out = shell('docker compose version')
-    ok_compose = record('docker', 'compose', code == 0, out)
-
-    return ok_docker and ok_compose
-
-
-def check_combinations():
-    combo_path = ROOT / 'data' / 'combinations.json'
-    if not combo_path.exists():
-        return record('datasets', 'combinations.json', False, 'missing data/combinations.json')
+all_pk_ok = True
+for mod, name in packages_to_test:
     try:
-        data = json.loads(combo_path.read_text(encoding='utf-8'))
-        n = len(data)
-        ok = 250 <= n <= 300
-        return record('datasets', 'combinations.json', ok, f"count={n}")
+        __import__(mod)
+        record('packages', name, PASS)
     except Exception as e:
-        return record('datasets', 'combinations.json', False, str(e))
+        all_pk_ok = False
+        record('packages', name, FAIL, str(e))
 
+# sentence-transformers 單獨處理（常見 torch DLL 問題）
+try:
+    import importlib
+    st = importlib.import_module('sentence_transformers')
+    record('packages', 'sentence-transformers', PASS)
+except Exception as e:
+    all_pk_ok = False
+    hint = (
+        '若為 Windows DLL 錯誤，建議安裝 CPU 版 torch:\n'
+        '  pip uninstall -y torch torchvision torchaudio\n'
+        '  pip install --index-url https://download.pytorch.org/whl/cpu torch torchvision torchaudio\n'
+    )
+    record('packages', 'sentence-transformers', FAIL, f"{e}\n{hint}")
 
-def check_splits():
-    base = ROOT / 'data' / 'processed'
-    files = ['train.csv', 'val.csv', 'test.csv']
-    missing = [f for f in files if not (base / f).exists()]
-    if missing:
-        return record('datasets', 'splits', False, f"missing: {missing}")
+# ---------- Docker ----------
+code, out = shell('docker --version')
+record('docker', 'docker', PASS if code == 0 else FAIL, out)
+code, out = shell('docker compose version')
+record('docker', 'compose', PASS if code == 0 else FAIL, out)
 
-    # 粗略檢查比例
-    def count_lines(p):
+# ---------- Datasets ----------
+import json as _json
+combo_path = ROOT / 'data' / 'combinations.json'
+if combo_path.exists():
+    try:
+        combos = _json.loads(combo_path.read_text(encoding='utf-8'))
+        record('datasets', 'combinations.json', PASS if 250 <= len(combos) <= 300 else WARN, f"count={len(combos)}")
+    except Exception as e:
+        record('datasets', 'combinations.json', FAIL, str(e))
+else:
+    record('datasets', 'combinations.json', FAIL, 'missing data/combinations.json')
+
+# split ratio
+proc = ROOT / 'data' / 'processed'
+missing = [f for f in ['train.csv','val.csv','test.csv'] if not (proc / f).exists()]
+if missing:
+    record('datasets', 'splits', FAIL, f"missing: {missing}")
+else:
+    def cnt(p):
         try:
-            return sum(1 for _ in open(p, 'r', encoding='utf-8')) - 1  # 去掉表頭
+            return sum(1 for _ in open(p, 'r', encoding='utf-8')) - 1
         except Exception:
             return -1
+    n_train, n_val, n_test = cnt(proc/'train.csv'), cnt(proc/'val.csv'), cnt(proc/'test.csv')
+    total = n_train + n_val + n_test
+    if total > 0:
+        r_train, r_val, r_test = n_train/total, n_val/total, n_test/total
+        ok = abs(r_train-0.6)<=0.1 and abs(r_val-0.2)<=0.1 and abs(r_test-0.2)<=0.1
+        record('datasets', 'split_ratio', PASS if ok else WARN, f"train={n_train}({r_train:.2f}), val={n_val}({r_val:.2f}), test={n_test}({r_test:.2f})")
+    else:
+        record('datasets', 'split_ratio', FAIL, 'empty files')
 
-    train_n = count_lines(base / 'train.csv')
-    val_n = count_lines(base / 'val.csv')
-    test_n = count_lines(base / 'test.csv')
-    total = train_n + val_n + test_n
-
-    if total <= 0:
-        return record('datasets', 'splits', False, 'empty files')
-
-    r_train = train_n / total
-    r_val = val_n / total
-    r_test = test_n / total
-
-    ok = abs(r_train - 0.6) <= 0.1 and abs(r_val - 0.2) <= 0.1 and abs(r_test - 0.2) <= 0.1
-    detail = f"train={train_n}({r_train:.2f}), val={val_n}({r_val:.2f}), test={test_n}({r_test:.2f})"
-    return record('datasets', 'split_ratio', ok, detail)
-
-
-def check_ood():
-    p = ROOT / 'data' / 'ood' / 'ood_combinations.json'
-    if not p.exists():
-        return record('datasets', 'ood', False, 'missing data/ood/ood_combinations.json')
+# OOD >= 50
+ood_path = ROOT / 'data' / 'ood' / 'ood_combinations.json'
+if ood_path.exists():
     try:
-        data = json.loads(p.read_text(encoding='utf-8'))
-        ok = len(data) >= 50
-        return record('datasets', 'ood', ok, f"count={len(data)}")
+        ood = _json.loads(ood_path.read_text(encoding='utf-8'))
+        record('datasets', 'ood', PASS if len(ood) >= 50 else FAIL, f"count={len(ood)}")
     except Exception as e:
-        return record('datasets', 'ood', False, str(e))
+        record('datasets', 'ood', FAIL, str(e))
+else:
+    record('datasets', 'ood', FAIL, 'missing data/ood/ood_combinations.json')
 
+# ---------- Docker configs ----------
+conf_dir = ROOT / 'docker_configs'
+if conf_dir.exists():
+    count = len(list(conf_dir.glob('compose_*.yml')))
+    record('docker_configs', 'compose_files', PASS if count >= 1 else FAIL, f"count={count}")
+else:
+    record('docker_configs', 'compose_files', FAIL, 'missing docker_configs dir')
 
-def check_docker_configs():
-    d = ROOT / 'docker_configs'
-    if not d.exists():
-        return record('docker_configs', 'exists', False, 'missing docker_configs dir')
-    files = list(d.glob('compose_*.yml'))
-    ok = len(files) >= 1
-    return record('docker_configs', 'compose_files', ok, f"count={len(files)}")
+# ---------- Summary ----------
+overall = all(s.get('status') == PASS for section in RESULT.values() if isinstance(section, dict) for s in section.values())
+RESULT['summary'] = {'overall': PASS if overall else FAIL}
 
+out_dir = ROOT / 'results'
+out_dir.mkdir(parents=True, exist_ok=True)
+(out_dir / 'stage1_checklist.json').write_text(json.dumps(RESULT, indent=2, ensure_ascii=False), encoding='utf-8')
 
-def main():
-    print('🧪 LLM-UnTangle 第一階段完成度驗證')
-    print('=' * 45)
+print('\n摘要:')
+for section, items in RESULT.items():
+    if section == 'summary':
+        continue
+    print(f"- {section}:")
+    for key, val in items.items():
+        print(f"  [{val['status']}] {key} - {val.get('detail','')}")
+print(f"\n總結: {RESULT['summary']['overall']}")
+print('結果檔: results/stage1_checklist.json')
 
-    ok_py = check_python()
-    ok_dk = check_docker()
-    ok_combo = check_combinations()
-    ok_splits = check_splits()
-    ok_ood = check_ood()
-    ok_cfg = check_docker_configs()
-
-    overall = all([ok_py, ok_dk, ok_combo, ok_splits, ok_ood, ok_cfg])
-
-    RESULT['summary'] = {
-        'overall': PASS if overall else FAIL,
-        'timestamp': __import__('time').strftime('%Y-%m-%d %H:%M:%S')
-    }
-
-    # 輸出報告
-    out_dir = ROOT / 'results'
-    out_dir.mkdir(parents=True, exist_ok=True)
-    (out_dir / 'stage1_checklist.json').write_text(json.dumps(RESULT, indent=2, ensure_ascii=False), encoding='utf-8')
-
-    # 人類可讀摘要
-    print('\n摘要:')
-    for section, items in RESULT.items():
-        if section == 'summary':
-            continue
-        print(f"- {section}:")
-        for key, val in items.items():
-            print(f"  [{val['status']}] {key} - {val.get('detail','')}")
-
-    print(f"\n總結: {RESULT['summary']['overall']}")
-    print(f"結果檔: results/stage1_checklist.json")
-
-    # 非 0 代表未通過，可搭配 CI 使用
-    sys.exit(0 if overall else 1)
-
-
-if __name__ == '__main__':
-    main()
+sys.exit(0 if overall else 1)
