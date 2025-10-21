@@ -21,8 +21,8 @@ tqdm==4.66.1
 flask==3.0.0
 jinja2==3.1.3
 
-# 配置檔案處理（降版以相容 docker-compose 1.29.2）
-pyyaml==5.4.1
+# 配置檔案處理（改用 wheel 版，避免舊版 sdist 編譯失敗）
+pyyaml==6.0
 python-dotenv==1.0.0
 
 # 開發與測試工具
