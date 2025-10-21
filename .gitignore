@@ -1,0 +1,61 @@
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# Environment Variables
+.env
+.env.local
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Data files
+data/raw/*.json
+data/processed/*.csv
+logs/
+
+# Docker volumes
+docker_configs/*/volumes/
+
+# Results
+results/figures/*.png
+results/figures/*.pdf
+results/tables/*.xlsx
+
+# Models
+models/embeddings/*.pkl
+models/abr/*.index
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

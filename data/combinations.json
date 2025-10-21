@@ -1,0 +1,7282 @@
+[
+  {
+    "id": "combo_001",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "apache_2.4.58",
+      "base_name": "apache",
+      "version": "2.4.58",
+      "image": "httpd:2.4.58",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8001",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_002",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "tomcat_9.0",
+      "base_name": "tomcat",
+      "version": "9.0",
+      "image": "tomcat:9.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8002",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_003",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8003",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_004",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.72",
+      "base_name": "lighttpd",
+      "version": "1.4.72",
+      "image": "sebp/lighttpd:1.4.72",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8004",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_005",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "caddy_2.8",
+      "base_name": "caddy",
+      "version": "2.8",
+      "image": "caddy:2.8-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8005",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_006",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.8",
+      "base_name": "openlitespeed",
+      "version": "1.8",
+      "image": "litespeedtech/openlitespeed:1.8",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8006",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_007",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.3",
+      "base_name": "varnish",
+      "version": "7.3",
+      "image": "varnish:7.3",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "apache_2.4.58",
+      "base_name": "apache",
+      "version": "2.4.58",
+      "image": "httpd:2.4.58",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8007",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_008",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.5",
+      "base_name": "varnish",
+      "version": "7.5",
+      "image": "varnish:7.5",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "tomcat_11.0",
+      "base_name": "tomcat",
+      "version": "11.0",
+      "image": "tomcat:11.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8008",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_009",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.3",
+      "base_name": "varnish",
+      "version": "7.3",
+      "image": "varnish:7.3",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8009",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_010",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.5",
+      "base_name": "varnish",
+      "version": "7.5",
+      "image": "varnish:7.5",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.71",
+      "base_name": "lighttpd",
+      "version": "1.4.71",
+      "image": "sebp/lighttpd:1.4.71",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8010",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_011",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.4",
+      "base_name": "varnish",
+      "version": "7.4",
+      "image": "varnish:7.4",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "caddy_2.8",
+      "base_name": "caddy",
+      "version": "2.8",
+      "image": "caddy:2.8-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8011",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_012",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.3",
+      "base_name": "varnish",
+      "version": "7.3",
+      "image": "varnish:7.3",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.7",
+      "base_name": "openlitespeed",
+      "version": "1.7",
+      "image": "litespeedtech/openlitespeed:1.7",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8012",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_013",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.8",
+      "base_name": "haproxy",
+      "version": "2.8",
+      "image": "haproxy:2.8",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "apache_2.4.57",
+      "base_name": "apache",
+      "version": "2.4.57",
+      "image": "httpd:2.4.57",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8013",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_014",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.8",
+      "base_name": "haproxy",
+      "version": "2.8",
+      "image": "haproxy:2.8",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "tomcat_10.1",
+      "base_name": "tomcat",
+      "version": "10.1",
+      "image": "tomcat:10.1",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8014",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_015",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.9",
+      "base_name": "haproxy",
+      "version": "2.9",
+      "image": "haproxy:2.9",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8015",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_016",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.8",
+      "base_name": "haproxy",
+      "version": "2.8",
+      "image": "haproxy:2.8",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.72",
+      "base_name": "lighttpd",
+      "version": "1.4.72",
+      "image": "sebp/lighttpd:1.4.72",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8016",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_017",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_3.0",
+      "base_name": "haproxy",
+      "version": "3.0",
+      "image": "haproxy:3.0",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "caddy_2.7",
+      "base_name": "caddy",
+      "version": "2.7",
+      "image": "caddy:2.7-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8017",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_018",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_3.0",
+      "base_name": "haproxy",
+      "version": "3.0",
+      "image": "haproxy:3.0",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.7",
+      "base_name": "openlitespeed",
+      "version": "1.7",
+      "image": "litespeedtech/openlitespeed:1.7",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8018",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_019",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_2.10",
+      "base_name": "traefik",
+      "version": "2.10",
+      "image": "traefik:2.10",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "apache_2.4.57",
+      "base_name": "apache",
+      "version": "2.4.57",
+      "image": "httpd:2.4.57",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8019",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_020",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.1",
+      "base_name": "traefik",
+      "version": "3.1",
+      "image": "traefik:3.1",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "tomcat_11.0",
+      "base_name": "tomcat",
+      "version": "11.0",
+      "image": "tomcat:11.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8020",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_021",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.0",
+      "base_name": "traefik",
+      "version": "3.0",
+      "image": "traefik:3.0",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8021",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_022",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.1",
+      "base_name": "traefik",
+      "version": "3.1",
+      "image": "traefik:3.1",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.72",
+      "base_name": "lighttpd",
+      "version": "1.4.72",
+      "image": "sebp/lighttpd:1.4.72",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8022",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_023",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.1",
+      "base_name": "traefik",
+      "version": "3.1",
+      "image": "traefik:3.1",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "caddy_2.8",
+      "base_name": "caddy",
+      "version": "2.8",
+      "image": "caddy:2.8-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8023",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_024",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.1",
+      "base_name": "traefik",
+      "version": "3.1",
+      "image": "traefik:3.1",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.8",
+      "base_name": "openlitespeed",
+      "version": "1.8",
+      "image": "litespeedtech/openlitespeed:1.8",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8024",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_025",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.29",
+      "base_name": "envoy",
+      "version": "1.29",
+      "image": "envoyproxy/envoy:v1.29-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "apache_2.4.59",
+      "base_name": "apache",
+      "version": "2.4.59",
+      "image": "httpd:2.4.59",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8025",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_026",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.29",
+      "base_name": "envoy",
+      "version": "1.29",
+      "image": "envoyproxy/envoy:v1.29-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "tomcat_9.0",
+      "base_name": "tomcat",
+      "version": "9.0",
+      "image": "tomcat:9.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8026",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_027",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.28",
+      "base_name": "envoy",
+      "version": "1.28",
+      "image": "envoyproxy/envoy:v1.28-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8027",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_028",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.28",
+      "base_name": "envoy",
+      "version": "1.28",
+      "image": "envoyproxy/envoy:v1.28-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.72",
+      "base_name": "lighttpd",
+      "version": "1.4.72",
+      "image": "sebp/lighttpd:1.4.72",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8028",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_029",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.29",
+      "base_name": "envoy",
+      "version": "1.29",
+      "image": "envoyproxy/envoy:v1.29-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "caddy_2.7",
+      "base_name": "caddy",
+      "version": "2.7",
+      "image": "caddy:2.7-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8029",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_030",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.28",
+      "base_name": "envoy",
+      "version": "1.28",
+      "image": "envoyproxy/envoy:v1.28-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "openlitespeed_1.7",
+      "base_name": "openlitespeed",
+      "version": "1.7",
+      "image": "litespeedtech/openlitespeed:1.7",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8030",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_031",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "apache_2.4.57",
+      "base_name": "apache",
+      "version": "2.4.57",
+      "image": "httpd:2.4.57",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8031",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_032",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "tomcat_11.0",
+      "base_name": "tomcat",
+      "version": "11.0",
+      "image": "tomcat:11.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8032",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_033",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8033",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_034",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.71",
+      "base_name": "lighttpd",
+      "version": "1.4.71",
+      "image": "sebp/lighttpd:1.4.71",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8034",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_035",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "caddy_2.7",
+      "base_name": "caddy",
+      "version": "2.7",
+      "image": "caddy:2.7-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8035",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_036",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.8",
+      "base_name": "openlitespeed",
+      "version": "1.8",
+      "image": "litespeedtech/openlitespeed:1.8",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8036",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_037",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.4",
+      "base_name": "varnish",
+      "version": "7.4",
+      "image": "varnish:7.4",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "apache_2.4.57",
+      "base_name": "apache",
+      "version": "2.4.57",
+      "image": "httpd:2.4.57",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8037",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_038",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.4",
+      "base_name": "varnish",
+      "version": "7.4",
+      "image": "varnish:7.4",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "tomcat_11.0",
+      "base_name": "tomcat",
+      "version": "11.0",
+      "image": "tomcat:11.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8038",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_039",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.3",
+      "base_name": "varnish",
+      "version": "7.3",
+      "image": "varnish:7.3",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8039",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_040",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.3",
+      "base_name": "varnish",
+      "version": "7.3",
+      "image": "varnish:7.3",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.71",
+      "base_name": "lighttpd",
+      "version": "1.4.71",
+      "image": "sebp/lighttpd:1.4.71",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8040",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_041",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.4",
+      "base_name": "varnish",
+      "version": "7.4",
+      "image": "varnish:7.4",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "caddy_2.8",
+      "base_name": "caddy",
+      "version": "2.8",
+      "image": "caddy:2.8-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8041",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_042",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.3",
+      "base_name": "varnish",
+      "version": "7.3",
+      "image": "varnish:7.3",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.7",
+      "base_name": "openlitespeed",
+      "version": "1.7",
+      "image": "litespeedtech/openlitespeed:1.7",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8042",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_043",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.9",
+      "base_name": "haproxy",
+      "version": "2.9",
+      "image": "haproxy:2.9",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "apache_2.4.59",
+      "base_name": "apache",
+      "version": "2.4.59",
+      "image": "httpd:2.4.59",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8043",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_044",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.9",
+      "base_name": "haproxy",
+      "version": "2.9",
+      "image": "haproxy:2.9",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "tomcat_11.0",
+      "base_name": "tomcat",
+      "version": "11.0",
+      "image": "tomcat:11.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8044",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_045",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.9",
+      "base_name": "haproxy",
+      "version": "2.9",
+      "image": "haproxy:2.9",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8045",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_046",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.8",
+      "base_name": "haproxy",
+      "version": "2.8",
+      "image": "haproxy:2.8",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.71",
+      "base_name": "lighttpd",
+      "version": "1.4.71",
+      "image": "sebp/lighttpd:1.4.71",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8046",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_047",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_3.0",
+      "base_name": "haproxy",
+      "version": "3.0",
+      "image": "haproxy:3.0",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "caddy_2.8",
+      "base_name": "caddy",
+      "version": "2.8",
+      "image": "caddy:2.8-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8047",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_048",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.9",
+      "base_name": "haproxy",
+      "version": "2.9",
+      "image": "haproxy:2.9",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.8",
+      "base_name": "openlitespeed",
+      "version": "1.8",
+      "image": "litespeedtech/openlitespeed:1.8",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8048",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_049",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.1",
+      "base_name": "traefik",
+      "version": "3.1",
+      "image": "traefik:3.1",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "apache_2.4.59",
+      "base_name": "apache",
+      "version": "2.4.59",
+      "image": "httpd:2.4.59",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8049",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_050",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_2.10",
+      "base_name": "traefik",
+      "version": "2.10",
+      "image": "traefik:2.10",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "tomcat_10.1",
+      "base_name": "tomcat",
+      "version": "10.1",
+      "image": "tomcat:10.1",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8050",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_051",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.1",
+      "base_name": "traefik",
+      "version": "3.1",
+      "image": "traefik:3.1",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8051",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_052",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_2.10",
+      "base_name": "traefik",
+      "version": "2.10",
+      "image": "traefik:2.10",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.71",
+      "base_name": "lighttpd",
+      "version": "1.4.71",
+      "image": "sebp/lighttpd:1.4.71",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8052",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_053",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.1",
+      "base_name": "traefik",
+      "version": "3.1",
+      "image": "traefik:3.1",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "caddy_2.7",
+      "base_name": "caddy",
+      "version": "2.7",
+      "image": "caddy:2.7-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8053",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_054",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.0",
+      "base_name": "traefik",
+      "version": "3.0",
+      "image": "traefik:3.0",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.7",
+      "base_name": "openlitespeed",
+      "version": "1.7",
+      "image": "litespeedtech/openlitespeed:1.7",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8054",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_055",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.28",
+      "base_name": "envoy",
+      "version": "1.28",
+      "image": "envoyproxy/envoy:v1.28-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "apache_2.4.59",
+      "base_name": "apache",
+      "version": "2.4.59",
+      "image": "httpd:2.4.59",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8055",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_056",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.28",
+      "base_name": "envoy",
+      "version": "1.28",
+      "image": "envoyproxy/envoy:v1.28-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "tomcat_9.0",
+      "base_name": "tomcat",
+      "version": "9.0",
+      "image": "tomcat:9.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8056",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_057",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.27",
+      "base_name": "envoy",
+      "version": "1.27",
+      "image": "envoyproxy/envoy:v1.27-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8057",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_058",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.27",
+      "base_name": "envoy",
+      "version": "1.27",
+      "image": "envoyproxy/envoy:v1.27-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.71",
+      "base_name": "lighttpd",
+      "version": "1.4.71",
+      "image": "sebp/lighttpd:1.4.71",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8058",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_059",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.29",
+      "base_name": "envoy",
+      "version": "1.29",
+      "image": "envoyproxy/envoy:v1.29-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "caddy_2.8",
+      "base_name": "caddy",
+      "version": "2.8",
+      "image": "caddy:2.8-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8059",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_060",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.27",
+      "base_name": "envoy",
+      "version": "1.27",
+      "image": "envoyproxy/envoy:v1.27-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "openlitespeed_1.8",
+      "base_name": "openlitespeed",
+      "version": "1.8",
+      "image": "litespeedtech/openlitespeed:1.8",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8060",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_061",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "apache_2.4.58",
+      "base_name": "apache",
+      "version": "2.4.58",
+      "image": "httpd:2.4.58",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8061",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_062",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "tomcat_10.1",
+      "base_name": "tomcat",
+      "version": "10.1",
+      "image": "tomcat:10.1",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8062",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_063",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8063",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_064",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.71",
+      "base_name": "lighttpd",
+      "version": "1.4.71",
+      "image": "sebp/lighttpd:1.4.71",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8064",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_065",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "caddy_2.8",
+      "base_name": "caddy",
+      "version": "2.8",
+      "image": "caddy:2.8-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8065",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_066",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.7",
+      "base_name": "openlitespeed",
+      "version": "1.7",
+      "image": "litespeedtech/openlitespeed:1.7",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8066",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_067",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.5",
+      "base_name": "varnish",
+      "version": "7.5",
+      "image": "varnish:7.5",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "apache_2.4.58",
+      "base_name": "apache",
+      "version": "2.4.58",
+      "image": "httpd:2.4.58",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8067",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_068",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.4",
+      "base_name": "varnish",
+      "version": "7.4",
+      "image": "varnish:7.4",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "tomcat_11.0",
+      "base_name": "tomcat",
+      "version": "11.0",
+      "image": "tomcat:11.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8068",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_069",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.3",
+      "base_name": "varnish",
+      "version": "7.3",
+      "image": "varnish:7.3",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8069",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_070",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.4",
+      "base_name": "varnish",
+      "version": "7.4",
+      "image": "varnish:7.4",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.71",
+      "base_name": "lighttpd",
+      "version": "1.4.71",
+      "image": "sebp/lighttpd:1.4.71",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8070",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_071",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.4",
+      "base_name": "varnish",
+      "version": "7.4",
+      "image": "varnish:7.4",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "caddy_2.7",
+      "base_name": "caddy",
+      "version": "2.7",
+      "image": "caddy:2.7-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8071",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_072",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.3",
+      "base_name": "varnish",
+      "version": "7.3",
+      "image": "varnish:7.3",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.8",
+      "base_name": "openlitespeed",
+      "version": "1.8",
+      "image": "litespeedtech/openlitespeed:1.8",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8072",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_073",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.9",
+      "base_name": "haproxy",
+      "version": "2.9",
+      "image": "haproxy:2.9",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "apache_2.4.58",
+      "base_name": "apache",
+      "version": "2.4.58",
+      "image": "httpd:2.4.58",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8073",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_074",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.8",
+      "base_name": "haproxy",
+      "version": "2.8",
+      "image": "haproxy:2.8",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "tomcat_10.1",
+      "base_name": "tomcat",
+      "version": "10.1",
+      "image": "tomcat:10.1",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8074",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_075",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.8",
+      "base_name": "haproxy",
+      "version": "2.8",
+      "image": "haproxy:2.8",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8075",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_076",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_3.0",
+      "base_name": "haproxy",
+      "version": "3.0",
+      "image": "haproxy:3.0",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.71",
+      "base_name": "lighttpd",
+      "version": "1.4.71",
+      "image": "sebp/lighttpd:1.4.71",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8076",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_077",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_3.0",
+      "base_name": "haproxy",
+      "version": "3.0",
+      "image": "haproxy:3.0",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "caddy_2.8",
+      "base_name": "caddy",
+      "version": "2.8",
+      "image": "caddy:2.8-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8077",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_078",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.8",
+      "base_name": "haproxy",
+      "version": "2.8",
+      "image": "haproxy:2.8",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.8",
+      "base_name": "openlitespeed",
+      "version": "1.8",
+      "image": "litespeedtech/openlitespeed:1.8",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8078",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_079",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_2.10",
+      "base_name": "traefik",
+      "version": "2.10",
+      "image": "traefik:2.10",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "apache_2.4.59",
+      "base_name": "apache",
+      "version": "2.4.59",
+      "image": "httpd:2.4.59",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8079",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_080",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.1",
+      "base_name": "traefik",
+      "version": "3.1",
+      "image": "traefik:3.1",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "tomcat_10.1",
+      "base_name": "tomcat",
+      "version": "10.1",
+      "image": "tomcat:10.1",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8080",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_081",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.1",
+      "base_name": "traefik",
+      "version": "3.1",
+      "image": "traefik:3.1",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8081",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_082",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.0",
+      "base_name": "traefik",
+      "version": "3.0",
+      "image": "traefik:3.0",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.71",
+      "base_name": "lighttpd",
+      "version": "1.4.71",
+      "image": "sebp/lighttpd:1.4.71",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8082",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_083",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.1",
+      "base_name": "traefik",
+      "version": "3.1",
+      "image": "traefik:3.1",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "caddy_2.8",
+      "base_name": "caddy",
+      "version": "2.8",
+      "image": "caddy:2.8-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8083",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_084",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.1",
+      "base_name": "traefik",
+      "version": "3.1",
+      "image": "traefik:3.1",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.8",
+      "base_name": "openlitespeed",
+      "version": "1.8",
+      "image": "litespeedtech/openlitespeed:1.8",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8084",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_085",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.29",
+      "base_name": "envoy",
+      "version": "1.29",
+      "image": "envoyproxy/envoy:v1.29-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "apache_2.4.59",
+      "base_name": "apache",
+      "version": "2.4.59",
+      "image": "httpd:2.4.59",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8085",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_086",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.28",
+      "base_name": "envoy",
+      "version": "1.28",
+      "image": "envoyproxy/envoy:v1.28-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "tomcat_9.0",
+      "base_name": "tomcat",
+      "version": "9.0",
+      "image": "tomcat:9.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8086",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_087",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.28",
+      "base_name": "envoy",
+      "version": "1.28",
+      "image": "envoyproxy/envoy:v1.28-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8087",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_088",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.27",
+      "base_name": "envoy",
+      "version": "1.27",
+      "image": "envoyproxy/envoy:v1.27-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.71",
+      "base_name": "lighttpd",
+      "version": "1.4.71",
+      "image": "sebp/lighttpd:1.4.71",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8088",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_089",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.27",
+      "base_name": "envoy",
+      "version": "1.27",
+      "image": "envoyproxy/envoy:v1.27-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "caddy_2.8",
+      "base_name": "caddy",
+      "version": "2.8",
+      "image": "caddy:2.8-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8089",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_090",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.27",
+      "base_name": "envoy",
+      "version": "1.27",
+      "image": "envoyproxy/envoy:v1.27-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "openlitespeed_1.7",
+      "base_name": "openlitespeed",
+      "version": "1.7",
+      "image": "litespeedtech/openlitespeed:1.7",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8090",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_091",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "apache_2.4.57",
+      "base_name": "apache",
+      "version": "2.4.57",
+      "image": "httpd:2.4.57",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8091",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_092",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "apache_2.4.58",
+      "base_name": "apache",
+      "version": "2.4.58",
+      "image": "httpd:2.4.58",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8092",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_093",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "tomcat_11.0",
+      "base_name": "tomcat",
+      "version": "11.0",
+      "image": "tomcat:11.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8093",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_094",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "tomcat_10.1",
+      "base_name": "tomcat",
+      "version": "10.1",
+      "image": "tomcat:10.1",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8094",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_095",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8095",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_096",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8096",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_097",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.72",
+      "base_name": "lighttpd",
+      "version": "1.4.72",
+      "image": "sebp/lighttpd:1.4.72",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8097",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_098",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "caddy_2.7",
+      "base_name": "caddy",
+      "version": "2.7",
+      "image": "caddy:2.7-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8098",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_099",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.7",
+      "base_name": "openlitespeed",
+      "version": "1.7",
+      "image": "litespeedtech/openlitespeed:1.7",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8099",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_100",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.5",
+      "base_name": "varnish",
+      "version": "7.5",
+      "image": "varnish:7.5",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "apache_2.4.58",
+      "base_name": "apache",
+      "version": "2.4.58",
+      "image": "httpd:2.4.58",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8100",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_101",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.5",
+      "base_name": "varnish",
+      "version": "7.5",
+      "image": "varnish:7.5",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "apache_2.4.57",
+      "base_name": "apache",
+      "version": "2.4.57",
+      "image": "httpd:2.4.57",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8101",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_102",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.5",
+      "base_name": "varnish",
+      "version": "7.5",
+      "image": "varnish:7.5",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "tomcat_10.1",
+      "base_name": "tomcat",
+      "version": "10.1",
+      "image": "tomcat:10.1",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8102",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_103",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.3",
+      "base_name": "varnish",
+      "version": "7.3",
+      "image": "varnish:7.3",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "tomcat_10.1",
+      "base_name": "tomcat",
+      "version": "10.1",
+      "image": "tomcat:10.1",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8103",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_104",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.4",
+      "base_name": "varnish",
+      "version": "7.4",
+      "image": "varnish:7.4",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8104",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_105",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.3",
+      "base_name": "varnish",
+      "version": "7.3",
+      "image": "varnish:7.3",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8105",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_106",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.3",
+      "base_name": "varnish",
+      "version": "7.3",
+      "image": "varnish:7.3",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.72",
+      "base_name": "lighttpd",
+      "version": "1.4.72",
+      "image": "sebp/lighttpd:1.4.72",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8106",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_107",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.5",
+      "base_name": "varnish",
+      "version": "7.5",
+      "image": "varnish:7.5",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "caddy_2.8",
+      "base_name": "caddy",
+      "version": "2.8",
+      "image": "caddy:2.8-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8107",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_108",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.5",
+      "base_name": "varnish",
+      "version": "7.5",
+      "image": "varnish:7.5",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.8",
+      "base_name": "openlitespeed",
+      "version": "1.8",
+      "image": "litespeedtech/openlitespeed:1.8",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8108",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_109",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.9",
+      "base_name": "haproxy",
+      "version": "2.9",
+      "image": "haproxy:2.9",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "apache_2.4.59",
+      "base_name": "apache",
+      "version": "2.4.59",
+      "image": "httpd:2.4.59",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8109",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_110",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_3.0",
+      "base_name": "haproxy",
+      "version": "3.0",
+      "image": "haproxy:3.0",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "apache_2.4.57",
+      "base_name": "apache",
+      "version": "2.4.57",
+      "image": "httpd:2.4.57",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8110",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_111",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_3.0",
+      "base_name": "haproxy",
+      "version": "3.0",
+      "image": "haproxy:3.0",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "tomcat_10.1",
+      "base_name": "tomcat",
+      "version": "10.1",
+      "image": "tomcat:10.1",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8111",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_112",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.9",
+      "base_name": "haproxy",
+      "version": "2.9",
+      "image": "haproxy:2.9",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "tomcat_11.0",
+      "base_name": "tomcat",
+      "version": "11.0",
+      "image": "tomcat:11.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8112",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_113",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_3.0",
+      "base_name": "haproxy",
+      "version": "3.0",
+      "image": "haproxy:3.0",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8113",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_114",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.8",
+      "base_name": "haproxy",
+      "version": "2.8",
+      "image": "haproxy:2.8",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8114",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_115",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.9",
+      "base_name": "haproxy",
+      "version": "2.9",
+      "image": "haproxy:2.9",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.71",
+      "base_name": "lighttpd",
+      "version": "1.4.71",
+      "image": "sebp/lighttpd:1.4.71",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8115",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_116",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.8",
+      "base_name": "haproxy",
+      "version": "2.8",
+      "image": "haproxy:2.8",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "caddy_2.8",
+      "base_name": "caddy",
+      "version": "2.8",
+      "image": "caddy:2.8-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8116",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_117",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_3.0",
+      "base_name": "haproxy",
+      "version": "3.0",
+      "image": "haproxy:3.0",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.8",
+      "base_name": "openlitespeed",
+      "version": "1.8",
+      "image": "litespeedtech/openlitespeed:1.8",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8117",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_118",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.1",
+      "base_name": "traefik",
+      "version": "3.1",
+      "image": "traefik:3.1",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "apache_2.4.59",
+      "base_name": "apache",
+      "version": "2.4.59",
+      "image": "httpd:2.4.59",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8118",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_119",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_2.10",
+      "base_name": "traefik",
+      "version": "2.10",
+      "image": "traefik:2.10",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "apache_2.4.58",
+      "base_name": "apache",
+      "version": "2.4.58",
+      "image": "httpd:2.4.58",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8119",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_120",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_2.10",
+      "base_name": "traefik",
+      "version": "2.10",
+      "image": "traefik:2.10",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "tomcat_9.0",
+      "base_name": "tomcat",
+      "version": "9.0",
+      "image": "tomcat:9.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8120",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_121",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.1",
+      "base_name": "traefik",
+      "version": "3.1",
+      "image": "traefik:3.1",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "tomcat_9.0",
+      "base_name": "tomcat",
+      "version": "9.0",
+      "image": "tomcat:9.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8121",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_122",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_2.10",
+      "base_name": "traefik",
+      "version": "2.10",
+      "image": "traefik:2.10",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8122",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_123",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.1",
+      "base_name": "traefik",
+      "version": "3.1",
+      "image": "traefik:3.1",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8123",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_124",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_2.10",
+      "base_name": "traefik",
+      "version": "2.10",
+      "image": "traefik:2.10",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.72",
+      "base_name": "lighttpd",
+      "version": "1.4.72",
+      "image": "sebp/lighttpd:1.4.72",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8124",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_125",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.0",
+      "base_name": "traefik",
+      "version": "3.0",
+      "image": "traefik:3.0",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "caddy_2.8",
+      "base_name": "caddy",
+      "version": "2.8",
+      "image": "caddy:2.8-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8125",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_126",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.1",
+      "base_name": "traefik",
+      "version": "3.1",
+      "image": "traefik:3.1",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.7",
+      "base_name": "openlitespeed",
+      "version": "1.7",
+      "image": "litespeedtech/openlitespeed:1.7",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8126",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_127",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.27",
+      "base_name": "envoy",
+      "version": "1.27",
+      "image": "envoyproxy/envoy:v1.27-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "apache_2.4.58",
+      "base_name": "apache",
+      "version": "2.4.58",
+      "image": "httpd:2.4.58",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8127",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_128",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.28",
+      "base_name": "envoy",
+      "version": "1.28",
+      "image": "envoyproxy/envoy:v1.28-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "apache_2.4.57",
+      "base_name": "apache",
+      "version": "2.4.57",
+      "image": "httpd:2.4.57",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8128",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_129",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.29",
+      "base_name": "envoy",
+      "version": "1.29",
+      "image": "envoyproxy/envoy:v1.29-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "tomcat_10.1",
+      "base_name": "tomcat",
+      "version": "10.1",
+      "image": "tomcat:10.1",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8129",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_130",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.28",
+      "base_name": "envoy",
+      "version": "1.28",
+      "image": "envoyproxy/envoy:v1.28-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "tomcat_10.1",
+      "base_name": "tomcat",
+      "version": "10.1",
+      "image": "tomcat:10.1",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8130",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_131",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.29",
+      "base_name": "envoy",
+      "version": "1.29",
+      "image": "envoyproxy/envoy:v1.29-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8131",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_132",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.28",
+      "base_name": "envoy",
+      "version": "1.28",
+      "image": "envoyproxy/envoy:v1.28-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8132",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_133",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.28",
+      "base_name": "envoy",
+      "version": "1.28",
+      "image": "envoyproxy/envoy:v1.28-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.71",
+      "base_name": "lighttpd",
+      "version": "1.4.71",
+      "image": "sebp/lighttpd:1.4.71",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8133",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_134",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.29",
+      "base_name": "envoy",
+      "version": "1.29",
+      "image": "envoyproxy/envoy:v1.29-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "caddy_2.8",
+      "base_name": "caddy",
+      "version": "2.8",
+      "image": "caddy:2.8-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8134",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_135",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.27",
+      "base_name": "envoy",
+      "version": "1.27",
+      "image": "envoyproxy/envoy:v1.27-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "openlitespeed_1.7",
+      "base_name": "openlitespeed",
+      "version": "1.7",
+      "image": "litespeedtech/openlitespeed:1.7",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8135",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_136",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "apache_2.4.59",
+      "base_name": "apache",
+      "version": "2.4.59",
+      "image": "httpd:2.4.59",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8136",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_137",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "tomcat_11.0",
+      "base_name": "tomcat",
+      "version": "11.0",
+      "image": "tomcat:11.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8137",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_138",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8138",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_139",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.71",
+      "base_name": "lighttpd",
+      "version": "1.4.71",
+      "image": "sebp/lighttpd:1.4.71",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8139",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_140",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "caddy_2.8",
+      "base_name": "caddy",
+      "version": "2.8",
+      "image": "caddy:2.8-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8140",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_141",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.7",
+      "base_name": "openlitespeed",
+      "version": "1.7",
+      "image": "litespeedtech/openlitespeed:1.7",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8141",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_142",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.3",
+      "base_name": "varnish",
+      "version": "7.3",
+      "image": "varnish:7.3",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "apache_2.4.59",
+      "base_name": "apache",
+      "version": "2.4.59",
+      "image": "httpd:2.4.59",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8142",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_143",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.5",
+      "base_name": "varnish",
+      "version": "7.5",
+      "image": "varnish:7.5",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "tomcat_11.0",
+      "base_name": "tomcat",
+      "version": "11.0",
+      "image": "tomcat:11.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8143",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_144",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.3",
+      "base_name": "varnish",
+      "version": "7.3",
+      "image": "varnish:7.3",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8144",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_145",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.4",
+      "base_name": "varnish",
+      "version": "7.4",
+      "image": "varnish:7.4",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.72",
+      "base_name": "lighttpd",
+      "version": "1.4.72",
+      "image": "sebp/lighttpd:1.4.72",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8145",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_146",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.5",
+      "base_name": "varnish",
+      "version": "7.5",
+      "image": "varnish:7.5",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "caddy_2.8",
+      "base_name": "caddy",
+      "version": "2.8",
+      "image": "caddy:2.8-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8146",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_147",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.4",
+      "base_name": "varnish",
+      "version": "7.4",
+      "image": "varnish:7.4",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.7",
+      "base_name": "openlitespeed",
+      "version": "1.7",
+      "image": "litespeedtech/openlitespeed:1.7",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8147",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_148",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.8",
+      "base_name": "haproxy",
+      "version": "2.8",
+      "image": "haproxy:2.8",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "apache_2.4.58",
+      "base_name": "apache",
+      "version": "2.4.58",
+      "image": "httpd:2.4.58",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8148",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_149",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.9",
+      "base_name": "haproxy",
+      "version": "2.9",
+      "image": "haproxy:2.9",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "tomcat_10.1",
+      "base_name": "tomcat",
+      "version": "10.1",
+      "image": "tomcat:10.1",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8149",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_150",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.9",
+      "base_name": "haproxy",
+      "version": "2.9",
+      "image": "haproxy:2.9",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8150",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_151",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.9",
+      "base_name": "haproxy",
+      "version": "2.9",
+      "image": "haproxy:2.9",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.71",
+      "base_name": "lighttpd",
+      "version": "1.4.71",
+      "image": "sebp/lighttpd:1.4.71",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8151",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_152",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.9",
+      "base_name": "haproxy",
+      "version": "2.9",
+      "image": "haproxy:2.9",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "caddy_2.7",
+      "base_name": "caddy",
+      "version": "2.7",
+      "image": "caddy:2.7-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8152",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_153",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.8",
+      "base_name": "haproxy",
+      "version": "2.8",
+      "image": "haproxy:2.8",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.8",
+      "base_name": "openlitespeed",
+      "version": "1.8",
+      "image": "litespeedtech/openlitespeed:1.8",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8153",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_154",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_2.10",
+      "base_name": "traefik",
+      "version": "2.10",
+      "image": "traefik:2.10",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "apache_2.4.57",
+      "base_name": "apache",
+      "version": "2.4.57",
+      "image": "httpd:2.4.57",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8154",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_155",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.1",
+      "base_name": "traefik",
+      "version": "3.1",
+      "image": "traefik:3.1",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "tomcat_9.0",
+      "base_name": "tomcat",
+      "version": "9.0",
+      "image": "tomcat:9.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8155",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_156",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.1",
+      "base_name": "traefik",
+      "version": "3.1",
+      "image": "traefik:3.1",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8156",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_157",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_2.10",
+      "base_name": "traefik",
+      "version": "2.10",
+      "image": "traefik:2.10",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.72",
+      "base_name": "lighttpd",
+      "version": "1.4.72",
+      "image": "sebp/lighttpd:1.4.72",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8157",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_158",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_2.10",
+      "base_name": "traefik",
+      "version": "2.10",
+      "image": "traefik:2.10",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "caddy_2.7",
+      "base_name": "caddy",
+      "version": "2.7",
+      "image": "caddy:2.7-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8158",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_159",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.0",
+      "base_name": "traefik",
+      "version": "3.0",
+      "image": "traefik:3.0",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.8",
+      "base_name": "openlitespeed",
+      "version": "1.8",
+      "image": "litespeedtech/openlitespeed:1.8",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8159",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_160",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.28",
+      "base_name": "envoy",
+      "version": "1.28",
+      "image": "envoyproxy/envoy:v1.28-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "apache_2.4.58",
+      "base_name": "apache",
+      "version": "2.4.58",
+      "image": "httpd:2.4.58",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8160",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_161",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.28",
+      "base_name": "envoy",
+      "version": "1.28",
+      "image": "envoyproxy/envoy:v1.28-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "tomcat_10.1",
+      "base_name": "tomcat",
+      "version": "10.1",
+      "image": "tomcat:10.1",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8161",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_162",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.27",
+      "base_name": "envoy",
+      "version": "1.27",
+      "image": "envoyproxy/envoy:v1.27-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8162",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_163",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.28",
+      "base_name": "envoy",
+      "version": "1.28",
+      "image": "envoyproxy/envoy:v1.28-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.71",
+      "base_name": "lighttpd",
+      "version": "1.4.71",
+      "image": "sebp/lighttpd:1.4.71",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8163",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_164",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.29",
+      "base_name": "envoy",
+      "version": "1.29",
+      "image": "envoyproxy/envoy:v1.29-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "caddy_2.7",
+      "base_name": "caddy",
+      "version": "2.7",
+      "image": "caddy:2.7-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8164",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_165",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.27",
+      "base_name": "envoy",
+      "version": "1.27",
+      "image": "envoyproxy/envoy:v1.27-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "openlitespeed_1.7",
+      "base_name": "openlitespeed",
+      "version": "1.7",
+      "image": "litespeedtech/openlitespeed:1.7",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8165",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_166",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "apache_2.4.58",
+      "base_name": "apache",
+      "version": "2.4.58",
+      "image": "httpd:2.4.58",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8166",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_167",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "tomcat_11.0",
+      "base_name": "tomcat",
+      "version": "11.0",
+      "image": "tomcat:11.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8167",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_168",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8168",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_169",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.72",
+      "base_name": "lighttpd",
+      "version": "1.4.72",
+      "image": "sebp/lighttpd:1.4.72",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8169",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_170",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "caddy_2.8",
+      "base_name": "caddy",
+      "version": "2.8",
+      "image": "caddy:2.8-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8170",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_171",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.8",
+      "base_name": "openlitespeed",
+      "version": "1.8",
+      "image": "litespeedtech/openlitespeed:1.8",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8171",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_172",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.5",
+      "base_name": "varnish",
+      "version": "7.5",
+      "image": "varnish:7.5",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "apache_2.4.59",
+      "base_name": "apache",
+      "version": "2.4.59",
+      "image": "httpd:2.4.59",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8172",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_173",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.3",
+      "base_name": "varnish",
+      "version": "7.3",
+      "image": "varnish:7.3",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "tomcat_11.0",
+      "base_name": "tomcat",
+      "version": "11.0",
+      "image": "tomcat:11.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8173",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_174",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.4",
+      "base_name": "varnish",
+      "version": "7.4",
+      "image": "varnish:7.4",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8174",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_175",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.5",
+      "base_name": "varnish",
+      "version": "7.5",
+      "image": "varnish:7.5",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.72",
+      "base_name": "lighttpd",
+      "version": "1.4.72",
+      "image": "sebp/lighttpd:1.4.72",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8175",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_176",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.5",
+      "base_name": "varnish",
+      "version": "7.5",
+      "image": "varnish:7.5",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "caddy_2.8",
+      "base_name": "caddy",
+      "version": "2.8",
+      "image": "caddy:2.8-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8176",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_177",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.5",
+      "base_name": "varnish",
+      "version": "7.5",
+      "image": "varnish:7.5",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.7",
+      "base_name": "openlitespeed",
+      "version": "1.7",
+      "image": "litespeedtech/openlitespeed:1.7",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8177",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_178",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.9",
+      "base_name": "haproxy",
+      "version": "2.9",
+      "image": "haproxy:2.9",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "apache_2.4.57",
+      "base_name": "apache",
+      "version": "2.4.57",
+      "image": "httpd:2.4.57",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8178",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_179",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.9",
+      "base_name": "haproxy",
+      "version": "2.9",
+      "image": "haproxy:2.9",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "tomcat_10.1",
+      "base_name": "tomcat",
+      "version": "10.1",
+      "image": "tomcat:10.1",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8179",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_180",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.9",
+      "base_name": "haproxy",
+      "version": "2.9",
+      "image": "haproxy:2.9",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8180",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_181",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.9",
+      "base_name": "haproxy",
+      "version": "2.9",
+      "image": "haproxy:2.9",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.72",
+      "base_name": "lighttpd",
+      "version": "1.4.72",
+      "image": "sebp/lighttpd:1.4.72",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8181",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_182",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.9",
+      "base_name": "haproxy",
+      "version": "2.9",
+      "image": "haproxy:2.9",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "caddy_2.7",
+      "base_name": "caddy",
+      "version": "2.7",
+      "image": "caddy:2.7-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8182",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_183",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_3.0",
+      "base_name": "haproxy",
+      "version": "3.0",
+      "image": "haproxy:3.0",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.7",
+      "base_name": "openlitespeed",
+      "version": "1.7",
+      "image": "litespeedtech/openlitespeed:1.7",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8183",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_184",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.1",
+      "base_name": "traefik",
+      "version": "3.1",
+      "image": "traefik:3.1",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "apache_2.4.59",
+      "base_name": "apache",
+      "version": "2.4.59",
+      "image": "httpd:2.4.59",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8184",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_185",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_2.10",
+      "base_name": "traefik",
+      "version": "2.10",
+      "image": "traefik:2.10",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "tomcat_10.1",
+      "base_name": "tomcat",
+      "version": "10.1",
+      "image": "tomcat:10.1",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8185",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_186",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.0",
+      "base_name": "traefik",
+      "version": "3.0",
+      "image": "traefik:3.0",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8186",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_187",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_2.10",
+      "base_name": "traefik",
+      "version": "2.10",
+      "image": "traefik:2.10",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.72",
+      "base_name": "lighttpd",
+      "version": "1.4.72",
+      "image": "sebp/lighttpd:1.4.72",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8187",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_188",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_2.10",
+      "base_name": "traefik",
+      "version": "2.10",
+      "image": "traefik:2.10",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "caddy_2.7",
+      "base_name": "caddy",
+      "version": "2.7",
+      "image": "caddy:2.7-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8188",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_189",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.0",
+      "base_name": "traefik",
+      "version": "3.0",
+      "image": "traefik:3.0",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.7",
+      "base_name": "openlitespeed",
+      "version": "1.7",
+      "image": "litespeedtech/openlitespeed:1.7",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8189",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_190",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.27",
+      "base_name": "envoy",
+      "version": "1.27",
+      "image": "envoyproxy/envoy:v1.27-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "apache_2.4.57",
+      "base_name": "apache",
+      "version": "2.4.57",
+      "image": "httpd:2.4.57",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8190",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_191",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.28",
+      "base_name": "envoy",
+      "version": "1.28",
+      "image": "envoyproxy/envoy:v1.28-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "tomcat_10.1",
+      "base_name": "tomcat",
+      "version": "10.1",
+      "image": "tomcat:10.1",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8191",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_192",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.28",
+      "base_name": "envoy",
+      "version": "1.28",
+      "image": "envoyproxy/envoy:v1.28-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8192",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_193",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.27",
+      "base_name": "envoy",
+      "version": "1.27",
+      "image": "envoyproxy/envoy:v1.27-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.72",
+      "base_name": "lighttpd",
+      "version": "1.4.72",
+      "image": "sebp/lighttpd:1.4.72",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8193",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_194",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.27",
+      "base_name": "envoy",
+      "version": "1.27",
+      "image": "envoyproxy/envoy:v1.27-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "caddy_2.7",
+      "base_name": "caddy",
+      "version": "2.7",
+      "image": "caddy:2.7-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8194",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_195",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.27",
+      "base_name": "envoy",
+      "version": "1.27",
+      "image": "envoyproxy/envoy:v1.27-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "openlitespeed_1.8",
+      "base_name": "openlitespeed",
+      "version": "1.8",
+      "image": "litespeedtech/openlitespeed:1.8",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8195",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_196",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.1",
+      "base_name": "traefik",
+      "version": "3.1",
+      "image": "traefik:3.1",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8196",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_197",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.3",
+      "base_name": "varnish",
+      "version": "7.3",
+      "image": "varnish:7.3",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8197",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_198",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.28",
+      "base_name": "envoy",
+      "version": "1.28",
+      "image": "envoyproxy/envoy:v1.28-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "caddy_2.8",
+      "base_name": "caddy",
+      "version": "2.8",
+      "image": "caddy:2.8-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8198",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_199",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.8",
+      "base_name": "openlitespeed",
+      "version": "1.8",
+      "image": "litespeedtech/openlitespeed:1.8",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8199",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_200",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.1",
+      "base_name": "traefik",
+      "version": "3.1",
+      "image": "traefik:3.1",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "tomcat_11.0",
+      "base_name": "tomcat",
+      "version": "11.0",
+      "image": "tomcat:11.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8200",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_201",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.8",
+      "base_name": "openlitespeed",
+      "version": "1.8",
+      "image": "litespeedtech/openlitespeed:1.8",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8201",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_202",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.3",
+      "base_name": "varnish",
+      "version": "7.3",
+      "image": "varnish:7.3",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "caddy_2.7",
+      "base_name": "caddy",
+      "version": "2.7",
+      "image": "caddy:2.7-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8202",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_203",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.0",
+      "base_name": "traefik",
+      "version": "3.0",
+      "image": "traefik:3.0",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "tomcat_10.1",
+      "base_name": "tomcat",
+      "version": "10.1",
+      "image": "tomcat:10.1",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8203",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_204",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.27",
+      "base_name": "envoy",
+      "version": "1.27",
+      "image": "envoyproxy/envoy:v1.27-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "apache_2.4.59",
+      "base_name": "apache",
+      "version": "2.4.59",
+      "image": "httpd:2.4.59",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8204",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_205",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.29",
+      "base_name": "envoy",
+      "version": "1.29",
+      "image": "envoyproxy/envoy:v1.29-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "apache_2.4.58",
+      "base_name": "apache",
+      "version": "2.4.58",
+      "image": "httpd:2.4.58",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8205",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_206",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8206",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_207",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_3.0",
+      "base_name": "haproxy",
+      "version": "3.0",
+      "image": "haproxy:3.0",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.8",
+      "base_name": "openlitespeed",
+      "version": "1.8",
+      "image": "litespeedtech/openlitespeed:1.8",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8207",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_208",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.0",
+      "base_name": "traefik",
+      "version": "3.0",
+      "image": "traefik:3.0",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.72",
+      "base_name": "lighttpd",
+      "version": "1.4.72",
+      "image": "sebp/lighttpd:1.4.72",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8208",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_209",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.1",
+      "base_name": "traefik",
+      "version": "3.1",
+      "image": "traefik:3.1",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8209",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_210",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.8",
+      "base_name": "haproxy",
+      "version": "2.8",
+      "image": "haproxy:2.8",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "caddy_2.7",
+      "base_name": "caddy",
+      "version": "2.7",
+      "image": "caddy:2.7-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8210",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_211",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.4",
+      "base_name": "varnish",
+      "version": "7.4",
+      "image": "varnish:7.4",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.8",
+      "base_name": "openlitespeed",
+      "version": "1.8",
+      "image": "litespeedtech/openlitespeed:1.8",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8211",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_212",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.29",
+      "base_name": "envoy",
+      "version": "1.29",
+      "image": "envoyproxy/envoy:v1.29-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "openlitespeed_1.7",
+      "base_name": "openlitespeed",
+      "version": "1.7",
+      "image": "litespeedtech/openlitespeed:1.7",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8212",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_213",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.27",
+      "base_name": "envoy",
+      "version": "1.27",
+      "image": "envoyproxy/envoy:v1.27-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "tomcat_11.0",
+      "base_name": "tomcat",
+      "version": "11.0",
+      "image": "tomcat:11.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8213",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_214",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.28",
+      "base_name": "envoy",
+      "version": "1.28",
+      "image": "envoyproxy/envoy:v1.28-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "apache_2.4.57",
+      "base_name": "apache",
+      "version": "2.4.57",
+      "image": "httpd:2.4.57",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8214",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_215",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.28",
+      "base_name": "envoy",
+      "version": "1.28",
+      "image": "envoyproxy/envoy:v1.28-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8215",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_216",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_3.0",
+      "base_name": "haproxy",
+      "version": "3.0",
+      "image": "haproxy:3.0",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8216",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_217",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.27",
+      "base_name": "envoy",
+      "version": "1.27",
+      "image": "envoyproxy/envoy:v1.27-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "tomcat_11.0",
+      "base_name": "tomcat",
+      "version": "11.0",
+      "image": "tomcat:11.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8217",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_218",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.9",
+      "base_name": "haproxy",
+      "version": "2.9",
+      "image": "haproxy:2.9",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.8",
+      "base_name": "openlitespeed",
+      "version": "1.8",
+      "image": "litespeedtech/openlitespeed:1.8",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8218",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_219",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_3.0",
+      "base_name": "haproxy",
+      "version": "3.0",
+      "image": "haproxy:3.0",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.8",
+      "base_name": "openlitespeed",
+      "version": "1.8",
+      "image": "litespeedtech/openlitespeed:1.8",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8219",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_220",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.5",
+      "base_name": "varnish",
+      "version": "7.5",
+      "image": "varnish:7.5",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8220",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_221",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_2.10",
+      "base_name": "traefik",
+      "version": "2.10",
+      "image": "traefik:2.10",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "caddy_2.8",
+      "base_name": "caddy",
+      "version": "2.8",
+      "image": "caddy:2.8-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8221",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_222",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.4",
+      "base_name": "varnish",
+      "version": "7.4",
+      "image": "varnish:7.4",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.72",
+      "base_name": "lighttpd",
+      "version": "1.4.72",
+      "image": "sebp/lighttpd:1.4.72",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8222",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_223",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.4",
+      "base_name": "varnish",
+      "version": "7.4",
+      "image": "varnish:7.4",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "caddy_2.7",
+      "base_name": "caddy",
+      "version": "2.7",
+      "image": "caddy:2.7-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8223",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_224",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "apache_2.4.59",
+      "base_name": "apache",
+      "version": "2.4.59",
+      "image": "httpd:2.4.59",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8224",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_225",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.8",
+      "base_name": "haproxy",
+      "version": "2.8",
+      "image": "haproxy:2.8",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "tomcat_11.0",
+      "base_name": "tomcat",
+      "version": "11.0",
+      "image": "tomcat:11.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8225",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_226",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "caddy_2.8",
+      "base_name": "caddy",
+      "version": "2.8",
+      "image": "caddy:2.8-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8226",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_227",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.8",
+      "base_name": "haproxy",
+      "version": "2.8",
+      "image": "haproxy:2.8",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "apache_2.4.57",
+      "base_name": "apache",
+      "version": "2.4.57",
+      "image": "httpd:2.4.57",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8227",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_228",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.5",
+      "base_name": "varnish",
+      "version": "7.5",
+      "image": "varnish:7.5",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8228",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_229",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_3.0",
+      "base_name": "haproxy",
+      "version": "3.0",
+      "image": "haproxy:3.0",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "tomcat_10.1",
+      "base_name": "tomcat",
+      "version": "10.1",
+      "image": "tomcat:10.1",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8229",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_230",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.1",
+      "base_name": "traefik",
+      "version": "3.1",
+      "image": "traefik:3.1",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8230",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_231",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.5",
+      "base_name": "varnish",
+      "version": "7.5",
+      "image": "varnish:7.5",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "tomcat_10.1",
+      "base_name": "tomcat",
+      "version": "10.1",
+      "image": "tomcat:10.1",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8231",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_232",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "caddy_2.7",
+      "base_name": "caddy",
+      "version": "2.7",
+      "image": "caddy:2.7-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8232",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_233",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "caddy_2.7",
+      "base_name": "caddy",
+      "version": "2.7",
+      "image": "caddy:2.7-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8233",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_234",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.8",
+      "base_name": "openlitespeed",
+      "version": "1.8",
+      "image": "litespeedtech/openlitespeed:1.8",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8234",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_235",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8235",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_236",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.4",
+      "base_name": "varnish",
+      "version": "7.4",
+      "image": "varnish:7.4",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.7",
+      "base_name": "openlitespeed",
+      "version": "1.7",
+      "image": "litespeedtech/openlitespeed:1.7",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8236",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_237",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.3",
+      "base_name": "varnish",
+      "version": "7.3",
+      "image": "varnish:7.3",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "apache_2.4.59",
+      "base_name": "apache",
+      "version": "2.4.59",
+      "image": "httpd:2.4.59",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8237",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_238",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.5",
+      "base_name": "varnish",
+      "version": "7.5",
+      "image": "varnish:7.5",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "tomcat_9.0",
+      "base_name": "tomcat",
+      "version": "9.0",
+      "image": "tomcat:9.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8238",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_239",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.5",
+      "base_name": "varnish",
+      "version": "7.5",
+      "image": "varnish:7.5",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "tomcat_9.0",
+      "base_name": "tomcat",
+      "version": "9.0",
+      "image": "tomcat:9.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8239",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_240",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "tomcat_9.0",
+      "base_name": "tomcat",
+      "version": "9.0",
+      "image": "tomcat:9.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8240",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_241",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_3.0",
+      "base_name": "haproxy",
+      "version": "3.0",
+      "image": "haproxy:3.0",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8241",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_242",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.1",
+      "base_name": "traefik",
+      "version": "3.1",
+      "image": "traefik:3.1",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8242",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_243",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.5",
+      "base_name": "varnish",
+      "version": "7.5",
+      "image": "varnish:7.5",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8243",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_244",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.27",
+      "base_name": "envoy",
+      "version": "1.27",
+      "image": "envoyproxy/envoy:v1.27-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8244",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_245",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_2.10",
+      "base_name": "traefik",
+      "version": "2.10",
+      "image": "traefik:2.10",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.7",
+      "base_name": "openlitespeed",
+      "version": "1.7",
+      "image": "litespeedtech/openlitespeed:1.7",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8245",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_246",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.1",
+      "base_name": "traefik",
+      "version": "3.1",
+      "image": "traefik:3.1",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "tomcat_10.1",
+      "base_name": "tomcat",
+      "version": "10.1",
+      "image": "tomcat:10.1",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8246",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_247",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.9",
+      "base_name": "haproxy",
+      "version": "2.9",
+      "image": "haproxy:2.9",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "apache_2.4.58",
+      "base_name": "apache",
+      "version": "2.4.58",
+      "image": "httpd:2.4.58",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8247",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_248",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.9",
+      "base_name": "haproxy",
+      "version": "2.9",
+      "image": "haproxy:2.9",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "apache_2.4.58",
+      "base_name": "apache",
+      "version": "2.4.58",
+      "image": "httpd:2.4.58",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8248",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_249",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_2.10",
+      "base_name": "traefik",
+      "version": "2.10",
+      "image": "traefik:2.10",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8249",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_250",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_3.0",
+      "base_name": "haproxy",
+      "version": "3.0",
+      "image": "haproxy:3.0",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "apache_2.4.58",
+      "base_name": "apache",
+      "version": "2.4.58",
+      "image": "httpd:2.4.58",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8250",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_251",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.27",
+      "base_name": "envoy",
+      "version": "1.27",
+      "image": "envoyproxy/envoy:v1.27-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "apache_2.4.58",
+      "base_name": "apache",
+      "version": "2.4.58",
+      "image": "httpd:2.4.58",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8251",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_252",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.29",
+      "base_name": "envoy",
+      "version": "1.29",
+      "image": "envoyproxy/envoy:v1.29-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8252",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_253",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.3",
+      "base_name": "varnish",
+      "version": "7.3",
+      "image": "varnish:7.3",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.8",
+      "base_name": "openlitespeed",
+      "version": "1.8",
+      "image": "litespeedtech/openlitespeed:1.8",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8253",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_254",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.8",
+      "base_name": "haproxy",
+      "version": "2.8",
+      "image": "haproxy:2.8",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "caddy_2.8",
+      "base_name": "caddy",
+      "version": "2.8",
+      "image": "caddy:2.8-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8254",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_255",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.1",
+      "base_name": "traefik",
+      "version": "3.1",
+      "image": "traefik:3.1",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "apache_2.4.58",
+      "base_name": "apache",
+      "version": "2.4.58",
+      "image": "httpd:2.4.58",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8255",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_256",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.1",
+      "base_name": "traefik",
+      "version": "3.1",
+      "image": "traefik:3.1",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "openlitespeed_1.8",
+      "base_name": "openlitespeed",
+      "version": "1.8",
+      "image": "litespeedtech/openlitespeed:1.8",
+      "description": "OpenLiteSpeed Web 伺服器"
+    },
+    "url": "http://localhost:8256",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_257",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.71",
+      "base_name": "lighttpd",
+      "version": "1.4.71",
+      "image": "sebp/lighttpd:1.4.71",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8257",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_258",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.25",
+      "base_name": "nginx",
+      "version": "1.25",
+      "image": "nginx:1.25",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "caddy_2.7",
+      "base_name": "caddy",
+      "version": "2.7",
+      "image": "caddy:2.7-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8258",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_259",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.0",
+      "base_name": "traefik",
+      "version": "3.0",
+      "image": "traefik:3.0",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "tomcat_9.0",
+      "base_name": "tomcat",
+      "version": "9.0",
+      "image": "tomcat:9.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8259",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_260",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "caddy_2.7",
+      "base_name": "caddy",
+      "version": "2.7",
+      "image": "caddy:2.7-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8260",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_261",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.4",
+      "base_name": "varnish",
+      "version": "7.4",
+      "image": "varnish:7.4",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.71",
+      "base_name": "lighttpd",
+      "version": "1.4.71",
+      "image": "sebp/lighttpd:1.4.71",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8261",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_262",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.29",
+      "base_name": "envoy",
+      "version": "1.29",
+      "image": "envoyproxy/envoy:v1.29-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.71",
+      "base_name": "lighttpd",
+      "version": "1.4.71",
+      "image": "sebp/lighttpd:1.4.71",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8262",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_263",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.8",
+      "base_name": "haproxy",
+      "version": "2.8",
+      "image": "haproxy:2.8",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "tomcat_11.0",
+      "base_name": "tomcat",
+      "version": "11.0",
+      "image": "tomcat:11.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8263",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_264",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "traefik_3.0",
+      "base_name": "traefik",
+      "version": "3.0",
+      "image": "traefik:3.0",
+      "description": "Traefik 反向代理和負載均衡器"
+    },
+    "l3": {
+      "name": "caddy_2.7",
+      "base_name": "caddy",
+      "version": "2.7",
+      "image": "caddy:2.7-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8264",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_265",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_3.0",
+      "base_name": "haproxy",
+      "version": "3.0",
+      "image": "haproxy:3.0",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8265",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_266",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_3.0",
+      "base_name": "haproxy",
+      "version": "3.0",
+      "image": "haproxy:3.0",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "caddy_2.7",
+      "base_name": "caddy",
+      "version": "2.7",
+      "image": "caddy:2.7-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8266",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_267",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.5",
+      "base_name": "varnish",
+      "version": "7.5",
+      "image": "varnish:7.5",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "apache_2.4.59",
+      "base_name": "apache",
+      "version": "2.4.59",
+      "image": "httpd:2.4.59",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8267",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_268",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.28",
+      "base_name": "envoy",
+      "version": "1.28",
+      "image": "envoyproxy/envoy:v1.28-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "caddy_2.7",
+      "base_name": "caddy",
+      "version": "2.7",
+      "image": "caddy:2.7-alpine",
+      "description": "Caddy Web 伺服器"
+    },
+    "url": "http://localhost:8268",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_269",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.3",
+      "base_name": "varnish",
+      "version": "7.3",
+      "image": "varnish:7.3",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "apache_2.4.57",
+      "base_name": "apache",
+      "version": "2.4.57",
+      "image": "httpd:2.4.57",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8269",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_270",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_3.0",
+      "base_name": "haproxy",
+      "version": "3.0",
+      "image": "haproxy:3.0",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "tomcat_11.0",
+      "base_name": "tomcat",
+      "version": "11.0",
+      "image": "tomcat:11.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8270",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_271",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.4",
+      "base_name": "varnish",
+      "version": "7.4",
+      "image": "varnish:7.4",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "apache_2.4.59",
+      "base_name": "apache",
+      "version": "2.4.59",
+      "image": "httpd:2.4.59",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8271",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_272",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.24",
+      "base_name": "nginx",
+      "version": "1.24",
+      "image": "nginx:1.24",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "apache_2.4.59",
+      "base_name": "apache",
+      "version": "2.4.59",
+      "image": "httpd:2.4.59",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8272",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_273",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.4",
+      "base_name": "varnish",
+      "version": "7.4",
+      "image": "varnish:7.4",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX Web 伺服器"
+    },
+    "url": "http://localhost:8273",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_274",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.28",
+      "base_name": "envoy",
+      "version": "1.28",
+      "image": "envoyproxy/envoy:v1.28-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "tomcat_9.0",
+      "base_name": "tomcat",
+      "version": "9.0",
+      "image": "tomcat:9.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8274",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_275",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "haproxy_2.9",
+      "base_name": "haproxy",
+      "version": "2.9",
+      "image": "haproxy:2.9",
+      "description": "HAProxy 負載均衡器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.72",
+      "base_name": "lighttpd",
+      "version": "1.4.72",
+      "image": "sebp/lighttpd:1.4.72",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8275",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_276",
+    "l1": {
+      "name": "cloudflare-simulation",
+      "image": "nginx:alpine",
+      "config": "cloudflare_like_headers.conf",
+      "description": "模擬 Cloudflare CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.29",
+      "base_name": "envoy",
+      "version": "1.29",
+      "image": "envoyproxy/envoy:v1.29-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.71",
+      "base_name": "lighttpd",
+      "version": "1.4.71",
+      "image": "sebp/lighttpd:1.4.71",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8276",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_277",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.3",
+      "base_name": "varnish",
+      "version": "7.3",
+      "image": "varnish:7.3",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "lighttpd_1.4.72",
+      "base_name": "lighttpd",
+      "version": "1.4.72",
+      "image": "sebp/lighttpd:1.4.72",
+      "description": "Lighttpd 輕量級 Web 伺服器"
+    },
+    "url": "http://localhost:8277",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_278",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "varnish_7.5",
+      "base_name": "varnish",
+      "version": "7.5",
+      "image": "varnish:7.5",
+      "description": "Varnish HTTP 加速器"
+    },
+    "l3": {
+      "name": "tomcat_11.0",
+      "base_name": "tomcat",
+      "version": "11.0",
+      "image": "tomcat:11.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8278",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_279",
+    "l1": {
+      "name": "akamai-simulation",
+      "image": "nginx:1.24",
+      "config": "akamai_like_headers.conf",
+      "description": "模擬 Akamai CDN 行為"
+    },
+    "l2": {
+      "name": "envoy_1.27",
+      "base_name": "envoy",
+      "version": "1.27",
+      "image": "envoyproxy/envoy:v1.27-latest",
+      "description": "Envoy Proxy（服務網格使用）"
+    },
+    "l3": {
+      "name": "apache_2.4.59",
+      "base_name": "apache",
+      "version": "2.4.59",
+      "image": "httpd:2.4.59",
+      "description": "Apache HTTP 伺服器"
+    },
+    "url": "http://localhost:8279",
+    "created_at": null,
+    "status": "pending"
+  },
+  {
+    "id": "combo_280",
+    "l1": {
+      "name": "fastly-simulation",
+      "image": "nginx:1.25",
+      "config": "fastly_like_headers.conf",
+      "description": "模擬 Fastly CDN 行為"
+    },
+    "l2": {
+      "name": "nginx_1.26",
+      "base_name": "nginx",
+      "version": "1.26",
+      "image": "nginx:1.26",
+      "description": "NGINX 反向代理伺服器"
+    },
+    "l3": {
+      "name": "tomcat_9.0",
+      "base_name": "tomcat",
+      "version": "9.0",
+      "image": "tomcat:9.0",
+      "description": "Apache Tomcat 應用伺服器"
+    },
+    "url": "http://localhost:8280",
+    "created_at": null,
+    "status": "pending"
+  }
+]
