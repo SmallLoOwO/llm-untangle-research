@@ -1,17 +1,28 @@
 #!/usr/bin/env python3
 """
 生成 250-300 組三層架構組合，輸出到 data/combinations.json
-修正版：確保最嚴格分層鍵 (L1|L2_base|L3_base) 中每一類別至少 2 筆，避免分層抽樣時出現孤立類別。
+修正版：
+- 自動從 scripts/ 目錄執行時回到專案根目錄
+- 正確尋找 configs/server_configs.yaml
+- 確保每個 L1|L2_base|L3_base 分層鍵至少 2 筆，避免分層抽樣孤立類別
 """
 import yaml
 import itertools
 import random
 import json
+import os
 from pathlib import Path
 from collections import defaultdict
 
-def load_server_configs(config_file="configs/server_configs.yaml"):
-    with open(config_file, encoding='utf-8') as f:
+ROOT = Path(__file__).resolve().parents[1]
+CONFIG_PATH = ROOT / 'configs' / 'server_configs.yaml'
+OUTPUT_PATH = ROOT / 'data' / 'combinations.json'
+
+
+def load_server_configs():
+    if not CONFIG_PATH.exists():
+        raise FileNotFoundError(f'找不到 {CONFIG_PATH}. 請確認倉庫有 configs/server_configs.yaml')
+    with open(CONFIG_PATH, encoding='utf-8') as f:
         return yaml.safe_load(f)
 
 def expand_servers(servers_config):
@@ -44,11 +55,9 @@ def stratified_sampling_balanced(all_combinations, target_count=280, seed=42):
             picked = random.sample(combos, 2)
             selected.extend(picked)
         else:
-            # 只有 1 筆，重複該筆第二次，之後下游程式會以不同 id/url 區分
             selected.append(combos[0])
             selected.append(combos[0])
 
-    # 若超過 target_count，截斷；若不足則隨機補滿（避免重複盡量從未選集合補）
     if len(selected) > target_count:
         selected = selected[:target_count]
     elif len(selected) < target_count:
@@ -58,8 +67,8 @@ def stratified_sampling_balanced(all_combinations, target_count=280, seed=42):
 
     return selected[:target_count]
 
-
-def generate_and_save(output_file="data/combinations.json"):
+def generate_and_save():
+    print('🔧 LLM-UnTangle 組合生成器（根目錄路徑修正版）')
     cfg = load_server_configs()
     expanded = expand_servers(cfg['servers'])
     all_combos = list(itertools.product(expanded['l1'], expanded['l2'], expanded['l3']))
@@ -70,7 +79,6 @@ def generate_and_save(output_file="data/combinations.json"):
     combos = []
     used_counts = defaultdict(int)
     for idx, (l1,l2,l3) in enumerate(chosen, start=1):
-        # 對於被重複的組合，自動累加序號後綴，並調整 URL 埠避免衝突
         k = _key(l1,l2,l3)
         used_counts[k] += 1
         suffix = '' if used_counts[k] == 1 else f"_{used_counts[k]}"
@@ -84,10 +92,11 @@ def generate_and_save(output_file="data/combinations.json"):
             'status':'pending'
         })
 
-    Path('data').mkdir(parents=True, exist_ok=True)
-    with open(output_file,'w',encoding='utf-8') as f:
-        json.dump(combos, f, ensure_ascii=False, indent=2)
-    print(f"✓ 已生成 {len(combos)} 組並儲存到 {output_file}")
+    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT_PATH.write_text(json.dumps(combos, ensure_ascii=False, indent=2), encoding='utf-8')
+    print(f"✓ 已生成 {len(combos)} 組並儲存到 {OUTPUT_PATH}")
 
 if __name__ == '__main__':
+    # 無論在根目錄或 scripts 內執行，都以 ROOT 為準
+    os.chdir(ROOT)
     generate_and_save()
