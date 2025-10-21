@@ -1,0 +1,40 @@
+# LLM-UnTangle 專案依賴套件
+
+# 核心機器學習套件
+openai==1.12.0
+faiss-cpu==1.7.4
+sentence-transformers==2.3.1
+scikit-learn==1.4.0
+
+# 統計分析套件
+statsmodels==0.14.1
+mapie==0.8.3
+scipy==1.12.0
+
+# 數據處理套件
+pandas==2.2.0
+numpy==1.26.3
+requests==2.31.0
+tqdm==4.66.1
+
+# 網頁伺服器與模板
+flask==3.0.0
+jinja2==3.1.3
+
+# 配置檔案處理
+pyyaml==6.0.1
+python-dotenv==1.0.0
+
+# 開發與測試工具
+jupyter==1.0.0
+pytest==7.4.4
+black==23.12.1
+flake8==7.0.0
+
+# Docker 相關
+docker-compose==1.29.2
+
+# 圖表與視覺化（可選）
+matplotlib==3.8.2
+seaborn==0.13.0
+plotly==5.17.0
