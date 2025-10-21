@@ -1,0 +1,98 @@
+# LLM-UnTangle 伺服器配置
+# 定義 250-300 組三層架構組合
+servers:
+  l1_cdns:  # 第一層：CDN/邊緣節點
+    - name: cloudflare-simulation
+      image: nginx:alpine
+      config: cloudflare_like_headers.conf
+      description: "模擬 Cloudflare CDN 行為"
+    
+    - name: akamai-simulation  
+      image: nginx:1.24
+      config: akamai_like_headers.conf
+      description: "模擬 Akamai CDN 行為"
+    
+    - name: fastly-simulation
+      image: nginx:1.25
+      config: fastly_like_headers.conf  
+      description: "模擬 Fastly CDN 行為"
+    
+  l2_proxies:  # 第二層：反向代理/快取
+    - name: nginx
+      versions: ["1.24", "1.25", "1.26"]
+      image: nginx:{version}
+      ports: [80, 443]
+      description: "NGINX 反向代理伺服器"
+      
+    - name: varnish
+      versions: ["7.3", "7.4", "7.5"]
+      image: varnish:{version}
+      ports: [80, 6081]
+      description: "Varnish HTTP 加速器"
+      
+    - name: haproxy
+      versions: ["2.8", "2.9", "3.0"]
+      image: haproxy:{version}  
+      ports: [80, 443, 8404]
+      description: "HAProxy 負載均衡器"
+      
+    - name: traefik
+      versions: ["2.10", "3.0", "3.1"]
+      image: traefik:{version}
+      ports: [80, 443, 8080]
+      description: "Traefik 反向代理和負載均衡器"
+      
+    - name: envoy
+      versions: ["1.27", "1.28", "1.29"]
+      image: envoyproxy/envoy:v{version}-latest
+      ports: [80, 443, 9901]
+      description: "Envoy Proxy（服務網格使用）"
+    
+  l3_servers:  # 第三層：應用伺服器
+    - name: apache
+      versions: ["2.4.57", "2.4.58", "2.4.59"]
+      image: httpd:{version}
+      ports: [80, 443]
+      description: "Apache HTTP 伺服器"
+      
+    - name: tomcat  
+      versions: ["9.0", "10.1", "11.0"]
+      image: tomcat:{version}
+      ports: [8080, 8443]
+      description: "Apache Tomcat 應用伺服器"
+      
+    - name: nginx
+      versions: ["1.24", "1.25", "1.26"]
+      image: nginx:{version}
+      ports: [80, 443] 
+      description: "NGINX Web 伺服器"
+      
+    - name: lighttpd
+      versions: ["1.4.71", "1.4.72"]
+      image: sebp/lighttpd:{version}
+      ports: [80]
+      description: "Lighttpd 輕量級 Web 伺服器"
+      
+    - name: caddy
+      versions: ["2.7", "2.8"]
+      image: caddy:{version}-alpine
+      ports: [80, 443, 2019]
+      description: "Caddy Web 伺服器"
+      
+    - name: openlitespeed
+      versions: ["1.7", "1.8"]
+      image: litespeedtech/openlitespeed:{version}
+      ports: [80, 443, 7080]
+      description: "OpenLiteSpeed Web 伺服器"
+
+# 特殊配置  
+combination_rules:
+  target_count: 280  # 目標組合數量
+  max_combinations: 500  # 最大理論組合數
+  sampling_strategy: "stratified_random"  # 分層隨機抽樣
+  ensure_coverage: true  # 確保每種技術都有覆蓋
+  
+# 基礎端口配置  
+network:
+  base_port: 8000  # 起始端口號
+  port_range: 1000 # 端口範圍
