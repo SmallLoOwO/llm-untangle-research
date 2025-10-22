@@ -1,0 +1,24 @@
+services:
+  combo_255_l1:
+    container_name: combo_255_l1_akamai-simulation
+    depends_on:
+    - combo_255_l2
+    image: nginx:1.24
+    ports:
+    - 8254:80
+    restart: unless-stopped
+  combo_255_l2:
+    container_name: combo_255_l2_nginx_1.25
+    depends_on:
+    - combo_255_l3
+    image: nginx:1.25
+    ports:
+    - 9254:80
+    restart: unless-stopped
+  combo_255_l3:
+    container_name: combo_255_l3_apache_2.4.59
+    image: httpd:2.4.59
+    ports:
+    - 10254:80
+    restart: unless-stopped
+version: '3.8'

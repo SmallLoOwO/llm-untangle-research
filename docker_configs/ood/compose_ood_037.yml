@@ -1,0 +1,36 @@
+services:
+  ood_037_l1:
+    container_name: ood_037_l1_cloudflare-simulation
+    depends_on:
+    - ood_037_l2
+    image: nginx:alpine
+    labels:
+    - ood=true
+    - layer=l1
+    - combo_id=ood_037
+    ports:
+    - 9037:80
+    restart: unless-stopped
+  ood_037_l2:
+    container_name: ood_037_l2_caddy_2.9
+    depends_on:
+    - ood_037_l3
+    image: caddy:2.9-alpine
+    labels:
+    - ood=true
+    - layer=l2
+    - combo_id=ood_037
+    ports:
+    - 9038:80
+    restart: unless-stopped
+  ood_037_l3:
+    container_name: ood_037_l3_apache_2.4.57
+    image: httpd:2.4.57
+    labels:
+    - ood=true
+    - layer=l3
+    - combo_id=ood_037
+    ports:
+    - 9039:80
+    restart: unless-stopped
+version: '3.8'

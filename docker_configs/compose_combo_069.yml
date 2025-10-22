@@ -1,0 +1,24 @@
+services:
+  combo_069_l1:
+    container_name: combo_069_l1_akamai-simulation
+    depends_on:
+    - combo_069_l2
+    image: nginx:1.24
+    ports:
+    - 8068:80
+    restart: unless-stopped
+  combo_069_l2:
+    container_name: combo_069_l2_nginx_1.25
+    depends_on:
+    - combo_069_l3
+    image: nginx:1.25
+    ports:
+    - 9068:80
+    restart: unless-stopped
+  combo_069_l3:
+    container_name: combo_069_l3_caddy_2.8
+    image: caddy:2.8-alpine
+    ports:
+    - 10068:80
+    restart: unless-stopped
+version: '3.8'

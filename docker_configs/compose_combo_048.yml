@@ -1,0 +1,24 @@
+services:
+  combo_048_l1:
+    container_name: combo_048_l1_cloudflare-simulation
+    depends_on:
+    - combo_048_l2
+    image: nginx:alpine
+    ports:
+    - 8047:80
+    restart: unless-stopped
+  combo_048_l2:
+    container_name: combo_048_l2_traefik_3.0
+    depends_on:
+    - combo_048_l3
+    image: traefik:3.0
+    ports:
+    - 9047:80
+    restart: unless-stopped
+  combo_048_l3:
+    container_name: combo_048_l3_openlitespeed_1.8
+    image: litespeedtech/openlitespeed:1.8
+    ports:
+    - 10047:80
+    restart: unless-stopped
+version: '3.8'

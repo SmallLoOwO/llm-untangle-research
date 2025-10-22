@@ -1,0 +1,24 @@
+services:
+  combo_275_l1:
+    container_name: combo_275_l1_akamai-simulation
+    depends_on:
+    - combo_275_l2
+    image: nginx:1.24
+    ports:
+    - 8274:80
+    restart: unless-stopped
+  combo_275_l2:
+    container_name: combo_275_l2_varnish_7.5
+    depends_on:
+    - combo_275_l3
+    image: varnish:7.5
+    ports:
+    - 9274:80
+    restart: unless-stopped
+  combo_275_l3:
+    container_name: combo_275_l3_tomcat_9.0
+    image: tomcat:9.0
+    ports:
+    - 10274:80
+    restart: unless-stopped
+version: '3.8'

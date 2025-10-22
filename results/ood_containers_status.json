@@ -1,0 +1,262 @@
+{
+  "timestamp": "2025-10-22 01:10:08",
+  "total_ood_combinations": 50,
+  "status_summary": {
+    "error": 50
+  },
+  "failed_error_types": {
+    "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research": 50
+  },
+  "details": [
+    {
+      "combo_id": "ood_001",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_002",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_003",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_004",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_005",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_006",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_007",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_008",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_009",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_010",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_011",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_012",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_013",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_014",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_015",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_016",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_017",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_018",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_019",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_020",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_021",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_022",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_023",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_024",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_025",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_026",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_027",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_028",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_029",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_030",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_031",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_032",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_033",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_034",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_035",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_036",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_037",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_038",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_039",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_040",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_041",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_042",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_043",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_044",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_045",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_046",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_047",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_048",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_049",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    },
+    {
+      "combo_id": "ood_050",
+      "status": "error",
+      "error": "找不到模板: C:\\Users\\user\\Desktop\\llm-untangle-research\\docker_configs\\templates\\ood_nginx_l1.template"
+    }
+  ]
+}

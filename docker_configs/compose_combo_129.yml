@@ -1,0 +1,24 @@
+services:
+  combo_129_l1:
+    container_name: combo_129_l1_fastly-simulation
+    depends_on:
+    - combo_129_l2
+    image: nginx:1.25
+    ports:
+    - 8128:80
+    restart: unless-stopped
+  combo_129_l2:
+    container_name: combo_129_l2_nginx_1.26
+    depends_on:
+    - combo_129_l3
+    image: nginx:1.26
+    ports:
+    - 9128:80
+    restart: unless-stopped
+  combo_129_l3:
+    container_name: combo_129_l3_caddy_2.8
+    image: caddy:2.8-alpine
+    ports:
+    - 10128:80
+    restart: unless-stopped
+version: '3.8'

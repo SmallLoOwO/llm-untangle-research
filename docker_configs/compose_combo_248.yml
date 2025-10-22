@@ -1,0 +1,24 @@
+services:
+  combo_248_l1:
+    container_name: combo_248_l1_fastly-simulation
+    depends_on:
+    - combo_248_l2
+    image: nginx:1.25
+    ports:
+    - 8247:80
+    restart: unless-stopped
+  combo_248_l2:
+    container_name: combo_248_l2_nginx_1.24
+    depends_on:
+    - combo_248_l3
+    image: nginx:1.24
+    ports:
+    - 9247:80
+    restart: unless-stopped
+  combo_248_l3:
+    container_name: combo_248_l3_tomcat_9.0
+    image: tomcat:9.0
+    ports:
+    - 10247:80
+    restart: unless-stopped
+version: '3.8'

@@ -1,0 +1,24 @@
+services:
+  combo_043_l1:
+    container_name: combo_043_l1_cloudflare-simulation
+    depends_on:
+    - combo_043_l2
+    image: nginx:alpine
+    ports:
+    - 8042:80
+    restart: unless-stopped
+  combo_043_l2:
+    container_name: combo_043_l2_traefik_3.0
+    depends_on:
+    - combo_043_l3
+    image: traefik:3.0
+    ports:
+    - 9042:80
+    restart: unless-stopped
+  combo_043_l3:
+    container_name: combo_043_l3_lighttpd_1.4.71
+    image: sebp/lighttpd:1.4.71
+    ports:
+    - 10042:80
+    restart: unless-stopped
+version: '3.8'

@@ -1,24 +1,14 @@
-events {
-    worker_connections 1024;
-}
-
+events { worker_connections 1024; }
 http {
-    upstream backend_l3 {
-        server {COMBO_ID}_l3:8080;
+  upstream backend_l3 { server {COMBO_ID}_l3:8080; }
+  server {
+    listen 8080;
+    location / {
+      proxy_pass http://backend_l3;
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
     }
-    
-    server {
-        listen 8080;
-        server_name _;
-        
-        location / {
-            proxy_pass http://backend_l3;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-            proxy_connect_timeout 5s;
-            proxy_read_timeout 10s;
-        }
-    }
+  }
 }

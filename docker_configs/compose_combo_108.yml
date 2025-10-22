@@ -1,0 +1,24 @@
+services:
+  combo_108_l1:
+    container_name: combo_108_l1_akamai-simulation
+    depends_on:
+    - combo_108_l2
+    image: nginx:1.24
+    ports:
+    - 8107:80
+    restart: unless-stopped
+  combo_108_l2:
+    container_name: combo_108_l2_traefik_3.0
+    depends_on:
+    - combo_108_l3
+    image: traefik:3.0
+    ports:
+    - 9107:80
+    restart: unless-stopped
+  combo_108_l3:
+    container_name: combo_108_l3_openlitespeed_1.7
+    image: litespeedtech/openlitespeed:1.7
+    ports:
+    - 10107:80
+    restart: unless-stopped
+version: '3.8'

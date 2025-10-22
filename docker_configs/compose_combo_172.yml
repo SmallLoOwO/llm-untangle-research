@@ -1,0 +1,24 @@
+services:
+  combo_172_l1:
+    container_name: combo_172_l1_fastly-simulation
+    depends_on:
+    - combo_172_l2
+    image: nginx:1.25
+    ports:
+    - 8171:80
+    restart: unless-stopped
+  combo_172_l2:
+    container_name: combo_172_l2_envoy_1.29
+    depends_on:
+    - combo_172_l3
+    image: envoyproxy/envoy:v1.29-latest
+    ports:
+    - 9171:80
+    restart: unless-stopped
+  combo_172_l3:
+    container_name: combo_172_l3_tomcat_10.1
+    image: tomcat:10.1
+    ports:
+    - 10171:80
+    restart: unless-stopped
+version: '3.8'

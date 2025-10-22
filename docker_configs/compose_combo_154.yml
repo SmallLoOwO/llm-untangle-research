@@ -1,0 +1,24 @@
+services:
+  combo_154_l1:
+    container_name: combo_154_l1_fastly-simulation
+    depends_on:
+    - combo_154_l2
+    image: nginx:1.25
+    ports:
+    - 8153:80
+    restart: unless-stopped
+  combo_154_l2:
+    container_name: combo_154_l2_haproxy_2.8
+    depends_on:
+    - combo_154_l3
+    image: haproxy:2.8
+    ports:
+    - 9153:80
+    restart: unless-stopped
+  combo_154_l3:
+    container_name: combo_154_l3_caddy_2.7
+    image: caddy:2.7-alpine
+    ports:
+    - 10153:80
+    restart: unless-stopped
+version: '3.8'

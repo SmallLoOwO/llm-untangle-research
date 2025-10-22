@@ -1,0 +1,24 @@
+services:
+  combo_224_l1:
+    container_name: combo_224_l1_cloudflare-simulation
+    depends_on:
+    - combo_224_l2
+    image: nginx:alpine
+    ports:
+    - 8223:80
+    restart: unless-stopped
+  combo_224_l2:
+    container_name: combo_224_l2_haproxy_2.8
+    depends_on:
+    - combo_224_l3
+    image: haproxy:2.8
+    ports:
+    - 9223:80
+    restart: unless-stopped
+  combo_224_l3:
+    container_name: combo_224_l3_lighttpd_1.4.71
+    image: sebp/lighttpd:1.4.71
+    ports:
+    - 10223:80
+    restart: unless-stopped
+version: '3.8'

@@ -1,0 +1,24 @@
+services:
+  combo_128_l1:
+    container_name: combo_128_l1_fastly-simulation
+    depends_on:
+    - combo_128_l2
+    image: nginx:1.25
+    ports:
+    - 8127:80
+    restart: unless-stopped
+  combo_128_l2:
+    container_name: combo_128_l2_nginx_1.24
+    depends_on:
+    - combo_128_l3
+    image: nginx:1.24
+    ports:
+    - 9127:80
+    restart: unless-stopped
+  combo_128_l3:
+    container_name: combo_128_l3_lighttpd_1.4.71
+    image: sebp/lighttpd:1.4.71
+    ports:
+    - 10127:80
+    restart: unless-stopped
+version: '3.8'

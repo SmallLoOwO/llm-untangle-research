@@ -1,0 +1,24 @@
+services:
+  combo_271_l1:
+    container_name: combo_271_l1_fastly-simulation
+    depends_on:
+    - combo_271_l2
+    image: nginx:1.25
+    ports:
+    - 8270:80
+    restart: unless-stopped
+  combo_271_l2:
+    container_name: combo_271_l2_haproxy_2.9
+    depends_on:
+    - combo_271_l3
+    image: haproxy:2.9
+    ports:
+    - 9270:80
+    restart: unless-stopped
+  combo_271_l3:
+    container_name: combo_271_l3_openlitespeed_1.8
+    image: litespeedtech/openlitespeed:1.8
+    ports:
+    - 10270:80
+    restart: unless-stopped
+version: '3.8'

@@ -1,0 +1,24 @@
+services:
+  combo_226_l1:
+    container_name: combo_226_l1_akamai-simulation
+    depends_on:
+    - combo_226_l2
+    image: nginx:1.24
+    ports:
+    - 8225:80
+    restart: unless-stopped
+  combo_226_l2:
+    container_name: combo_226_l2_traefik_2.10
+    depends_on:
+    - combo_226_l3
+    image: traefik:2.10
+    ports:
+    - 9225:80
+    restart: unless-stopped
+  combo_226_l3:
+    container_name: combo_226_l3_apache_2.4.59
+    image: httpd:2.4.59
+    ports:
+    - 10225:80
+    restart: unless-stopped
+version: '3.8'

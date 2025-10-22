@@ -1,0 +1,24 @@
+services:
+  combo_197_l1:
+    container_name: combo_197_l1_akamai-simulation
+    depends_on:
+    - combo_197_l2
+    image: nginx:1.24
+    ports:
+    - 8196:80
+    restart: unless-stopped
+  combo_197_l2:
+    container_name: combo_197_l2_nginx_1.24
+    depends_on:
+    - combo_197_l3
+    image: nginx:1.24
+    ports:
+    - 9196:80
+    restart: unless-stopped
+  combo_197_l3:
+    container_name: combo_197_l3_lighttpd_1.4.72
+    image: sebp/lighttpd:1.4.72
+    ports:
+    - 10196:80
+    restart: unless-stopped
+version: '3.8'

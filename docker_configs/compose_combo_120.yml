@@ -1,0 +1,24 @@
+services:
+  combo_120_l1:
+    container_name: combo_120_l1_akamai-simulation
+    depends_on:
+    - combo_120_l2
+    image: nginx:1.24
+    ports:
+    - 8119:80
+    restart: unless-stopped
+  combo_120_l2:
+    container_name: combo_120_l2_envoy_1.27
+    depends_on:
+    - combo_120_l3
+    image: envoyproxy/envoy:v1.27-latest
+    ports:
+    - 9119:80
+    restart: unless-stopped
+  combo_120_l3:
+    container_name: combo_120_l3_openlitespeed_1.8
+    image: litespeedtech/openlitespeed:1.8
+    ports:
+    - 10119:80
+    restart: unless-stopped
+version: '3.8'

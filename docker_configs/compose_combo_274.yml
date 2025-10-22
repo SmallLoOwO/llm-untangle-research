@@ -1,0 +1,24 @@
+services:
+  combo_274_l1:
+    container_name: combo_274_l1_fastly-simulation
+    depends_on:
+    - combo_274_l2
+    image: nginx:1.25
+    ports:
+    - 8273:80
+    restart: unless-stopped
+  combo_274_l2:
+    container_name: combo_274_l2_traefik_3.1
+    depends_on:
+    - combo_274_l3
+    image: traefik:3.1
+    ports:
+    - 9273:80
+    restart: unless-stopped
+  combo_274_l3:
+    container_name: combo_274_l3_apache_2.4.59
+    image: httpd:2.4.59
+    ports:
+    - 10273:80
+    restart: unless-stopped
+version: '3.8'

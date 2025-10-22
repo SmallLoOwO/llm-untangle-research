@@ -1,0 +1,24 @@
+services:
+  combo_276_l1:
+    container_name: combo_276_l1_cloudflare-simulation
+    depends_on:
+    - combo_276_l2
+    image: nginx:alpine
+    ports:
+    - 8275:80
+    restart: unless-stopped
+  combo_276_l2:
+    container_name: combo_276_l2_envoy_1.29
+    depends_on:
+    - combo_276_l3
+    image: envoyproxy/envoy:v1.29-latest
+    ports:
+    - 9275:80
+    restart: unless-stopped
+  combo_276_l3:
+    container_name: combo_276_l3_caddy_2.8
+    image: caddy:2.8-alpine
+    ports:
+    - 10275:80
+    restart: unless-stopped
+version: '3.8'

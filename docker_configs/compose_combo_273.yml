@@ -1,0 +1,24 @@
+services:
+  combo_273_l1:
+    container_name: combo_273_l1_cloudflare-simulation
+    depends_on:
+    - combo_273_l2
+    image: nginx:alpine
+    ports:
+    - 8272:80
+    restart: unless-stopped
+  combo_273_l2:
+    container_name: combo_273_l2_traefik_3.0
+    depends_on:
+    - combo_273_l3
+    image: traefik:3.0
+    ports:
+    - 9272:80
+    restart: unless-stopped
+  combo_273_l3:
+    container_name: combo_273_l3_nginx_1.26
+    image: nginx:1.26
+    ports:
+    - 10272:80
+    restart: unless-stopped
+version: '3.8'

@@ -1,0 +1,24 @@
+services:
+  combo_208_l1:
+    container_name: combo_208_l1_fastly-simulation
+    depends_on:
+    - combo_208_l2
+    image: nginx:1.25
+    ports:
+    - 8207:80
+    restart: unless-stopped
+  combo_208_l2:
+    container_name: combo_208_l2_envoy_1.28
+    depends_on:
+    - combo_208_l3
+    image: envoyproxy/envoy:v1.28-latest
+    ports:
+    - 9207:80
+    restart: unless-stopped
+  combo_208_l3:
+    container_name: combo_208_l3_lighttpd_1.4.71
+    image: sebp/lighttpd:1.4.71
+    ports:
+    - 10207:80
+    restart: unless-stopped
+version: '3.8'

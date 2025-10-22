@@ -1,0 +1,36 @@
+services:
+  ood_045_l1:
+    container_name: ood_045_l1_cloudflare-simulation
+    depends_on:
+    - ood_045_l2
+    image: nginx:alpine
+    labels:
+    - ood=true
+    - layer=l1
+    - combo_id=ood_045
+    ports:
+    - 9045:80
+    restart: unless-stopped
+  ood_045_l2:
+    container_name: ood_045_l2_nginx_1.24
+    depends_on:
+    - ood_045_l3
+    image: nginx:1.24
+    labels:
+    - ood=true
+    - layer=l2
+    - combo_id=ood_045
+    ports:
+    - 9046:80
+    restart: unless-stopped
+  ood_045_l3:
+    container_name: ood_045_l3_openlitespeed_1.8
+    image: litespeedtech/openlitespeed:1.8
+    labels:
+    - ood=true
+    - layer=l3
+    - combo_id=ood_045
+    ports:
+    - 9047:80
+    restart: unless-stopped
+version: '3.8'

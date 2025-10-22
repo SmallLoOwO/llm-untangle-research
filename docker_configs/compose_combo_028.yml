@@ -1,0 +1,24 @@
+services:
+  combo_028_l1:
+    container_name: combo_028_l1_cloudflare-simulation
+    depends_on:
+    - combo_028_l2
+    image: nginx:alpine
+    ports:
+    - 8027:80
+    restart: unless-stopped
+  combo_028_l2:
+    container_name: combo_028_l2_haproxy_2.9
+    depends_on:
+    - combo_028_l3
+    image: haproxy:2.9
+    ports:
+    - 9027:80
+    restart: unless-stopped
+  combo_028_l3:
+    container_name: combo_028_l3_tomcat_10.1
+    image: tomcat:10.1
+    ports:
+    - 10027:80
+    restart: unless-stopped
+version: '3.8'

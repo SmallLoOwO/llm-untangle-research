@@ -1,0 +1,24 @@
+services:
+  combo_071_l1:
+    container_name: combo_071_l1_akamai-simulation
+    depends_on:
+    - combo_071_l2
+    image: nginx:1.24
+    ports:
+    - 8070:80
+    restart: unless-stopped
+  combo_071_l2:
+    container_name: combo_071_l2_nginx_1.24
+    depends_on:
+    - combo_071_l3
+    image: nginx:1.24
+    ports:
+    - 9070:80
+    restart: unless-stopped
+  combo_071_l3:
+    container_name: combo_071_l3_openlitespeed_1.8
+    image: litespeedtech/openlitespeed:1.8
+    ports:
+    - 10070:80
+    restart: unless-stopped
+version: '3.8'

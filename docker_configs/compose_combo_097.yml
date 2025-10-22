@@ -1,0 +1,24 @@
+services:
+  combo_097_l1:
+    container_name: combo_097_l1_akamai-simulation
+    depends_on:
+    - combo_097_l2
+    image: nginx:1.24
+    ports:
+    - 8096:80
+    restart: unless-stopped
+  combo_097_l2:
+    container_name: combo_097_l2_traefik_3.0
+    depends_on:
+    - combo_097_l3
+    image: traefik:3.0
+    ports:
+    - 9096:80
+    restart: unless-stopped
+  combo_097_l3:
+    container_name: combo_097_l3_apache_2.4.57
+    image: httpd:2.4.57
+    ports:
+    - 10096:80
+    restart: unless-stopped
+version: '3.8'

@@ -1,0 +1,71 @@
+{
+  "python": {
+    "version": {
+      "status": "PASS",
+      "detail": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]"
+    }
+  },
+  "packages": {
+    "pandas": {
+      "status": "PASS",
+      "detail": ""
+    },
+    "numpy": {
+      "status": "PASS",
+      "detail": ""
+    },
+    "scikit-learn": {
+      "status": "PASS",
+      "detail": ""
+    },
+    "faiss-cpu": {
+      "status": "PASS",
+      "detail": ""
+    },
+    "statsmodels": {
+      "status": "PASS",
+      "detail": ""
+    },
+    "mapie": {
+      "status": "PASS",
+      "detail": ""
+    },
+    "sentence-transformers": {
+      "status": "WARN",
+      "detail": "[WinError 1114] 動態連結程式庫 (DLL) 初始化例行程序失敗。 Error loading \"C:\\Users\\user\\Desktop\\llm-untangle-research\\venv\\Lib\\site-packages\\torch\\lib\\c10.dll\" or one of its dependencies.\n若為 Windows DLL 錯誤，請先執行一鍵修復:\n  python scripts\\fix_sentence_transformers_windows.py\n或手動安裝 CPU 版 torch：\n  pip uninstall -y torch torchvision torchaudio\n  pip install --index-url https://download.pytorch.org/whl/cpu torch torchvision torchaudio\n"
+    }
+  },
+  "docker": {
+    "docker": {
+      "status": "PASS",
+      "detail": "Docker version 28.5.1, build e180ab8"
+    },
+    "compose": {
+      "status": "PASS",
+      "detail": "Docker Compose version v2.40.0-desktop.1"
+    }
+  },
+  "datasets": {
+    "combinations.json": {
+      "status": "PASS",
+      "detail": "count=280"
+    },
+    "split_ratio": {
+      "status": "PASS",
+      "detail": "train=168(0.60), val=56(0.20), test=56(0.20)"
+    },
+    "ood": {
+      "status": "PASS",
+      "detail": "count=50"
+    }
+  },
+  "docker_configs": {
+    "compose_files": {
+      "status": "PASS",
+      "detail": "count=280"
+    }
+  },
+  "summary": {
+    "overall": "PASS"
+  }
+}

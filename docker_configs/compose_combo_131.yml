@@ -1,0 +1,24 @@
+services:
+  combo_131_l1:
+    container_name: combo_131_l1_fastly-simulation
+    depends_on:
+    - combo_131_l2
+    image: nginx:1.25
+    ports:
+    - 8130:80
+    restart: unless-stopped
+  combo_131_l2:
+    container_name: combo_131_l2_nginx_1.26
+    depends_on:
+    - combo_131_l3
+    image: nginx:1.26
+    ports:
+    - 9130:80
+    restart: unless-stopped
+  combo_131_l3:
+    container_name: combo_131_l3_openlitespeed_1.8
+    image: litespeedtech/openlitespeed:1.8
+    ports:
+    - 10130:80
+    restart: unless-stopped
+version: '3.8'

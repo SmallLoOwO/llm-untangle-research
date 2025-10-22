@@ -1,0 +1,24 @@
+services:
+  combo_149_l1:
+    container_name: combo_149_l1_fastly-simulation
+    depends_on:
+    - combo_149_l2
+    image: nginx:1.25
+    ports:
+    - 8148:80
+    restart: unless-stopped
+  combo_149_l2:
+    container_name: combo_149_l2_haproxy_2.8
+    depends_on:
+    - combo_149_l3
+    image: haproxy:2.8
+    ports:
+    - 9148:80
+    restart: unless-stopped
+  combo_149_l3:
+    container_name: combo_149_l3_nginx_1.26
+    image: nginx:1.26
+    ports:
+    - 10148:80
+    restart: unless-stopped
+version: '3.8'

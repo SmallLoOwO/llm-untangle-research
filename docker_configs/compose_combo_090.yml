@@ -1,0 +1,24 @@
+services:
+  combo_090_l1:
+    container_name: combo_090_l1_akamai-simulation
+    depends_on:
+    - combo_090_l2
+    image: nginx:1.24
+    ports:
+    - 8089:80
+    restart: unless-stopped
+  combo_090_l2:
+    container_name: combo_090_l2_haproxy_2.9
+    depends_on:
+    - combo_090_l3
+    image: haproxy:2.9
+    ports:
+    - 9089:80
+    restart: unless-stopped
+  combo_090_l3:
+    container_name: combo_090_l3_nginx_1.26
+    image: nginx:1.26
+    ports:
+    - 10089:80
+    restart: unless-stopped
+version: '3.8'

@@ -1,0 +1,24 @@
+services:
+  combo_200_l1:
+    container_name: combo_200_l1_cloudflare-simulation
+    depends_on:
+    - combo_200_l2
+    image: nginx:alpine
+    ports:
+    - 8199:80
+    restart: unless-stopped
+  combo_200_l2:
+    container_name: combo_200_l2_nginx_1.24
+    depends_on:
+    - combo_200_l3
+    image: nginx:1.24
+    ports:
+    - 9199:80
+    restart: unless-stopped
+  combo_200_l3:
+    container_name: combo_200_l3_nginx_1.25
+    image: nginx:1.25
+    ports:
+    - 10199:80
+    restart: unless-stopped
+version: '3.8'

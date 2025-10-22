@@ -1,0 +1,24 @@
+services:
+  combo_234_l1:
+    container_name: combo_234_l1_akamai-simulation
+    depends_on:
+    - combo_234_l2
+    image: nginx:1.24
+    ports:
+    - 8233:80
+    restart: unless-stopped
+  combo_234_l2:
+    container_name: combo_234_l2_haproxy_3.0
+    depends_on:
+    - combo_234_l3
+    image: haproxy:3.0
+    ports:
+    - 9233:80
+    restart: unless-stopped
+  combo_234_l3:
+    container_name: combo_234_l3_apache_2.4.59
+    image: httpd:2.4.59
+    ports:
+    - 10233:80
+    restart: unless-stopped
+version: '3.8'

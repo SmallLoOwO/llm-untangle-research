@@ -1,0 +1,24 @@
+services:
+  combo_111_l1:
+    container_name: combo_111_l1_akamai-simulation
+    depends_on:
+    - combo_111_l2
+    image: nginx:1.24
+    ports:
+    - 8110:80
+    restart: unless-stopped
+  combo_111_l2:
+    container_name: combo_111_l2_envoy_1.28
+    depends_on:
+    - combo_111_l3
+    image: envoyproxy/envoy:v1.28-latest
+    ports:
+    - 9110:80
+    restart: unless-stopped
+  combo_111_l3:
+    container_name: combo_111_l3_tomcat_11.0
+    image: tomcat:11.0
+    ports:
+    - 10110:80
+    restart: unless-stopped
+version: '3.8'

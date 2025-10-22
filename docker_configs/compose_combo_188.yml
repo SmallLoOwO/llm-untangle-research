@@ -1,0 +1,24 @@
+services:
+  combo_188_l1:
+    container_name: combo_188_l1_fastly-simulation
+    depends_on:
+    - combo_188_l2
+    image: nginx:1.25
+    ports:
+    - 8187:80
+    restart: unless-stopped
+  combo_188_l2:
+    container_name: combo_188_l2_nginx_1.24
+    depends_on:
+    - combo_188_l3
+    image: nginx:1.24
+    ports:
+    - 9187:80
+    restart: unless-stopped
+  combo_188_l3:
+    container_name: combo_188_l3_caddy_2.8
+    image: caddy:2.8-alpine
+    ports:
+    - 10187:80
+    restart: unless-stopped
+version: '3.8'

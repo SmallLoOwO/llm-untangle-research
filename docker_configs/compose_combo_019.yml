@@ -1,0 +1,24 @@
+services:
+  combo_019_l1:
+    container_name: combo_019_l1_cloudflare-simulation
+    depends_on:
+    - combo_019_l2
+    image: nginx:alpine
+    ports:
+    - 8018:80
+    restart: unless-stopped
+  combo_019_l2:
+    container_name: combo_019_l2_varnish_7.5
+    depends_on:
+    - combo_019_l3
+    image: varnish:7.5
+    ports:
+    - 9018:80
+    restart: unless-stopped
+  combo_019_l3:
+    container_name: combo_019_l3_lighttpd_1.4.71
+    image: sebp/lighttpd:1.4.71
+    ports:
+    - 10018:80
+    restart: unless-stopped
+version: '3.8'

@@ -1,0 +1,24 @@
+services:
+  combo_155_l1:
+    container_name: combo_155_l1_fastly-simulation
+    depends_on:
+    - combo_155_l2
+    image: nginx:1.25
+    ports:
+    - 8154:80
+    restart: unless-stopped
+  combo_155_l2:
+    container_name: combo_155_l2_haproxy_3.0
+    depends_on:
+    - combo_155_l3
+    image: haproxy:3.0
+    ports:
+    - 9154:80
+    restart: unless-stopped
+  combo_155_l3:
+    container_name: combo_155_l3_openlitespeed_1.7
+    image: litespeedtech/openlitespeed:1.7
+    ports:
+    - 10154:80
+    restart: unless-stopped
+version: '3.8'

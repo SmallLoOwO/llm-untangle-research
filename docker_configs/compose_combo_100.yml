@@ -1,0 +1,24 @@
+services:
+  combo_100_l1:
+    container_name: combo_100_l1_akamai-simulation
+    depends_on:
+    - combo_100_l2
+    image: nginx:1.24
+    ports:
+    - 8099:80
+    restart: unless-stopped
+  combo_100_l2:
+    container_name: combo_100_l2_traefik_3.1
+    depends_on:
+    - combo_100_l3
+    image: traefik:3.1
+    ports:
+    - 9099:80
+    restart: unless-stopped
+  combo_100_l3:
+    container_name: combo_100_l3_tomcat_10.1
+    image: tomcat:10.1
+    ports:
+    - 10099:80
+    restart: unless-stopped
+version: '3.8'

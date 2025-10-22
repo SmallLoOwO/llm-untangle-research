@@ -1,0 +1,24 @@
+services:
+  combo_178_l1:
+    container_name: combo_178_l1_fastly-simulation
+    depends_on:
+    - combo_178_l2
+    image: nginx:1.25
+    ports:
+    - 8177:80
+    restart: unless-stopped
+  combo_178_l2:
+    container_name: combo_178_l2_envoy_1.28
+    depends_on:
+    - combo_178_l3
+    image: envoyproxy/envoy:v1.28-latest
+    ports:
+    - 9177:80
+    restart: unless-stopped
+  combo_178_l3:
+    container_name: combo_178_l3_caddy_2.8
+    image: caddy:2.8-alpine
+    ports:
+    - 10177:80
+    restart: unless-stopped
+version: '3.8'

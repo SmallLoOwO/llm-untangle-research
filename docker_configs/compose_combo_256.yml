@@ -1,0 +1,24 @@
+services:
+  combo_256_l1:
+    container_name: combo_256_l1_cloudflare-simulation
+    depends_on:
+    - combo_256_l2
+    image: nginx:alpine
+    ports:
+    - 8255:80
+    restart: unless-stopped
+  combo_256_l2:
+    container_name: combo_256_l2_traefik_3.1
+    depends_on:
+    - combo_256_l3
+    image: traefik:3.1
+    ports:
+    - 9255:80
+    restart: unless-stopped
+  combo_256_l3:
+    container_name: combo_256_l3_tomcat_11.0
+    image: tomcat:11.0
+    ports:
+    - 10255:80
+    restart: unless-stopped
+version: '3.8'

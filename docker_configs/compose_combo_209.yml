@@ -1,0 +1,24 @@
+services:
+  combo_209_l1:
+    container_name: combo_209_l1_fastly-simulation
+    depends_on:
+    - combo_209_l2
+    image: nginx:1.25
+    ports:
+    - 8208:80
+    restart: unless-stopped
+  combo_209_l2:
+    container_name: combo_209_l2_varnish_7.5
+    depends_on:
+    - combo_209_l3
+    image: varnish:7.5
+    ports:
+    - 9208:80
+    restart: unless-stopped
+  combo_209_l3:
+    container_name: combo_209_l3_apache_2.4.58
+    image: httpd:2.4.58
+    ports:
+    - 10208:80
+    restart: unless-stopped
+version: '3.8'

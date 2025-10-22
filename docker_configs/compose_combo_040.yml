@@ -1,0 +1,24 @@
+services:
+  combo_040_l1:
+    container_name: combo_040_l1_cloudflare-simulation
+    depends_on:
+    - combo_040_l2
+    image: nginx:alpine
+    ports:
+    - 8039:80
+    restart: unless-stopped
+  combo_040_l2:
+    container_name: combo_040_l2_traefik_3.1
+    depends_on:
+    - combo_040_l3
+    image: traefik:3.1
+    ports:
+    - 9039:80
+    restart: unless-stopped
+  combo_040_l3:
+    container_name: combo_040_l3_tomcat_9.0
+    image: tomcat:9.0
+    ports:
+    - 10039:80
+    restart: unless-stopped
+version: '3.8'

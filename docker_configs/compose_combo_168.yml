@@ -1,0 +1,24 @@
+services:
+  combo_168_l1:
+    container_name: combo_168_l1_fastly-simulation
+    depends_on:
+    - combo_168_l2
+    image: nginx:1.25
+    ports:
+    - 8167:80
+    restart: unless-stopped
+  combo_168_l2:
+    container_name: combo_168_l2_traefik_3.0
+    depends_on:
+    - combo_168_l3
+    image: traefik:3.0
+    ports:
+    - 9167:80
+    restart: unless-stopped
+  combo_168_l3:
+    container_name: combo_168_l3_openlitespeed_1.8
+    image: litespeedtech/openlitespeed:1.8
+    ports:
+    - 10167:80
+    restart: unless-stopped
+version: '3.8'

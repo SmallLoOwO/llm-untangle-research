@@ -1,0 +1,24 @@
+services:
+  combo_272_l1:
+    container_name: combo_272_l1_fastly-simulation
+    depends_on:
+    - combo_272_l2
+    image: nginx:1.25
+    ports:
+    - 8271:80
+    restart: unless-stopped
+  combo_272_l2:
+    container_name: combo_272_l2_varnish_7.3
+    depends_on:
+    - combo_272_l3
+    image: varnish:7.3
+    ports:
+    - 9271:80
+    restart: unless-stopped
+  combo_272_l3:
+    container_name: combo_272_l3_tomcat_9.0
+    image: tomcat:9.0
+    ports:
+    - 10271:80
+    restart: unless-stopped
+version: '3.8'

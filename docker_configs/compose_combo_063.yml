@@ -1,0 +1,24 @@
+services:
+  combo_063_l1:
+    container_name: combo_063_l1_akamai-simulation
+    depends_on:
+    - combo_063_l2
+    image: nginx:1.24
+    ports:
+    - 8062:80
+    restart: unless-stopped
+  combo_063_l2:
+    container_name: combo_063_l2_nginx_1.25
+    depends_on:
+    - combo_063_l3
+    image: nginx:1.25
+    ports:
+    - 9062:80
+    restart: unless-stopped
+  combo_063_l3:
+    container_name: combo_063_l3_tomcat_10.1
+    image: tomcat:10.1
+    ports:
+    - 10062:80
+    restart: unless-stopped
+version: '3.8'

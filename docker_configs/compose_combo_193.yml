@@ -1,0 +1,24 @@
+services:
+  combo_193_l1:
+    container_name: combo_193_l1_akamai-simulation
+    depends_on:
+    - combo_193_l2
+    image: nginx:1.24
+    ports:
+    - 8192:80
+    restart: unless-stopped
+  combo_193_l2:
+    container_name: combo_193_l2_haproxy_3.0
+    depends_on:
+    - combo_193_l3
+    image: haproxy:3.0
+    ports:
+    - 9192:80
+    restart: unless-stopped
+  combo_193_l3:
+    container_name: combo_193_l3_apache_2.4.58
+    image: httpd:2.4.58
+    ports:
+    - 10192:80
+    restart: unless-stopped
+version: '3.8'

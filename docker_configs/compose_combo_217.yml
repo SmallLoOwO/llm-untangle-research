@@ -1,0 +1,24 @@
+services:
+  combo_217_l1:
+    container_name: combo_217_l1_fastly-simulation
+    depends_on:
+    - combo_217_l2
+    image: nginx:1.25
+    ports:
+    - 8216:80
+    restart: unless-stopped
+  combo_217_l2:
+    container_name: combo_217_l2_traefik_2.10
+    depends_on:
+    - combo_217_l3
+    image: traefik:2.10
+    ports:
+    - 9216:80
+    restart: unless-stopped
+  combo_217_l3:
+    container_name: combo_217_l3_tomcat_11.0
+    image: tomcat:11.0
+    ports:
+    - 10216:80
+    restart: unless-stopped
+version: '3.8'

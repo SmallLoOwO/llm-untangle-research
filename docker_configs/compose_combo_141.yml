@@ -1,0 +1,24 @@
+services:
+  combo_141_l1:
+    container_name: combo_141_l1_fastly-simulation
+    depends_on:
+    - combo_141_l2
+    image: nginx:1.25
+    ports:
+    - 8140:80
+    restart: unless-stopped
+  combo_141_l2:
+    container_name: combo_141_l2_varnish_7.5
+    depends_on:
+    - combo_141_l3
+    image: varnish:7.5
+    ports:
+    - 9140:80
+    restart: unless-stopped
+  combo_141_l3:
+    container_name: combo_141_l3_caddy_2.8
+    image: caddy:2.8-alpine
+    ports:
+    - 10140:80
+    restart: unless-stopped
+version: '3.8'

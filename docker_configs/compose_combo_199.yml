@@ -1,0 +1,24 @@
+services:
+  combo_199_l1:
+    container_name: combo_199_l1_akamai-simulation
+    depends_on:
+    - combo_199_l2
+    image: nginx:1.24
+    ports:
+    - 8198:80
+    restart: unless-stopped
+  combo_199_l2:
+    container_name: combo_199_l2_nginx_1.24
+    depends_on:
+    - combo_199_l3
+    image: nginx:1.24
+    ports:
+    - 9198:80
+    restart: unless-stopped
+  combo_199_l3:
+    container_name: combo_199_l3_apache_2.4.57
+    image: httpd:2.4.57
+    ports:
+    - 10198:80
+    restart: unless-stopped
+version: '3.8'

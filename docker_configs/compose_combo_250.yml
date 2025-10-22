@@ -1,0 +1,24 @@
+services:
+  combo_250_l1:
+    container_name: combo_250_l1_fastly-simulation
+    depends_on:
+    - combo_250_l2
+    image: nginx:1.25
+    ports:
+    - 8249:80
+    restart: unless-stopped
+  combo_250_l2:
+    container_name: combo_250_l2_traefik_3.1
+    depends_on:
+    - combo_250_l3
+    image: traefik:3.1
+    ports:
+    - 9249:80
+    restart: unless-stopped
+  combo_250_l3:
+    container_name: combo_250_l3_lighttpd_1.4.71
+    image: sebp/lighttpd:1.4.71
+    ports:
+    - 10249:80
+    restart: unless-stopped
+version: '3.8'

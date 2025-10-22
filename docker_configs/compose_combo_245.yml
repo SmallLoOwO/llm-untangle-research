@@ -1,0 +1,24 @@
+services:
+  combo_245_l1:
+    container_name: combo_245_l1_fastly-simulation
+    depends_on:
+    - combo_245_l2
+    image: nginx:1.25
+    ports:
+    - 8244:80
+    restart: unless-stopped
+  combo_245_l2:
+    container_name: combo_245_l2_nginx_1.25
+    depends_on:
+    - combo_245_l3
+    image: nginx:1.25
+    ports:
+    - 9244:80
+    restart: unless-stopped
+  combo_245_l3:
+    container_name: combo_245_l3_nginx_1.26
+    image: nginx:1.26
+    ports:
+    - 10244:80
+    restart: unless-stopped
+version: '3.8'

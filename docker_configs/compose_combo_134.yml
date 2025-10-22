@@ -1,0 +1,24 @@
+services:
+  combo_134_l1:
+    container_name: combo_134_l1_fastly-simulation
+    depends_on:
+    - combo_134_l2
+    image: nginx:1.25
+    ports:
+    - 8133:80
+    restart: unless-stopped
+  combo_134_l2:
+    container_name: combo_134_l2_varnish_7.4
+    depends_on:
+    - combo_134_l3
+    image: varnish:7.4
+    ports:
+    - 9133:80
+    restart: unless-stopped
+  combo_134_l3:
+    container_name: combo_134_l3_apache_2.4.59
+    image: httpd:2.4.59
+    ports:
+    - 10133:80
+    restart: unless-stopped
+version: '3.8'

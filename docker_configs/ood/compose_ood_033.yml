@@ -1,0 +1,36 @@
+services:
+  ood_033_l1:
+    container_name: ood_033_l1_cloudflare-simulation
+    depends_on:
+    - ood_033_l2
+    image: nginx:alpine
+    labels:
+    - ood=true
+    - layer=l1
+    - combo_id=ood_033
+    ports:
+    - 9033:80
+    restart: unless-stopped
+  ood_033_l2:
+    container_name: ood_033_l2_traefik_2.11
+    depends_on:
+    - ood_033_l3
+    image: traefik:2.11
+    labels:
+    - ood=true
+    - layer=l2
+    - combo_id=ood_033
+    ports:
+    - 9034:80
+    restart: unless-stopped
+  ood_033_l3:
+    container_name: ood_033_l3_apache_2.4.57
+    image: httpd:2.4.57
+    labels:
+    - ood=true
+    - layer=l3
+    - combo_id=ood_033
+    ports:
+    - 9035:80
+    restart: unless-stopped
+version: '3.8'

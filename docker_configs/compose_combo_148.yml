@@ -1,0 +1,24 @@
+services:
+  combo_148_l1:
+    container_name: combo_148_l1_fastly-simulation
+    depends_on:
+    - combo_148_l2
+    image: nginx:1.25
+    ports:
+    - 8147:80
+    restart: unless-stopped
+  combo_148_l2:
+    container_name: combo_148_l2_haproxy_2.9
+    depends_on:
+    - combo_148_l3
+    image: haproxy:2.9
+    ports:
+    - 9147:80
+    restart: unless-stopped
+  combo_148_l3:
+    container_name: combo_148_l3_tomcat_9.0
+    image: tomcat:9.0
+    ports:
+    - 10147:80
+    restart: unless-stopped
+version: '3.8'

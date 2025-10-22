@@ -1,0 +1,24 @@
+services:
+  combo_192_l1:
+    container_name: combo_192_l1_cloudflare-simulation
+    depends_on:
+    - combo_192_l2
+    image: nginx:alpine
+    ports:
+    - 8191:80
+    restart: unless-stopped
+  combo_192_l2:
+    container_name: combo_192_l2_varnish_7.4
+    depends_on:
+    - combo_192_l3
+    image: varnish:7.4
+    ports:
+    - 9191:80
+    restart: unless-stopped
+  combo_192_l3:
+    container_name: combo_192_l3_tomcat_11.0
+    image: tomcat:11.0
+    ports:
+    - 10191:80
+    restart: unless-stopped
+version: '3.8'

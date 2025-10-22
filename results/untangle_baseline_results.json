@@ -1,0 +1,226 @@
+{
+  "timestamp": "2025-10-22 00:49:04",
+  "method": "Untangle Baseline",
+  "test_samples": 56,
+  "overall_accuracy": {
+    "l1": 0.0,
+    "l2": 0.0,
+    "l3": 0.0
+  },
+  "layer_accuracy": {
+    "l1": {
+      "mean": 0.0,
+      "std": 0.0
+    },
+    "l2": {
+      "mean": 0.0,
+      "std": 0.0
+    },
+    "l3": {
+      "mean": 0.0,
+      "std": 0.0
+    }
+  },
+  "detailed_results": [
+    {
+      "combo_id": "combo_255",
+      "url": "http://localhost:8255",
+      "ground_truth": {
+        "l1": "akamai-simulation",
+        "l2": "nginx",
+        "l3": "apache"
+      },
+      "predictions": {
+        "l1": "error",
+        "l2": "error",
+        "l3": "error",
+        "error": "HTTPConnectionPool(host='localhost', port=8255): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000186C2369110>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))"
+      },
+      "accuracy": {
+        "l1": false,
+        "l2": false,
+        "l3": false
+      }
+    },
+    {
+      "combo_id": "combo_194",
+      "url": "http://localhost:8194",
+      "ground_truth": {
+        "l1": "cloudflare-simulation",
+        "l2": "nginx",
+        "l3": "nginx"
+      },
+      "predictions": {
+        "l1": "error",
+        "l2": "error",
+        "l3": "error",
+        "error": "HTTPConnectionPool(host='localhost', port=8194): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000186D1864D90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))"
+      },
+      "accuracy": {
+        "l1": false,
+        "l2": false,
+        "l3": false
+      }
+    },
+    {
+      "combo_id": "combo_138",
+      "url": "http://localhost:8138",
+      "ground_truth": {
+        "l1": "fastly-simulation",
+        "l2": "varnish",
+        "l3": "nginx"
+      },
+      "predictions": {
+        "l1": "error",
+        "l2": "error",
+        "l3": "error",
+        "error": "HTTPConnectionPool(host='localhost', port=8138): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000186D1867490>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))"
+      },
+      "accuracy": {
+        "l1": false,
+        "l2": false,
+        "l3": false
+      }
+    },
+    {
+      "combo_id": "combo_233",
+      "url": "http://localhost:8233",
+      "ground_truth": {
+        "l1": "akamai-simulation",
+        "l2": "envoy",
+        "l3": "nginx"
+      },
+      "predictions": {
+        "l1": "error",
+        "l2": "error",
+        "l3": "error",
+        "error": "HTTPConnectionPool(host='localhost', port=8233): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000186D1866F10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))"
+      },
+      "accuracy": {
+        "l1": false,
+        "l2": false,
+        "l3": false
+      }
+    },
+    {
+      "combo_id": "combo_277",
+      "url": "http://localhost:8277",
+      "ground_truth": {
+        "l1": "cloudflare-simulation",
+        "l2": "varnish",
+        "l3": "openlitespeed"
+      },
+      "predictions": {
+        "l1": "error",
+        "l2": "error",
+        "l3": "error",
+        "error": "HTTPConnectionPool(host='localhost', port=8277): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000186D1864F50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))"
+      },
+      "accuracy": {
+        "l1": false,
+        "l2": false,
+        "l3": false
+      }
+    },
+    {
+      "combo_id": "combo_034",
+      "url": "http://localhost:8034",
+      "ground_truth": {
+        "l1": "cloudflare-simulation",
+        "l2": "haproxy",
+        "l3": "caddy"
+      },
+      "predictions": {
+        "l1": "error",
+        "l2": "error",
+        "l3": "error",
+        "error": "HTTPConnectionPool(host='localhost', port=8034): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000186D1847490>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))"
+      },
+      "accuracy": {
+        "l1": false,
+        "l2": false,
+        "l3": false
+      }
+    },
+    {
+      "combo_id": "combo_039",
+      "url": "http://localhost:8039",
+      "ground_truth": {
+        "l1": "cloudflare-simulation",
+        "l2": "traefik",
+        "l3": "tomcat"
+      },
+      "predictions": {
+        "l1": "error",
+        "l2": "error",
+        "l3": "error",
+        "error": "HTTPConnectionPool(host='localhost', port=8039): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000186D1876450>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))"
+      },
+      "accuracy": {
+        "l1": false,
+        "l2": false,
+        "l3": false
+      }
+    },
+    {
+      "combo_id": "combo_157",
+      "url": "http://localhost:8157",
+      "ground_truth": {
+        "l1": "fastly-simulation",
+        "l2": "traefik",
+        "l3": "apache"
+      },
+      "predictions": {
+        "l1": "error",
+        "l2": "error",
+        "l3": "error",
+        "error": "HTTPConnectionPool(host='localhost', port=8157): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000186D1880710>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))"
+      },
+      "accuracy": {
+        "l1": false,
+        "l2": false,
+        "l3": false
+      }
+    },
+    {
+      "combo_id": "combo_224",
+      "url": "http://localhost:8224",
+      "ground_truth": {
+        "l1": "cloudflare-simulation",
+        "l2": "haproxy",
+        "l3": "lighttpd"
+      },
+      "predictions": {
+        "l1": "error",
+        "l2": "error",
+        "l3": "error",
+        "error": "HTTPConnectionPool(host='localhost', port=8224): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000186D1882950>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))"
+      },
+      "accuracy": {
+        "l1": false,
+        "l2": false,
+        "l3": false
+      }
+    },
+    {
+      "combo_id": "combo_015",
+      "url": "http://localhost:8015",
+      "ground_truth": {
+        "l1": "cloudflare-simulation",
+        "l2": "varnish",
+        "l3": "tomcat"
+      },
+      "predictions": {
+        "l1": "error",
+        "l2": "error",
+        "l3": "error",
+        "error": "HTTPConnectionPool(host='localhost', port=8015): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000186D185DFD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))"
+      },
+      "accuracy": {
+        "l1": false,
+        "l2": false,
+        "l3": false
+      }
+    }
+  ]
+}

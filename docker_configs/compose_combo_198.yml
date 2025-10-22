@@ -1,0 +1,24 @@
+services:
+  combo_198_l1:
+    container_name: combo_198_l1_fastly-simulation
+    depends_on:
+    - combo_198_l2
+    image: nginx:1.25
+    ports:
+    - 8197:80
+    restart: unless-stopped
+  combo_198_l2:
+    container_name: combo_198_l2_envoy_1.29
+    depends_on:
+    - combo_198_l3
+    image: envoyproxy/envoy:v1.29-latest
+    ports:
+    - 9197:80
+    restart: unless-stopped
+  combo_198_l3:
+    container_name: combo_198_l3_apache_2.4.57
+    image: httpd:2.4.57
+    ports:
+    - 10197:80
+    restart: unless-stopped
+version: '3.8'

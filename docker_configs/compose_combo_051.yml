@@ -1,0 +1,24 @@
+services:
+  combo_051_l1:
+    container_name: combo_051_l1_cloudflare-simulation
+    depends_on:
+    - combo_051_l2
+    image: nginx:alpine
+    ports:
+    - 8050:80
+    restart: unless-stopped
+  combo_051_l2:
+    container_name: combo_051_l2_envoy_1.29
+    depends_on:
+    - combo_051_l3
+    image: envoyproxy/envoy:v1.29-latest
+    ports:
+    - 9050:80
+    restart: unless-stopped
+  combo_051_l3:
+    container_name: combo_051_l3_tomcat_9.0
+    image: tomcat:9.0
+    ports:
+    - 10050:80
+    restart: unless-stopped
+version: '3.8'

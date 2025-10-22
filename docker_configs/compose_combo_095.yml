@@ -1,0 +1,24 @@
+services:
+  combo_095_l1:
+    container_name: combo_095_l1_akamai-simulation
+    depends_on:
+    - combo_095_l2
+    image: nginx:1.24
+    ports:
+    - 8094:80
+    restart: unless-stopped
+  combo_095_l2:
+    container_name: combo_095_l2_haproxy_3.0
+    depends_on:
+    - combo_095_l3
+    image: haproxy:3.0
+    ports:
+    - 9094:80
+    restart: unless-stopped
+  combo_095_l3:
+    container_name: combo_095_l3_openlitespeed_1.7
+    image: litespeedtech/openlitespeed:1.7
+    ports:
+    - 10094:80
+    restart: unless-stopped
+version: '3.8'

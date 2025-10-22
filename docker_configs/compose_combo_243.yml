@@ -1,0 +1,24 @@
+services:
+  combo_243_l1:
+    container_name: combo_243_l1_cloudflare-simulation
+    depends_on:
+    - combo_243_l2
+    image: nginx:alpine
+    ports:
+    - 8242:80
+    restart: unless-stopped
+  combo_243_l2:
+    container_name: combo_243_l2_envoy_1.27
+    depends_on:
+    - combo_243_l3
+    image: envoyproxy/envoy:v1.27-latest
+    ports:
+    - 9242:80
+    restart: unless-stopped
+  combo_243_l3:
+    container_name: combo_243_l3_nginx_1.25
+    image: nginx:1.25
+    ports:
+    - 10242:80
+    restart: unless-stopped
+version: '3.8'

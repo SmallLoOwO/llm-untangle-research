@@ -1,0 +1,24 @@
+services:
+  combo_239_l1:
+    container_name: combo_239_l1_fastly-simulation
+    depends_on:
+    - combo_239_l2
+    image: nginx:1.25
+    ports:
+    - 8238:80
+    restart: unless-stopped
+  combo_239_l2:
+    container_name: combo_239_l2_haproxy_2.8
+    depends_on:
+    - combo_239_l3
+    image: haproxy:2.8
+    ports:
+    - 9238:80
+    restart: unless-stopped
+  combo_239_l3:
+    container_name: combo_239_l3_lighttpd_1.4.71
+    image: sebp/lighttpd:1.4.71
+    ports:
+    - 10238:80
+    restart: unless-stopped
+version: '3.8'

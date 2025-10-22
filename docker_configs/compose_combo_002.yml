@@ -1,0 +1,24 @@
+services:
+  combo_002_l1:
+    container_name: combo_002_l1_cloudflare-simulation
+    depends_on:
+    - combo_002_l2
+    image: nginx:alpine
+    ports:
+    - 8001:80
+    restart: unless-stopped
+  combo_002_l2:
+    container_name: combo_002_l2_nginx_1.24
+    depends_on:
+    - combo_002_l3
+    image: nginx:1.24
+    ports:
+    - 9001:80
+    restart: unless-stopped
+  combo_002_l3:
+    container_name: combo_002_l3_apache_2.4.57
+    image: httpd:2.4.57
+    ports:
+    - 10001:80
+    restart: unless-stopped
+version: '3.8'

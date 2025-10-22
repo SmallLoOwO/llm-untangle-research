@@ -1,0 +1,24 @@
+services:
+  combo_182_l1:
+    container_name: combo_182_l1_akamai-simulation
+    depends_on:
+    - combo_182_l2
+    image: nginx:1.24
+    ports:
+    - 8181:80
+    restart: unless-stopped
+  combo_182_l2:
+    container_name: combo_182_l2_haproxy_2.8
+    depends_on:
+    - combo_182_l3
+    image: haproxy:2.8
+    ports:
+    - 9181:80
+    restart: unless-stopped
+  combo_182_l3:
+    container_name: combo_182_l3_tomcat_10.1
+    image: tomcat:10.1
+    ports:
+    - 10181:80
+    restart: unless-stopped
+version: '3.8'

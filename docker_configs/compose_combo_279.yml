@@ -1,0 +1,24 @@
+services:
+  combo_279_l1:
+    container_name: combo_279_l1_fastly-simulation
+    depends_on:
+    - combo_279_l2
+    image: nginx:1.25
+    ports:
+    - 8278:80
+    restart: unless-stopped
+  combo_279_l2:
+    container_name: combo_279_l2_traefik_3.1
+    depends_on:
+    - combo_279_l3
+    image: traefik:3.1
+    ports:
+    - 9278:80
+    restart: unless-stopped
+  combo_279_l3:
+    container_name: combo_279_l3_nginx_1.26
+    image: nginx:1.26
+    ports:
+    - 10278:80
+    restart: unless-stopped
+version: '3.8'

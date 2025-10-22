@@ -1,0 +1,24 @@
+services:
+  combo_223_l1:
+    container_name: combo_223_l1_cloudflare-simulation
+    depends_on:
+    - combo_223_l2
+    image: nginx:alpine
+    ports:
+    - 8222:80
+    restart: unless-stopped
+  combo_223_l2:
+    container_name: combo_223_l2_haproxy_2.8
+    depends_on:
+    - combo_223_l3
+    image: haproxy:2.8
+    ports:
+    - 9222:80
+    restart: unless-stopped
+  combo_223_l3:
+    container_name: combo_223_l3_nginx_1.24
+    image: nginx:1.24
+    ports:
+    - 10222:80
+    restart: unless-stopped
+version: '3.8'

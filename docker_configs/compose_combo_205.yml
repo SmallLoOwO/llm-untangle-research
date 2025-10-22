@@ -1,0 +1,24 @@
+services:
+  combo_205_l1:
+    container_name: combo_205_l1_cloudflare-simulation
+    depends_on:
+    - combo_205_l2
+    image: nginx:alpine
+    ports:
+    - 8204:80
+    restart: unless-stopped
+  combo_205_l2:
+    container_name: combo_205_l2_varnish_7.4
+    depends_on:
+    - combo_205_l3
+    image: varnish:7.4
+    ports:
+    - 9204:80
+    restart: unless-stopped
+  combo_205_l3:
+    container_name: combo_205_l3_lighttpd_1.4.71
+    image: sebp/lighttpd:1.4.71
+    ports:
+    - 10204:80
+    restart: unless-stopped
+version: '3.8'

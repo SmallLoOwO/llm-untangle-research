@@ -1,0 +1,24 @@
+services:
+  combo_021_l1:
+    container_name: combo_021_l1_cloudflare-simulation
+    depends_on:
+    - combo_021_l2
+    image: nginx:alpine
+    ports:
+    - 8020:80
+    restart: unless-stopped
+  combo_021_l2:
+    container_name: combo_021_l2_varnish_7.3
+    depends_on:
+    - combo_021_l3
+    image: varnish:7.3
+    ports:
+    - 9020:80
+    restart: unless-stopped
+  combo_021_l3:
+    container_name: combo_021_l3_caddy_2.7
+    image: caddy:2.7-alpine
+    ports:
+    - 10020:80
+    restart: unless-stopped
+version: '3.8'

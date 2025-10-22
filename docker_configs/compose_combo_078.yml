@@ -1,0 +1,24 @@
+services:
+  combo_078_l1:
+    container_name: combo_078_l1_akamai-simulation
+    depends_on:
+    - combo_078_l2
+    image: nginx:1.24
+    ports:
+    - 8077:80
+    restart: unless-stopped
+  combo_078_l2:
+    container_name: combo_078_l2_varnish_7.4
+    depends_on:
+    - combo_078_l3
+    image: varnish:7.4
+    ports:
+    - 9077:80
+    restart: unless-stopped
+  combo_078_l3:
+    container_name: combo_078_l3_nginx_1.24
+    image: nginx:1.24
+    ports:
+    - 10077:80
+    restart: unless-stopped
+version: '3.8'

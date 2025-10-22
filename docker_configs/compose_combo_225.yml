@@ -1,0 +1,24 @@
+services:
+  combo_225_l1:
+    container_name: combo_225_l1_akamai-simulation
+    depends_on:
+    - combo_225_l2
+    image: nginx:1.24
+    ports:
+    - 8224:80
+    restart: unless-stopped
+  combo_225_l2:
+    container_name: combo_225_l2_envoy_1.29
+    depends_on:
+    - combo_225_l3
+    image: envoyproxy/envoy:v1.29-latest
+    ports:
+    - 9224:80
+    restart: unless-stopped
+  combo_225_l3:
+    container_name: combo_225_l3_nginx_1.24
+    image: nginx:1.24
+    ports:
+    - 10224:80
+    restart: unless-stopped
+version: '3.8'

@@ -1,0 +1,24 @@
+services:
+  combo_122_l1:
+    container_name: combo_122_l1_fastly-simulation
+    depends_on:
+    - combo_122_l2
+    image: nginx:1.25
+    ports:
+    - 8121:80
+    restart: unless-stopped
+  combo_122_l2:
+    container_name: combo_122_l2_nginx_1.24
+    depends_on:
+    - combo_122_l3
+    image: nginx:1.24
+    ports:
+    - 9121:80
+    restart: unless-stopped
+  combo_122_l3:
+    container_name: combo_122_l3_apache_2.4.58
+    image: httpd:2.4.58
+    ports:
+    - 10121:80
+    restart: unless-stopped
+version: '3.8'

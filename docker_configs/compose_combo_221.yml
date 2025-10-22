@@ -1,0 +1,24 @@
+services:
+  combo_221_l1:
+    container_name: combo_221_l1_akamai-simulation
+    depends_on:
+    - combo_221_l2
+    image: nginx:1.24
+    ports:
+    - 8220:80
+    restart: unless-stopped
+  combo_221_l2:
+    container_name: combo_221_l2_envoy_1.27
+    depends_on:
+    - combo_221_l3
+    image: envoyproxy/envoy:v1.27-latest
+    ports:
+    - 9220:80
+    restart: unless-stopped
+  combo_221_l3:
+    container_name: combo_221_l3_caddy_2.7
+    image: caddy:2.7-alpine
+    ports:
+    - 10220:80
+    restart: unless-stopped
+version: '3.8'
