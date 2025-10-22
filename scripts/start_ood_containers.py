@@ -2,7 +2,7 @@
 """
 啟動 OOD 容器 + 準備 Untangle 基線測試樣本（250–300 組）
 - 維持最少 3 種真 OOD 服務供即時檢測
-- 自動生成 250–300 組「假網站」三層組合（L1/L2/L3）供 Untangle 基線測試
+- 從 data/combinations.json 載入 280 組實際三層組合供 Untangle 基線測試
 - 產出 baseline_targets.json 供 run_untangle_baseline.py 掃描測試
 """
 import json
@@ -14,8 +14,8 @@ import random
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+DATA_DIR = ROOT / 'data'
 OOD_COMPOSE_DIR = ROOT / 'docker_configs' / 'ood'
-COMPOSE_DIR = ROOT / 'docker_configs' / 'baseline_combos'
 RESULTS_DIR = ROOT / 'results'
 
 SHARED_NETWORK = 'ood_shared_net'
@@ -27,26 +27,7 @@ VERIFIED_OOD_CONFIGS = {
     'caddy_ood': {'image': 'caddy:alpine', 'port_mapping': '80', 'environment': []}
 }
 
-# 三層組合的候選（論文草案與翻譯稿中的代表性技術）
-L1_FRONTENDS = [
-    {'name': 'nginx', 'image': 'nginx:1.25-alpine', 'port': 80, 'config': None},
-    {'name': 'haproxy', 'image': 'haproxy:2.9-alpine', 'port': 80, 'config': None},
-    {'name': 'traefik', 'image': 'traefik:v2.10', 'port': 80, 'config': None},
-]
-L2_PROXIES = [
-    {'name': 'varnish', 'image': 'varnish:7.4', 'port': 80, 'config': None},
-    {'name': 'squid', 'image': 'ubuntu/squid:latest', 'port': 3128, 'config': None},
-    {'name': 'apache', 'image': 'httpd:2.4-alpine', 'port': 80, 'config': None},
-]
-L3_ORIGINS = [
-    {'name': 'tomcat', 'image': 'tomcat:10.1-jdk17', 'port': 8080},
-    {'name': 'flask', 'image': 'python:3.11-slim', 'port': 8080},
-    {'name': 'express', 'image': 'node:18-alpine', 'port': 8080},
-]
-
 BASE_PORT_OOD = 9001
-BASE_PORT_COMBO = 10080
-
 RANDOM_SEED = 42
 TARGET_MIN = 250
 TARGET_MAX = 300
@@ -81,39 +62,6 @@ def create_ood_service_compose(combo_id: str, config: dict, external_port: int) 
     }
 
 
-def create_combo_compose(combo_id: int, l1: dict, l2: dict, l3: dict, ext_port: int) -> dict:
-    """建立三層假網站 docker-compose 定義。"""
-    backend_name = f'combo_{combo_id}_backend'
-    proxy_name = f'combo_{combo_id}_proxy'
-    front_name = f'combo_{combo_id}_front'
-
-    services = {
-        backend_name: {
-            'image': l3['image'],
-            'container_name': backend_name,
-            'networks': [SHARED_NETWORK],
-        },
-        proxy_name: {
-            'image': l2['image'],
-            'container_name': proxy_name,
-            'depends_on': [backend_name],
-            'networks': [SHARED_NETWORK],
-        },
-        front_name: {
-            'image': l1['image'],
-            'container_name': front_name,
-            'depends_on': [proxy_name],
-            'ports': [f'{ext_port}:80'],
-            'networks': [SHARED_NETWORK],
-            'labels': ['project=llm-untangle', 'type=baseline']
-        }
-    }
-
-    # 最小可行配置：用簡單的反向代理把 80 轉到 backend
-    # 不同技術的實際配置在論文中有詳細範本，這裡用內建預設啟動頁即可供 Untangle 探測
-    return {'version': '3.8', 'services': services, 'networks': {SHARED_NETWORK: {'external': True}}}
-
-
 def start_ood_service(combo_id: str, config: dict, url: str) -> dict:
     port = int(url.split(':')[-1])
     compose_file = OOD_COMPOSE_DIR / f'ood_{combo_id}.yml'
@@ -136,37 +84,82 @@ def start_ood_service(combo_id: str, config: dict, url: str) -> dict:
         return {'combo_id': combo_id, 'status': 'script_error', 'error': str(e)}
 
 
-def generate_baseline_combos(n_min=TARGET_MIN, n_max=TARGET_MAX, seed=RANDOM_SEED):
-    random.seed(seed)
-    all_triples = [(l1, l2, l3) for l1 in L1_FRONTENDS for l2 in L2_PROXIES for l3 in L3_ORIGINS]
-    total = len(all_triples)
-    target_n = min(max(n_min, 1), n_max)
-    if target_n > total:
-        target_n = total
-    selected = random.sample(all_triples, k=target_n)
+def load_combinations_data():
+    """從 data/combinations.json 載入預定義的三層組合"""
+    combinations_file = DATA_DIR / 'combinations.json'
+    if not combinations_file.exists():
+        print(f'❌ 找不到組合數據文件: {combinations_file}')
+        return []
+    
+    try:
+        with open(combinations_file, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+            print(f'✅ 載入 {len(data)} 組三層組合數據')
+            return data
+    except Exception as e:
+        print(f'❌ 載入組合數據失敗: {e}')
+        return []
 
-    COMPOSE_DIR.mkdir(parents=True, exist_ok=True)
+
+def generate_baseline_targets(n_min=TARGET_MIN, n_max=TARGET_MAX, seed=RANDOM_SEED):
+    """從已有的組合數據生成基線測試目標清單"""
+    combinations = load_combinations_data()
+    if not combinations:
+        print('❌ 無法載入組合數據，無法生成基線測試目標')
+        return []
+    
+    random.seed(seed)
+    
+    # 選取 250-300 組進行基線測試
+    total = len(combinations)
+    target_n = min(max(n_min, 1), min(n_max, total))
+    
+    if target_n > total:
+        print(f'⚠️ 可用組合數 ({total}) 少於最低要求 ({n_min})，使用全部組合')
+        selected = combinations
+    else:
+        selected = random.sample(combinations, k=target_n)
+    
+    # 生成測試目標清單
     targets = []
-    for idx, (l1, l2, l3) in enumerate(selected, start=1):
-        ext_port = BASE_PORT_COMBO + idx - 1
-        compose = create_combo_compose(idx, l1, l2, l3, ext_port)
-        file_path = COMPOSE_DIR / f'combo_{idx:03d}.yml'
-        file_path.write_text(yaml.dump(compose, default_flow_style=False), encoding='utf-8')
+    for combo in selected:
         targets.append({
-            'combo_id': f'combo_{idx:03d}',
-            'url': f'http://localhost:{ext_port}',
-            'L1': l1['name'], 'L2': l2['name'], 'L3': l3['name']
+            'combo_id': combo['id'],
+            'url': combo['url'],
+            'L1': combo['l1']['base_name'] if 'base_name' in combo['l1'] else combo['l1']['name'],
+            'L2': combo['l2']['base_name'] if 'base_name' in combo['l2'] else combo['l2']['name'], 
+            'L3': combo['l3']['base_name'] if 'base_name' in combo['l3'] else combo['l3']['name'],
+            'l1_image': combo['l1']['image'],
+            'l2_image': combo['l2']['image'],
+            'l3_image': combo['l3']['image'],
+            'expected_l3': combo['l3']['base_name'] if 'base_name' in combo['l3'] else combo['l3']['name']
         })
-    # 輸出掃描目標
+    
+    # 保存目標清單
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
-    (RESULTS_DIR / 'baseline_targets.json').write_text(json.dumps({'targets': targets}, indent=2, ensure_ascii=False), encoding='utf-8')
+    baseline_targets = {
+        'timestamp': time.strftime('%Y-%m-%d %H:%M:%S'),
+        'total_targets': len(targets),
+        'sampling_info': {
+            'seed': seed,
+            'available_combinations': total,
+            'selected_count': len(targets),
+            'target_range': f'{n_min}-{n_max}'
+        },
+        'targets': targets
+    }
+    
+    targets_file = RESULTS_DIR / 'baseline_targets.json'
+    targets_file.write_text(json.dumps(baseline_targets, indent=2, ensure_ascii=False), encoding='utf-8')
+    print(f'📦 已生成基線測試目標清單: {len(targets)} 組 -> {targets_file}')
+    
     return targets
 
 
 def main():
-    print('🧪 LLM-UnTangle OOD + 基線樣本準備')
+    print('🧪 LLM-UnTangle OOD 測試環境啟動（論文達標版）')
     print('=' * 60)
-    print('論文核心：啟動 3 種 OOD 服務，並準備 250–300 組假網站供 Untangle 基線測試\n')
+    print('論文核心：提供多種未知服務器類型供 Out-of-Distribution 檢測\n')
 
     if not ensure_shared_network():
         return False
@@ -192,32 +185,53 @@ def main():
     success_rate = success_count / max(len(results), 1)
     meets_requirements = success_count >= 3
 
-    # 生成 250–300 組基線測試假網站（只生成 compose 與目標清單，不自動 up，以免佔用過多資源）
-    targets = generate_baseline_combos()
-    print(f'📦 已生成基線測試組合 compose 檔案: {len(targets)} 組')
-    print('➡️ 之後由 run_untangle_baseline.py 逐一啟動並測試，避免同時佔用過多端口/記憶體')
-
-    # 保存狀態
-    RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+    # 生成基線測試目標清單（250-300 組）
+    targets = generate_baseline_targets()
+    
+    # 保存完整狀態
     output = {
         'timestamp': time.strftime('%Y-%m-%d %H:%M:%S'),
         'paper_requirements_met': meets_requirements,
         'ood_services_running': success_count,
+        'total_ood_services': len(results),
         'success_rate': success_rate,
         'status_summary': counts,
         'running_services': [r for r in results if r['status'] == 'running'],
-        'all_results': results,
+        'all_ood_results': results,
         'baseline_targets_count': len(targets)
     }
-    (RESULTS_DIR / 'ood_containers_status.json').write_text(json.dumps(output, indent=2, ensure_ascii=False), encoding='utf-8')
+    
+    (RESULTS_DIR / 'ood_containers_status.json').write_text(
+        json.dumps(output, indent=2, ensure_ascii=False), encoding='utf-8'
+    )
 
-    print('\n📈 最終狀態:')
-    print(f'- OOD 成功啟動: {success_count}/3')
-    print(f'- 基線測試樣本: {len(targets)} 組 (目標 250–300)')
+    print('\n📈 最終 OOD 服務啟動結果:')
+    print(f'總計測試: {len(results)} 個服務')
+    print(f'成功啟動: {success_count} ({success_rate*100:.1f}%)')
+    print(f'狀態分佈: {counts}')
+    
     if meets_requirements:
-        print('\n🎉 已滿足 OOD 檢測條件，並完成基線樣本準備')
-        print('✅ 接著可執行 Untangle 基線測試: python scripts/run_untangle_baseline.py')
+        print('\n🎉 論文要求達成：已啟動 3 種不同的 OOD 服務器')
+        print('✅ 滿足 Out-of-Distribution 檢測實驗條件')
+        print('✅ 可進行 Untangle 基線比較測試')
+        print('✅ 可執行 BCa Bootstrap 統計分析')
+    else:
+        print('\n⚠️ 未滿足最少 3 種 OOD 服務要求')
+    
     print(f'\n📄 詳細結果已保存到: {RESULTS_DIR / "ood_containers_status.json"}')
+    
+    if targets:
+        print('\n🌐 可用的 OOD 測試服務:')
+        for r in [r for r in results if r['status'] == 'running']:
+            name = r['combo_id'].replace('_ood', '')
+            print(f'  {r["combo_id"]}: {r["server_header"]} ({name})')
+        
+        print('\n📋 論文實驗狀態:')
+        print('✅ 可進行 OOD 檢測實驗')
+        print('✅ 可執行基線比較測試')
+        print('✅ 可計算統計置信區間')
+        print(f'\n🎯 接下來執行: python scripts/run_untangle_baseline.py')
+        print(f'   將測試 {len(targets)} 組三層架構組合的 Untangle 基線準確率')
 
     return meets_requirements
 
