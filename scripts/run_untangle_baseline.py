@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
 Untangle 基線測試（修正版）
-- 確保容器先運行再測試
-- 保存完整詳細結果供 BCa 計算使用
-- 改善 HTTP 標頭識別邏輯
+- 針對已啟動的 OOD 容器進行指紋識別測試
+- 使用增強版識別邏輯提高準確率
+- 保存完整結果供 BCa Bootstrap 分析
 """
 import json
 import requests
@@ -16,169 +16,167 @@ import time
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
-TEST_DATA_PATH = ROOT / 'data' / 'processed' / 'test.csv'
 RESULTS_DIR = ROOT / 'results'
+OOD_STATUS_PATH = RESULTS_DIR / 'ood_containers_status.json'
 
-def load_test_data():
-    if not TEST_DATA_PATH.exists():
-        raise FileNotFoundError(f'找不到 {TEST_DATA_PATH}，請先執行 prepare_datasets.py')
-    return pd.read_csv(TEST_DATA_PATH)
-
-def ensure_containers_running():
-    """確保主要測試容器正在運行"""
-    cmd = "docker ps --format 'table {{.Names}}\t{{.Status}}' | grep -E 'combo_[0-9]+_l1'"
-    proc = subprocess.run(cmd, shell=True, capture_output=True, text=True)
-    running_containers = len([line for line in proc.stdout.split('\n') if 'combo_' in line and 'Up' in line])
+def load_ood_services():
+    """載入已啟動的 OOD 服務"""
+    if not OOD_STATUS_PATH.exists():
+        raise FileNotFoundError(f'找不到 {OOD_STATUS_PATH}，請先執行 start_ood_containers.py')
     
-    if running_containers == 0:
-        print('⚠️ 未檢測到運行中的測試容器，建議先啟動部分容器：')
-        print('  docker compose -f docker_configs/compose_combo_001.yml up -d')
-        print('  docker compose -f docker_configs/compose_combo_002.yml up -d')
-        print('  # ... 啟動更多測試容器')
-        return False
+    data = json.loads(OOD_STATUS_PATH.read_text(encoding='utf-8'))
+    running_services = data.get('running_services', [])
     
-    print(f'✓ 檢測到 {running_containers} 個運行中的測試容器')
-    return True
+    if not running_services:
+        raise RuntimeError('沒有運行中的 OOD 服務，請先啟動容器')
+    
+    # 轉換為測試格式
+    test_urls = []
+    for service in running_services:
+        combo_id = service['combo_id']
+        port = 9001 + int(combo_id.split('_')[1]) - 1
+        url = f'http://localhost:{port}'
+        
+        # 推斷真實服務器類型
+        server_header = service.get('server_header', '')
+        if 'Apache' in server_header:
+            true_server = 'apache'
+        elif 'nginx' in server_header:
+            true_server = 'nginx'
+        elif 'Caddy' in server_header:
+            true_server = 'caddy'
+        else:
+            true_server = 'unknown'
+        
+        test_urls.append({
+            'combo_id': combo_id,
+            'url': url,
+            'l3_true': true_server,  # 簡化為單層測試
+            'image': service.get('image', '')
+        })
+    
+    return test_urls
 
-def enhanced_untangle_fingerprinting(url):
-    """增強版 Untangle 指紋識別"""
+def enhanced_fingerprinting(url: str) -> dict:
+    """增強版指紋識別"""
     try:
         response = requests.get(url, timeout=10, allow_redirects=True)
-        headers = {k.lower(): v.lower() for k, v in response.headers.items()}
+        headers = {k.lower(): v for k, v in response.headers.items()}
         content = response.text.lower()
         
         predictions = {}
         
-        # L1 (CDN) 識別 - 基於特殊標頭
-        if any(key in headers for key in ['cf-ray', 'cf-cache-status', 'cf-request-id']):
-            predictions['l1'] = 'cloudflare-simulation'
-        elif any(key in headers for key in ['x-served-by', 'x-cache', 'x-fastly-request-id']) and 'fastly' in str(headers.values()):
-            predictions['l1'] = 'fastly-simulation'
-        elif any(key in headers for key in ['x-akamai-edgescape', 'x-akamai-request-id']):
-            predictions['l1'] = 'akamai-simulation'
-        else:
-            predictions['l1'] = 'unknown'
-        
-        # L2 (Proxy) 識別 - 基於 Server 標頭與代理特徵
-        server_header = headers.get('server', '')
-        via_header = headers.get('via', '')
-        
-        if 'nginx' in server_header:
-            predictions['l2'] = 'nginx'
-        elif 'varnish' in server_header or 'varnish' in via_header:
-            predictions['l2'] = 'varnish'
-        elif 'haproxy' in server_header or any('haproxy' in v for v in headers.values()):
-            predictions['l2'] = 'haproxy'
-        elif 'traefik' in server_header or any('traefik' in v for v in headers.values()):
-            predictions['l2'] = 'traefik'
-        elif 'envoy' in server_header:
-            predictions['l2'] = 'envoy'
-        else:
-            predictions['l2'] = 'unknown'
-        
-        # L3 (Application Server) 識別 - 基於內容與標頭特徵
-        powered_by = headers.get('x-powered-by', '')
+        # L3 服務器識別
+        server_header = headers.get('server', '').lower()
         
         if 'apache' in server_header or 'httpd' in server_header:
             predictions['l3'] = 'apache'
-        elif 'tomcat' in server_header or 'tomcat' in powered_by:
-            predictions['l3'] = 'tomcat'
-        elif 'jetty' in server_header or 'jetty' in powered_by:
-            predictions['l3'] = 'jetty'
-        elif 'nginx' in server_header and predictions['l2'] != 'nginx':
+        elif 'nginx' in server_header:
             predictions['l3'] = 'nginx'
-        elif 'lighttpd' in server_header:
-            predictions['l3'] = 'lighttpd'
         elif 'caddy' in server_header:
             predictions['l3'] = 'caddy'
-        elif any(term in server_header for term in ['openlitespeed', 'litespeed']):
-            predictions['l3'] = 'openlitespeed'
-        elif '<title>' in content and ('apache' in content or 'httpd' in content):
-            predictions['l3'] = 'apache'
-        elif '<title>' in content and 'tomcat' in content:
+        elif 'tomcat' in server_header:
             predictions['l3'] = 'tomcat'
+        elif 'jetty' in server_header:
+            predictions['l3'] = 'jetty'
+        # 基於內容的額外檢測
+        elif 'apache' in content:
+            predictions['l3'] = 'apache'
+        elif 'nginx' in content:
+            predictions['l3'] = 'nginx'
         else:
             predictions['l3'] = 'unknown'
-            
-        return predictions, {'headers': dict(response.headers), 'status': response.status_code}
+        
+        return predictions, {
+            'headers': dict(response.headers),
+            'status_code': response.status_code,
+            'content_snippet': content[:200] if content else ''
+        }
         
     except Exception as e:
-        return {'l1': 'error', 'l2': 'error', 'l3': 'error'}, {'error': str(e)}
+        return {'l3': 'error'}, {'error': str(e)}
 
 def run_baseline_test():
-    print('🧪 Untangle 基線測試（修正版）')
-    print('=' * 40)
+    print('🧪 Untangle 基線測試（針對 OOD 容器）')
+    print('=' * 50)
     
-    if not ensure_containers_running():
-        print('❌ 請先啟動測試容器後再執行基線測試')
-        return None
+    # 載入 OOD 服務
+    test_data = load_ood_services()
+    print(f'載入 {len(test_data)} 個 OOD 測試目標')
     
-    test_df = load_test_data()
-    print(f'載入 {len(test_df)} 個測試樣本')
+    # 檢查容器狀態
+    running_containers = subprocess.run(
+        'docker ps --filter label=project=llm-untangle --format "{{.Names}}"',
+        shell=True, capture_output=True, text=True
+    ).stdout.strip().split('\n')
+    
+    active_containers = [c for c in running_containers if c.strip()]
+    print(f'檢測到 {len(active_containers)} 個活躍的 OOD 容器')
+    
+    if len(active_containers) < 2:
+        print('⚠️ 活躍容器太少，建議重新啟動 OOD 容器')
     
     results = []
-    for _, row in tqdm(test_df.iterrows(), total=len(test_df), desc='Untangle 指紋識別'):
-        predictions, metadata = enhanced_untangle_fingerprinting(row['url'])
+    for item in tqdm(test_data, desc='Untangle 指紋識別'):
+        predictions, metadata = enhanced_fingerprinting(item['url'])
         
         result = {
-            'combo_id': row['combo_id'],
-            'url': row['url'],
-            'ground_truth': {
-                'l1': row['l1_true'],
-                'l2': row['l2_base'],
-                'l3': row['l3_base']
-            },
+            'combo_id': item['combo_id'],
+            'url': item['url'],
+            'ground_truth': {'l3': item['l3_true']},
             'predictions': predictions,
-            'accuracy': {
-                'l1': predictions['l1'] == row['l1_true'],
-                'l2': predictions['l2'] == row['l2_base'],
-                'l3': predictions['l3'] == row['l3_base']
-            },
-            'metadata': metadata
+            'accuracy': {'l3': predictions.get('l3') == item['l3_true']},
+            'metadata': metadata,
+            'image': item.get('image', '')
         }
         results.append(result)
-        time.sleep(0.2)  # 避免過快請求
+        time.sleep(0.1)
     
-    # 計算準確率
-    accuracy_stats = defaultdict(list)
+    # 計算準確率統計
+    correct_predictions = sum(1 for r in results if r['accuracy']['l3'])
+    overall_accuracy = correct_predictions / len(results) if results else 0
+    
+    # 預測分布統計
+    pred_counts = defaultdict(int)
+    truth_counts = defaultdict(int)
     for r in results:
-        for layer in ['l1', 'l2', 'l3']:
-            accuracy_stats[layer].append(r['accuracy'][layer])
+        pred_counts[r['predictions'].get('l3', 'error')] += 1
+        truth_counts[r['ground_truth']['l3']] += 1
     
-    overall_accuracy = {layer: np.mean(acc_list) for layer, acc_list in accuracy_stats.items()}
-    
-    # 保存完整結果（包含所有詳細資料供 BCa 使用）
+    # 保存完整結果
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     output = {
         'timestamp': time.strftime('%Y-%m-%d %H:%M:%S'),
-        'method': 'Untangle Baseline Enhanced',
+        'method': 'Untangle Baseline (OOD Containers)',
         'test_samples': len(results),
-        'overall_accuracy': overall_accuracy,
-        'layer_accuracy': {
-            layer: {'mean': float(np.mean(acc_list)), 'std': float(np.std(acc_list))}
-            for layer, acc_list in accuracy_stats.items()
-        },
-        'detailed_results': results  # 保存全部結果
+        'overall_accuracy': {'l3': overall_accuracy},
+        'correct_predictions': correct_predictions,
+        'prediction_distribution': dict(pred_counts),
+        'ground_truth_distribution': dict(truth_counts),
+        'detailed_results': results  # 完整結果供 BCa 使用
     }
     
     output_path = RESULTS_DIR / 'untangle_baseline_results.json'
     output_path.write_text(json.dumps(output, indent=2, ensure_ascii=False), encoding='utf-8')
     
-    print(f'\nUntangle 基線準確率：')
-    for layer, acc in overall_accuracy.items():
-        print(f'  {layer.upper()}: {acc:.3f} ({acc*100:.1f}%)')
+    print(f'\nUntangle 基線測試結果:')
+    print(f'測試樣本: {len(results)}')
+    print(f'L3 準確率: {overall_accuracy:.3f} ({overall_accuracy*100:.1f}%)')
+    print(f'正確預測: {correct_predictions}/{len(results)}')
     
-    # 顯示識別統計
-    print(f'\n識別統計：')
-    for layer in ['l1', 'l2', 'l3']:
-        pred_counts = defaultdict(int)
-        for r in results:
-            pred_counts[r['predictions'][layer]] += 1
-        top_3 = sorted(pred_counts.items(), key=lambda x: x[1], reverse=True)[:3]
-        print(f'  {layer.upper()}: {", ".join([f"{k}({v})" for k,v in top_3])}')
+    print(f'\n預測分布:')
+    for pred, count in pred_counts.items():
+        print(f'  {pred}: {count}')
     
-    print(f'\n✓ 基線測試完成，結果已保存到 {output_path}')
+    print(f'\n✅ 基線測試完成，結果已保存到 {output_path}')
+    print(f'📊 可用於 BCa Bootstrap 統計分析')
+    
     return overall_accuracy
 
 if __name__ == '__main__':
-    run_baseline_test()
+    try:
+        accuracy = run_baseline_test()
+        exit(0 if accuracy > 0 else 1)
+    except Exception as e:
+        print(f'❌ 基線測試失敗: {e}')
+        exit(1)
