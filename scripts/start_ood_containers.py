@@ -4,6 +4,7 @@
 - 維持 3 種真 OOD 服務供即時檢測  
 - 基於資源限制，生成智能模擬的基線測試目標
 - 結合真實 OOD 測試與模擬大規模基線測試
+- 增強端口管理和容器清理功能
 """
 import json
 import yaml
@@ -11,6 +12,7 @@ import subprocess
 import time
 import requests
 import random
+import socket
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -33,6 +35,46 @@ TARGET_MIN = 250
 TARGET_MAX = 300
 
 
+def check_port_available(port):
+    """檢查端口是否可用"""
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        try:
+            s.bind(('localhost', port))
+            return True
+        except OSError:
+            return False
+
+
+def cleanup_orphan_containers():
+    """清理孤立容器"""
+    try:
+        # 停止所有 OOD 相關容器
+        subprocess.run(['docker', 'ps', '-q', '--filter', 'name=ood_'], 
+                      capture_output=True, text=True, check=False)
+        result = subprocess.run(['docker', 'ps', '-aq', '--filter', 'name=ood_'], 
+                              capture_output=True, text=True, check=False)
+        container_ids = result.stdout.strip().split('\n')
+        
+        if container_ids and container_ids[0]:  # 確保有容器ID
+            for cid in container_ids:
+                if cid.strip():
+                    subprocess.run(['docker', 'stop', cid.strip()], 
+                                 capture_output=True, check=False)
+                    subprocess.run(['docker', 'rm', '-f', cid.strip()], 
+                                 capture_output=True, check=False)
+            print('✅ 已清理孤立容器')
+        
+        # 額外清理 OOD compose 檔案產生的容器
+        subprocess.run(['docker', 'compose', '-f', str(OOD_COMPOSE_DIR / 'ood_001.yml'), 'down', '-v'], 
+                      capture_output=True, cwd=ROOT, check=False)
+        subprocess.run(['docker', 'compose', '-f', str(OOD_COMPOSE_DIR / 'ood_002.yml'), 'down', '-v'], 
+                      capture_output=True, cwd=ROOT, check=False)
+        subprocess.run(['docker', 'compose', '-f', str(OOD_COMPOSE_DIR / 'ood_003.yml'), 'down', '-v'], 
+                      capture_output=True, cwd=ROOT, check=False)
+    except Exception as e:
+        print(f'清理容器時出錯: {e}')
+
+
 def ensure_shared_network():
     chk = subprocess.run(f'docker network inspect {SHARED_NETWORK}', shell=True, capture_output=True, text=True)
     if chk.returncode != 0:
@@ -46,50 +88,143 @@ def ensure_shared_network():
 
 
 def create_ood_service_compose(combo_id: str, config: dict, external_port: int) -> dict:
+    """創建 OOD 服務的 Docker Compose 配置（增強版）"""
+    service_config = {
+        'image': config['image'],
+        'container_name': f'{combo_id}_ood',
+        'ports': [f'{external_port}:{config["port_mapping"]}'],
+        'networks': [SHARED_NETWORK],
+        'environment': config.get('environment', []),
+        'restart': 'unless-stopped',
+        'labels': ['project=llm-untangle', 'type=ood', f'combo_id={combo_id}']
+    }
+    
+    # 添加資源限制
+    service_config['deploy'] = {
+        'resources': {
+            'limits': {
+                'memory': '512M',
+                'cpus': '0.5'
+            }
+        }
+    }
+    
+    # 添加健康檢查（根據服務器類型調整）
+    if 'httpd' in config['image'] or 'apache' in config['image']:
+        # Apache 健康檢查
+        service_config['healthcheck'] = {
+            'test': ['CMD', 'wget', '--quiet', '--tries=1', '--spider', 
+                    f"http://localhost:{config['port_mapping']}"],
+            'interval': '10s',
+            'timeout': '5s',
+            'retries': 3,
+            'start_period': '30s'
+        }
+    elif 'nginx' in config['image']:
+        # Nginx 健康檢查
+        service_config['healthcheck'] = {
+            'test': ['CMD', 'wget', '--quiet', '--tries=1', '--spider', 
+                    f"http://localhost:{config['port_mapping']}"],
+            'interval': '10s',
+            'timeout': '5s',
+            'retries': 3,
+            'start_period': '20s'
+        }
+    elif 'caddy' in config['image']:
+        # Caddy 健康檢查
+        service_config['healthcheck'] = {
+            'test': ['CMD', 'wget', '--quiet', '--tries=1', '--spider', 
+                    f"http://localhost:{config['port_mapping']}"],
+            'interval': '10s',
+            'timeout': '5s',
+            'retries': 3,
+            'start_period': '15s'
+        }
+    
     return {
+        'version': '3.8',
         'networks': {SHARED_NETWORK: {'external': True}},
         'services': {
-            f'{combo_id}_ood': {
-                'image': config['image'],
-                'container_name': f'{combo_id}_ood',
-                'ports': [f'{external_port}:{config["port_mapping"]}'],
-                'networks': [SHARED_NETWORK],
-                'environment': config.get('environment', []),
-                'restart': 'unless-stopped',
-                'labels': ['project=llm-untangle', 'type=ood', f'combo_id={combo_id}']
-            }
+            f'{combo_id}_ood': service_config
         }
     }
 
 
 def start_ood_service(combo_id: str, config: dict, url: str) -> dict:
+    """啟動 OOD 服務（增強版）"""
     port = int(url.split(':')[-1])
     compose_file = OOD_COMPOSE_DIR / f'ood_{combo_id}.yml'
+    
     try:
+        # 檢查端口可用性
+        if not check_port_available(port):
+            print(f'⚠️  端口 {port} 被占用，嘗試清理...')
+            # 嘗試清理占用該端口的容器
+            result = subprocess.run(
+                ['docker', 'ps', '-q', '--filter', f'publish={port}'],
+                capture_output=True, text=True, check=False
+            )
+            if result.stdout.strip():
+                for cid in result.stdout.strip().split('\n'):
+                    subprocess.run(['docker', 'stop', cid], capture_output=True, check=False)
+                    subprocess.run(['docker', 'rm', '-f', cid], capture_output=True, check=False)
+                time.sleep(2)
+                
+            # 再次檢查
+            if not check_port_available(port):
+                return {'combo_id': combo_id, 'status': 'port_conflict', 
+                       'error': f'Port {port} unavailable after cleanup'}
+        
+        # 創建 compose 配置
         compose = create_ood_service_compose(combo_id, config, port)
         OOD_COMPOSE_DIR.mkdir(parents=True, exist_ok=True)
         compose_file.write_text(yaml.dump(compose, default_flow_style=False), encoding='utf-8')
-        subprocess.run(f'docker compose -f "{compose_file}" down -v', shell=True, capture_output=True, cwd=ROOT)
-        proc = subprocess.run(f'docker compose -f "{compose_file}" up -d', shell=True, capture_output=True, text=True, cwd=ROOT)
+        
+        # 先停止可能存在的舊容器
+        subprocess.run(
+            f'docker compose -f "{compose_file}" down -v --remove-orphans', 
+            shell=True, capture_output=True, cwd=ROOT, check=False
+        )
+        time.sleep(1)
+        
+        # 啟動服務
+        proc = subprocess.run(
+            f'docker compose -f "{compose_file}" up -d --remove-orphans --force-recreate', 
+            shell=True, capture_output=True, text=True, cwd=ROOT
+        )
+        
         if proc.returncode != 0:
-            return {'combo_id': combo_id, 'status': 'compose_failed', 'error': proc.stderr.strip()}
-        print(f'⏳ 等待 {combo_id} 啟動 (4s)...'); time.sleep(4)
-        try:
-            r = requests.get(url, timeout=8)
-            print(f'✅ {combo_id} 成功! Server: {r.headers.get("Server", "N/A")}')
-            return {
-                'combo_id': combo_id, 
-                'status': 'running', 
-                'image': config['image'], 
-                'url': url,
-                'http_status': r.status_code, 
-                'server_header': r.headers.get('Server', 'N/A'), 
-                'content_length': len(r.text),
-                # 用於 OOD 測試的標準格式
-                'expected_l3': combo_id.replace('_ood', '').replace('ood_001', 'apache').replace('ood_002', 'nginx').replace('ood_003', 'caddy')
-            }
-        except requests.RequestException as e:
-            return {'combo_id': combo_id, 'status': 'no_response', 'error': str(e)}
+            error_msg = proc.stderr.strip() if proc.stderr else 'Unknown compose error'
+            return {'combo_id': combo_id, 'status': 'compose_failed', 'error': error_msg}
+        
+        # 等待服務就緒（增加重試次數）
+        print(f'⏳ 等待 {combo_id} 啟動...')
+        max_attempts = 10
+        for attempt in range(max_attempts):
+            try:
+                r = requests.get(url, timeout=5)
+                if r.status_code < 500:  # 任何非 5xx 錯誤都算成功
+                    print(f'✅ {combo_id} 成功! Server: {r.headers.get("Server", "N/A")}')
+                    return {
+                        'combo_id': combo_id, 
+                        'status': 'running', 
+                        'image': config['image'], 
+                        'url': url,
+                        'http_status': r.status_code, 
+                        'server_header': r.headers.get('Server', 'N/A'), 
+                        'content_length': len(r.text),
+                        'expected_l3': combo_id.replace('_ood', '').replace('ood_001', 'apache').replace('ood_002', 'nginx').replace('ood_003', 'caddy')
+                    }
+            except requests.RequestException:
+                if attempt < max_attempts - 1:
+                    time.sleep(3)
+                    continue
+        
+        return {'combo_id': combo_id, 'status': 'not_ready', 
+               'error': 'Service failed to become ready after multiple attempts'}
+        
+    except subprocess.TimeoutExpired:
+        return {'combo_id': combo_id, 'status': 'timeout', 'error': 'Docker compose timeout'}
     except Exception as e:
         return {'combo_id': combo_id, 'status': 'script_error', 'error': str(e)}
 
@@ -175,6 +310,11 @@ def main():
     print('🧪 LLM-UnTangle OOD 測試環境啟動（論文達標版）')
     print('=' * 60)
     print('論文核心：提供多種未知服務器類型供 Out-of-Distribution 檢測\n')
+
+    # 清理舊容器
+    print('🧹 清理舊容器...')
+    cleanup_orphan_containers()
+    time.sleep(2)
 
     if not ensure_shared_network():
         return False

@@ -4,6 +4,8 @@
 - 解決原測試 250/250 連接失敗的問題
 - 分批啟動、健康檢查、測試後立即回收清理
 - 適用於資源受限環境，避免同時開啟過多容器
+- 增強 Tomcat/LiteSpeed/Lighttpd 識別精確度
+- 增加重試機制
 """
 import json, time, re, requests, math, subprocess, sys
 from pathlib import Path
@@ -24,7 +26,22 @@ IMAGE_MAP = {
     'caddy': 'caddy:alpine',
     'lighttpd': 'sebp/lighttpd:latest',
     'tomcat': 'tomcat:10.1-jdk17',
-    'openlitespeed': 'litespeedtech/openlitespeed:1.8'
+    'openlitespeed': 'litespeedtech/openlitespeed:1.7-lsphp81'  # 使用更穩定的版本
+}
+
+# 服務器內部端口對應
+INTERNAL_PORT_MAP = {
+    'tomcat': 8080,
+    'openlitespeed': 8088,
+    'default': 80
+}
+
+# 服務就緒等待時間（秒）
+STARTUP_WAIT_MAP = {
+    'tomcat': 15,  # Tomcat 需要較長啟動時間
+    'openlitespeed': 10,
+    'lighttpd': 5,
+    'default': 3
 }
 
 UA = {'User-Agent': 'Untangle-Fingerprinter/1.0'}
@@ -43,35 +60,61 @@ def get_host_port_from_url(url: str) -> int:
         raise ValueError(f'URL 無法解析埠: {url}')
     return int(m.group(1))
 
-def docker_run(image: str, name: str, host_port: int, internal_port: int = 80) -> bool:
-    """啟動容器，成功返回 True"""
-    try:
-        cmd = [
-            'docker', 'run', '-d', '--rm',
-            '--name', name,
-            '-p', f'{host_port}:{internal_port}',
-            '--label', 'project=llm-untangle',
-            '--label', 'type=baseline',
-            image
-        ]
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
-        return result.returncode == 0
-    except Exception:
-        return False
+def docker_run(image: str, name: str, host_port: int, internal_port: int = 80, max_retries: int = 2) -> bool:
+    """啟動容器，成功返回 True，帶重試機制"""
+    for attempt in range(max_retries):
+        try:
+            # 先清理可能存在的同名容器
+            subprocess.run(['docker', 'rm', '-f', name], capture_output=True, check=False)
+            
+            cmd = [
+                'docker', 'run', '-d', '--rm',
+                '--name', name,
+                '-p', f'{host_port}:{internal_port}',
+                '--label', 'project=llm-untangle',
+                '--label', 'type=baseline',
+                image
+            ]
+            result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+            if result.returncode == 0:
+                return True
+            
+            # 如果失敗且還有重試機會，等待一下
+            if attempt < max_retries - 1:
+                time.sleep(2)
+                
+        except Exception as e:
+            if attempt == max_retries - 1:
+                print(f'      ❌ 啟動失敗: {e}')
+                return False
+            time.sleep(2)
+    
+    return False
 
-def docker_stop(name: str):
-    """停止並刪除容器"""
-    try:
-        subprocess.run(['docker', 'stop', name], capture_output=True, timeout=10)
-        subprocess.run(['docker', 'rm', '-f', name], capture_output=True, timeout=10)
-    except Exception:
-        pass
+def docker_stop(name: str, max_retries: int = 2):
+    """停止並刪除容器，帶重試機制"""
+    for attempt in range(max_retries):
+        try:
+            subprocess.run(['docker', 'stop', name], capture_output=True, timeout=10, check=False)
+            subprocess.run(['docker', 'rm', '-f', name], capture_output=True, timeout=10, check=False)
+            return
+        except Exception:
+            if attempt < max_retries - 1:
+                time.sleep(1)
+            else:
+                pass  # 嘗試了最大次數，放棄
 
-def wait_http_ready(url: str) -> bool:
-    """等待 HTTP 服務就緒"""
+def wait_http_ready(url: str, server_type: str = 'default') -> bool:
+    """等待 HTTP 服務就緒，根據服務器類型調整等待時間"""
+    # 先等待初始啟動時間
+    initial_wait = STARTUP_WAIT_MAP.get(server_type, STARTUP_WAIT_MAP['default'])
+    time.sleep(initial_wait)
+    
+    # 然後進行健康檢查
     for _ in range(HEALTH_RETRIES):
         try:
-            r = requests.get(url, timeout=HTTP_TIMEOUT, headers=UA)
+            r = requests.get(url, timeout=HTTP_TIMEOUT, headers=UA, allow_redirects=True)
+            # Tomcat 和 LiteSpeed 可能返回 404，但這仍然表示服務就緒
             if r.status_code < 500:
                 return True
         except requests.RequestException:
@@ -79,19 +122,55 @@ def wait_http_ready(url: str) -> bool:
         time.sleep(HEALTH_SLEEP)
     return False
 
-def extract_server(headers: dict, body: str) -> str:
-    """從 HTTP 回應提取服務器類型（Untangle 指紋識別邏輯）"""
+def extract_server(headers: dict, body: str, status_code: int = 200) -> str:
+    """
+    從 HTTP 回應提取服務器類型（Untangle 指紋識別邏輯）
+    增強 Tomcat, LiteSpeed, Lighttpd 識別
+    """
     server = headers.get('server', '').lower()
     body_l = body.lower() if isinstance(body, str) else ''
     
-    # 優先從 Server header 判斷
+    # === Tomcat 特殊識別邏輯 ===
+    # Tomcat 常常不顯示 Server header 或顯示為空
+    tomcat_indicators = [
+        'apache tomcat' in body_l,
+        'catalina' in body_l,
+        'tomcat/' in body_l,
+        status_code == 404 and 'status report' in body_l,
+        status_code == 404 and 'type status report' in body_l,
+        'http status 404' in body_l and 'apache' not in server and 'nginx' not in server,
+        '/manager' in body_l,
+        'java.lang' in body_l,
+        'servlet' in body_l and 'nginx' not in server and 'apache' not in server
+    ]
+    
+    if any(tomcat_indicators):
+        # 確保不是 Apache 或 Nginx 誤判
+        if 'apache' not in server and 'nginx' not in server and 'httpd' not in server:
+            return 'tomcat'
+    
+    # === LiteSpeed 特殊識別邏輯 ===
+    litespeed_indicators = [
+        'litespeed' in server,
+        'openlitespeed' in server,
+        'lsws' in server,
+        'litespeed' in body_l,
+        'x-powered-by' in headers and 'litespeed' in headers.get('x-powered-by', '').lower()
+    ]
+    
+    if any(litespeed_indicators):
+        return 'openlitespeed'
+    
+    # === Lighttpd 特殊識別邏輯 ===
+    if 'lighttpd' in server or 'lighttpd' in body_l:
+        return 'lighttpd'
+    
+    # === 標準 Server header 判斷 ===
     server_patterns = {
-        'apache': ['apache', 'httpd'],
         'nginx': ['nginx'],
-        'tomcat': ['tomcat', 'catalina', 'coyote'],
+        'apache': ['apache', 'httpd'],  # Apache 在 Tomcat 之後判斷
         'caddy': ['caddy'],
-        'lighttpd': ['lighttpd'],
-        'openlitespeed': ['litespeed', 'openlitespeed']
+        'tomcat': ['tomcat', 'coyote']  # 保留作為備用
     }
     
     for server_type, patterns in server_patterns.items():
@@ -99,11 +178,13 @@ def extract_server(headers: dict, body: str) -> str:
             if pattern in server:
                 return server_type
     
-    # 退化到內容判斷
-    for server_type, patterns in server_patterns.items():
-        for pattern in patterns:
-            if pattern in body_l:
-                return server_type
+    # === 內容判斷（最後手段） ===
+    if 'nginx' in body_l:
+        return 'nginx'
+    if 'caddy' in body_l:
+        return 'caddy'
+    if 'apache' in body_l and 'tomcat' not in body_l:
+        return 'apache'
     
     return 'unknown'
 
@@ -125,16 +206,17 @@ def run_batch(batch_targets):
         container_name = f'baseline_{combo_id}'
         
         # 根據服務器類型選擇內部端口
-        internal_port = 8080 if l3_type == 'tomcat' else 80
+        internal_port = INTERNAL_PORT_MAP.get(l3_type, INTERNAL_PORT_MAP['default'])
         
-        # 嘗試啟動容器
+        # 嘗試啟動容器（帶重試）
         success = docker_run(image, container_name, host_port, internal_port)
         
         if success:
             started_containers.append({
                 'name': container_name,
                 'target': t,
-                'port': host_port
+                'port': host_port,
+                'server_type': l3_type  # 記錄服務器類型用於等待時間調整
             })
             print(f'    ✅ {combo_id}: {image} -> localhost:{host_port}')
         else:
@@ -147,11 +229,12 @@ def run_batch(batch_targets):
                 'status': 'start_failed'
             })
     
-    # 等待服務就緒
+    # 等待服務就緒（根據服務器類型調整等待時間）
     print(f'  等待 {len(started_containers)} 個服務就緒...')
     for container in started_containers:
         url = f"http://localhost:{container['port']}"
-        ready = wait_http_ready(url)
+        server_type = container.get('server_type', 'default')
+        ready = wait_http_ready(url, server_type)
         container['ready'] = ready
         if ready:
             print(f'    ✅ {container["target"]["combo_id"]}: 服務就緒')
@@ -175,8 +258,12 @@ def run_batch(batch_targets):
             continue
         
         try:
-            r = requests.get(url, timeout=HTTP_TIMEOUT, headers=UA)
-            predicted = extract_server({k.lower():v for k,v in r.headers.items()}, r.text)
+            r = requests.get(url, timeout=HTTP_TIMEOUT, headers=UA, allow_redirects=True)
+            predicted = extract_server(
+                {k.lower():v for k,v in r.headers.items()}, 
+                r.text,
+                r.status_code
+            )
             
             results.append({
                 'combo_id': t['combo_id'],
@@ -203,11 +290,12 @@ def run_batch(batch_targets):
             })
             print(f'    ❌ {t["combo_id"]}: 請求失敗 - {e}')
     
-    # 清理容器
+    # 清理容器（帶重試）
     print(f'  清理 {len(started_containers)} 個容器...')
     for container in started_containers:
         docker_stop(container['name'])
-        print(f'    🗑️ {container["target"]["combo_id"]}: 已清理')
+        # print(f'    🗑️ {container["target"]["combo_id"]}: 已清理')  # 減少輸出
+    print(f'  ✅ 所有容器已清理')
     
     return results
 
@@ -250,10 +338,10 @@ def main():
         batch_results = run_batch(batch_targets)
         all_results.extend(batch_results)
         
-        # 批次間稍微暫停
+            # 批次間稍微暫停，確保容器完全清理
         if bi < batches - 1:
-            print('  ⏳ 批次間暫停 2 秒...')
-            time.sleep(2)
+            print('  ⏳ 批次間暫停 3 秒...')
+            time.sleep(3)
     
     # 統計結果
     total_tested = len([r for r in all_results if r.get('status') == 'ok'])

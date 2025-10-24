@@ -6,6 +6,7 @@
 - 解決了原 100% 連接失敗的問題
 - 採用分批啟動 10 容器的方式
 - 每批測試完立即清理，避免資源不足
+- 增加系統檢查和容器清理
 
 實驗設計：
 1. 真實 OOD 檢測: 3 個實際容器（Apache, Nginx, Caddy）
@@ -17,11 +18,80 @@ import subprocess
 import sys
 import json
 import time
+import socket
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 RESULTS_DIR = ROOT / 'results'
 SCRIPTS_DIR = ROOT / 'scripts'
+
+
+def check_port_available(port):
+    """檢查端口是否可用"""
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        try:
+            s.bind(('localhost', port))
+            return True
+        except OSError:
+            return False
+
+
+def cleanup_all_test_containers():
+    """清理所有測試容器"""
+    try:
+        print('🧹 清理所有測試容器...')
+        
+        # 停止所有 combo_ 和 ood_ 容器
+        for prefix in ['combo_', 'ood_', 'baseline_']:
+            result = subprocess.run(
+                ['docker', 'ps', '-aq', '--filter', f'name={prefix}'],
+                capture_output=True, text=True, check=False
+            )
+            container_ids = result.stdout.strip().split('\n')
+            
+            if container_ids and container_ids[0]:
+                for cid in container_ids:
+                    if cid.strip():
+                        subprocess.run(['docker', 'stop', cid.strip()], 
+                                     capture_output=True, check=False, timeout=10)
+                        subprocess.run(['docker', 'rm', '-f', cid.strip()], 
+                                     capture_output=True, check=False, timeout=10)
+        
+        print('✅ 已清理所有測試容器')
+    except Exception as e:
+        print(f'清理容器失敗: {e}')
+
+
+def pre_test_system_check():
+    """測試前系統檢查"""
+    print('🔧 執行系統檢查...')
+    
+    # 檢查 Docker 服務
+    try:
+        result = subprocess.run(['docker', 'version'], capture_output=True, text=True, timeout=10)
+        if result.returncode != 0:
+            raise Exception('Docker服務異常')
+        print('✅ Docker服務正常')
+    except Exception as e:
+        print(f'❌ Docker檢查失敗: {e}')
+        return False
+    
+    # 檢查可用端口範圍
+    busy_ports = []
+    print('🔍 檢查端口可用性 (8001-8100, 9001-9010)...')
+    for port in list(range(8001, 8101)) + list(range(9001, 9011)):
+        if not check_port_available(port):
+            busy_ports.append(port)
+    
+    if len(busy_ports) > 50:
+        print(f'⚠️  警告: {len(busy_ports)} 個端口被占用，建議清理容器')
+    else:
+        print(f'✅ 端口檢查完成 ({len(busy_ports)} 個被占用)')
+    
+    # 清理現有容器
+    cleanup_all_test_containers()
+    
+    return True
 
 
 def run_script_safely(script_name: str, description: str) -> tuple[bool, str]:
@@ -176,6 +246,13 @@ def main():
     print('=' * 60)
     print('目標：解決連接失敗問題，完成論文所需的基線測試')
     print('方法：真實 OOD 檢測 + 分批真實容器基線測試\n')
+    
+    # 系統檢查
+    if not pre_test_system_check():
+        print('❌ 系統檢查失敗，中止測試')
+        return False
+    
+    print()  # 空行分隔
     
     # 步驟 1: 啟動 OOD 服務
     print('🎆 第一步：啟動 OOD 檢測服務')
