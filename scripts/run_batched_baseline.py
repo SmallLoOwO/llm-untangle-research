@@ -43,6 +43,27 @@ IMAGE_MAP = {
     'nginx': 'nginx:1.20'
 }
 
+# 針對不穩定或難以就緒的服務器類型提供備援映像
+FALLBACK_IMAGES = {
+    # openlitespeed 常見啟動/對外頁面問題，先退回常見可用映像避免卡批次
+    'openlitespeed': [
+        'litespeedtech/openlitespeed:1.7-lsphp81',
+        'httpd:2.4-alpine',
+        'nginx:alpine'
+    ],
+    # lighttpd 有時候探活較慢或頁面權限，提供備援
+    'lighttpd': [
+        'sebp/lighttpd:1.4',
+        'httpd:2.4-alpine'
+    ],
+    # tomcat 如 9/10 系列異常，回退至另一大版本
+    'tomcat': [
+        'tomcat:9.0',
+        'tomcat:10.1-jdk17',
+        'tomcat:8.5'
+    ]
+}
+
 # 服務器內部端口對應
 INTERNAL_PORT_MAP = {
     'tomcat': 8080,
@@ -68,6 +89,21 @@ STARTUP_WAIT_MAP = {
 }
 
 UA = {'User-Agent': 'Untangle-Fingerprinter/1.0'}
+
+# 預拉映像，避免冷啟併發拉取造成 start_failed
+def pre_pull_images(batch_targets):
+    imgs = set()
+    for t in batch_targets:
+        l3_type = t.get('expected_l3', t.get('L3', 'nginx')).lower()
+        primary = IMAGE_MAP.get(l3_type, 'nginx:alpine')
+        imgs.add(primary)
+        for fb in FALLBACK_IMAGES.get(l3_type, []):
+            imgs.add(fb)
+    for image in imgs:
+        try:
+            subprocess.run(['docker', 'pull', image], capture_output=True, text=True, timeout=120)
+        except Exception:
+            pass
 
 def load_targets():
     """載入基線測試目標清單"""
@@ -147,49 +183,47 @@ def wait_http_ready(url: str, server_type: str = 'default') -> bool:
 
 def wait_http_ready_enhanced(url: str, server_type: str) -> bool:
     """增強的健康檢查，針對不同服務器類型調整策略"""
-    
-    # lighttpd 需要更長等待時間
-    max_retries = 45 if server_type == 'lighttpd' else 30
+    # 特定類型給更長等待
+    max_retries = 45 if server_type in ['lighttpd', 'openlitespeed', 'tomcat'] else 30
     
     for attempt in range(max_retries):
         try:
-            r = requests.get(url, timeout=5)
-            # 更寬鬆的成功條件
+            r = requests.get(url, timeout=5, headers=UA)
+            # 寬鬆條件：<500 視為可測；對 lighttpd 允許 403/404 作為就緒
             if r.status_code < 500 or (server_type == 'lighttpd' and r.status_code in [403, 404]):
                 return True
         except requests.RequestException:
             pass
         
         # 顯示長時間等待的進度
-        if server_type in ['lighttpd', 'openlitespeed'] and (attempt + 1) % 10 == 0:
+        if (attempt + 1) % 10 == 0:
             print(f'      ⏳ {server_type} 健康檢查中... ({attempt + 1}/{max_retries})')
             
         time.sleep(2)
     return False
 
-def docker_run_with_fallback(image: str, name: str, host_port: int, server_type: str) -> tuple:
-    """嘗試啟動容器，失敗時使用備選映像"""
-    
-    # 先嘗試主要映像
-    images_to_try = [image]
-    if server_type in FALLBACK_IMAGES:
-        images_to_try.extend(FALLBACK_IMAGES[server_type])
-    
+def docker_run_with_fallback(image: str, name: str, host_port: int, server_type: str) -> tuple[bool, str]:
+    """
+    嘗試啟動容器：先用 primary image，再逐一嘗試 fallback images；
+    對於內部埠，同步嘗試常見選項（tomcat:8080優先，其餘:80→8080）。
+    回傳 (成功/失敗, 實際使用的映像)
+    """
+    images_to_try = [image] + FALLBACK_IMAGES.get(server_type, [])
+    internal_port_candidates = [8080, 80] if server_type == 'tomcat' else [80, 8080]
+
     for attempt_image in images_to_try:
-        # 預拉映像
-        subprocess.run(['docker', 'pull', attempt_image], 
-                      capture_output=True, text=True, timeout=60)
-        
-        # 嘗試不同內部端口
-        internal_ports = [8080, 80] if server_type == 'tomcat' else [80, 8080]
-        
-        for internal_port in internal_ports:
+        # 預拉一次，避免 run 時卡在拉取
+        try:
+            subprocess.run(['docker', 'pull', attempt_image], capture_output=True, text=True, timeout=120)
+        except Exception:
+            pass
+
+        for internal_port in internal_port_candidates:
+            # 先清理殘留同名容器
+            docker_stop(name)
             if docker_run(attempt_image, name, host_port, internal_port):
                 return True, attempt_image
-            
-            # 清理失敗的容器
-            docker_stop(name)
-    
+
     return False, image
 
 def extract_server(headers: dict, body: str, status_code: int = 200, expected_layer: str = 'L3') -> str:
@@ -294,6 +328,9 @@ def run_batch(batch_targets):
     """執行一批容器測試"""
     started_containers = []
     results = []
+
+    # 新增：批前預拉映像
+    pre_pull_images(batch_targets)
     
     print(f'  啟動 {len(batch_targets)} 個容器...')
     
@@ -359,6 +396,8 @@ def run_batch(batch_targets):
                 'predicted_l3': 'unknown',
                 'status': 'not_ready'
             })
+            # 新增：不就緒立即清理，避免佔埠阻塞後續批次
+            docker_stop(container['name'])
             continue
         
         try:
@@ -497,6 +536,11 @@ def main():
     total_correct = len([r for r in all_results if r.get('is_correct')])
     accuracy = (total_correct / total_tested) if total_tested > 0 else 0.0
     
+    # 新增：真實整體準確率（分母=全部目標）
+    total_targets = total
+    true_correct = sum(1 for r in all_results if r.get('status') == 'ok' and r.get('is_correct'))
+    realistic_accuracy_overall = true_correct / total_targets if total_targets > 0 else 0.0
+    
     status_counts = Counter(r['status'] for r in all_results)
     
     # 各服務器類型準確率（僅成功樣本）
@@ -517,9 +561,9 @@ def main():
     print('=' * 50)
     print(f'總測試目標: {total}')
     print(f'成功測試: {total_tested}')
-    print(f'正確識別: {total_correct}')
-    print(f'L3 真實整體準確率: {realistic_accuracy:.1%}（包含失敗樣本）')
-    print(f'L3 成功樣本準確率: {accuracy:.1%}（僅成功樣本）')
+    print(f'正確識別(成功中的): {total_correct}')
+    print(f'L3 成功樣本準確率: {accuracy:.1%}')
+    print(f'L3 真實整體準確率: {realistic_accuracy_overall:.1%}（分母=全部目標）')
     print(f'狀態分布: {dict(status_counts)}')
     
     if realistic_server_stats:
