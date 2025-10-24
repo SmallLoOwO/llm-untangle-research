@@ -222,20 +222,33 @@ def start_ood_service(combo_id: str, config: dict, url: str) -> dict:
 
 
 def load_combinations_data():
-    """從 data/combinations.json 載入預定義的三層組合"""
-    combinations_file = DATA_DIR / 'combinations.json'
-    if not combinations_file.exists():
-        print(f'❌ 找不到組合數據文件: {combinations_file}')
-        return []
+    """從 data/paper_combinations.json 或 data/combinations.json 載入預定義的三層組合"""
     
-    try:
-        with open(combinations_file, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-            print(f'✅ 載入 {len(data)} 組三層組合數據')
-            return data
-    except Exception as e:
-        print(f'❌ 載入組合數據失敗: {e}')
-        return []
+    # 優先使用論文標準組合
+    paper_combinations_file = DATA_DIR / 'paper_combinations.json'
+    if paper_combinations_file.exists():
+        try:
+            with open(paper_combinations_file, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                print(f'✅ 載入論文標準組合: {len(data)} 組（9種伺服器類型）')
+                return data
+        except Exception as e:
+            print(f'⚠️ 載入論文組合失敗: {e}')
+    
+    # 回退到舊組合（如果存在）
+    combinations_file = DATA_DIR / 'combinations.json'
+    if combinations_file.exists():
+        try:
+            with open(combinations_file, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                print(f'⚠️ 使用舊版組合: {len(data)} 組（非論文標準）')
+                return data
+        except Exception as e:
+            print(f'❌ 載入組合數據失敗: {e}')
+            return []
+    
+    print('❌ 找不到組合文件，請先執行: python scripts/generate_paper_combinations.py')
+    return []
 
 
 def generate_baseline_targets(n_min=TARGET_MIN, n_max=TARGET_MAX, seed=RANDOM_SEED):

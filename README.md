@@ -86,6 +86,67 @@ pip install -U sentence-transformers
 
 ---
 
+## 論文標準版（9種伺服器類型）
+
+本專案已更新為符合論文的9種伺服器類型架構：
+
+### 伺服器架構
+- **L1層（CDN/Front）**: Nginx, HAProxy, Traefik
+- **L2層（Proxy/Cache）**: Varnish, Squid, Apache
+- **L3層（App/Origin）**: Tomcat, Flask, Express
+
+### 使用論文標準組合
+
+#### 1) 建立自定義映像
+```bash
+python scripts\create_paper_images.py
+```
+- 建立 Flask 和 Express 應用服務器映像
+- 用於論文 L3 層測試
+
+#### 2) 生成論文標準組合
+```bash
+python scripts\generate_paper_combinations.py
+```
+- 產出：`data/paper_combinations.json`（280 組）
+- 9種伺服器類型：3×3×3 架構
+- L1(3種) × L2(3種) × L3(3種) = 27種基礎架構
+
+#### 3) 執行基線測試
+```bash
+python scripts\run_batched_baseline.py
+```
+- 批次啟動容器測試（10個/批）
+- 自動識別 L3 層伺服器類型
+- 預期準確率：50-55%（符合論文基線）
+
+#### 4) 啟動 OOD 測試
+```bash
+python scripts\start_ood_containers.py
+```
+- 啟動 Out-of-Distribution 測試容器
+- 用於驗證模型泛化能力
+
+#### 5) 統計分析
+```bash
+python scripts\calculate_bca_confidence.py
+```
+- BCa Bootstrap 置信區間計算
+- 生成論文統計結果
+
+### 論文標準 vs 原始版本
+
+| 項目 | 原始版本 | 論文標準版 |
+|------|----------|------------|
+| L1 伺服器 | 3種 CDN模擬 | Nginx, HAProxy, Traefik |
+| L2 伺服器 | 5種代理 | Varnish, Squid, Apache |
+| L3 伺服器 | 6種 | Tomcat, Flask, Express |
+| 總組合數 | 280 | 280 (27種架構) |
+| 重點層 | L3 | L3（應用層） |
+
+---
+
 ## 下一階段（預告）
 - 啟動單組或多組 Docker 服務進行流量/標頭收集與指紋識別驗證
 - 建立模型訓練/推論管線（可於 Docker 內或雲端環境執行）
+- 使用論文9種伺服器類型進行 LLM-UnTangle 改進方法驗證
