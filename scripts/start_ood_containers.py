@@ -151,82 +151,74 @@ def create_ood_service_compose(combo_id: str, config: dict, external_port: int) 
 
 
 def start_ood_service(combo_id: str, config: dict, url: str) -> dict:
-    """啟動 OOD 服務（增強版）"""
+    """啟動 OOD 服務（直接使用 docker run，更穩定）"""
     port = int(url.split(':')[-1])
-    compose_file = OOD_COMPOSE_DIR / f'ood_{combo_id}.yml'
     
     try:
-        # 檢查端口可用性
-        if not check_port_available(port):
-            print(f'⚠️  端口 {port} 被占用，嘗試清理...')
-            # 嘗試清理占用該端口的容器
-            result = subprocess.run(
-                ['docker', 'ps', '-q', '--filter', f'publish={port}'],
-                capture_output=True, text=True, check=False
-            )
-            if result.stdout.strip():
-                for cid in result.stdout.strip().split('\n'):
-                    subprocess.run(['docker', 'stop', cid], capture_output=True, check=False)
-                    subprocess.run(['docker', 'rm', '-f', cid], capture_output=True, check=False)
-                time.sleep(2)
-                
-            # 再次檢查
-            if not check_port_available(port):
-                return {'combo_id': combo_id, 'status': 'port_conflict', 
-                       'error': f'Port {port} unavailable after cleanup'}
-        
-        # 創建 compose 配置
-        compose = create_ood_service_compose(combo_id, config, port)
-        OOD_COMPOSE_DIR.mkdir(parents=True, exist_ok=True)
-        compose_file.write_text(yaml.dump(compose, default_flow_style=False), encoding='utf-8')
+        # 方法1: 直接使用 docker run 代替 compose（更穩定）
+        container_name = f'{combo_id}_direct'
         
         # 先停止可能存在的舊容器
-        subprocess.run(
-            f'docker compose -f "{compose_file}" down -v --remove-orphans', 
-            shell=True, capture_output=True, cwd=ROOT, check=False
-        )
-        time.sleep(1)
+        subprocess.run(['docker', 'stop', container_name], capture_output=True)
+        subprocess.run(['docker', 'rm', '-f', container_name], capture_output=True)
         
-        # 啟動服務
-        proc = subprocess.run(
-            f'docker compose -f "{compose_file}" up -d --remove-orphans --force-recreate', 
-            shell=True, capture_output=True, text=True, cwd=ROOT
-        )
+        # 預拉映像
+        pull_result = subprocess.run(['docker', 'pull', config['image']], 
+                                   capture_output=True, text=True, timeout=120)
+        if pull_result.returncode != 0:
+            print(f'   ⚠️ 映像拉取警告: {pull_result.stderr}')
         
-        if proc.returncode != 0:
-            error_msg = proc.stderr.strip() if proc.stderr else 'Unknown compose error'
-            return {'combo_id': combo_id, 'status': 'compose_failed', 'error': error_msg}
+        # 直接 docker run 啟動
+        run_cmd = [
+            'docker', 'run', '-d', '--rm',
+            '--name', container_name,
+            '-p', f'{port}:80',
+            '--label', 'project=llm-untangle-ood',
+            config['image']
+        ]
         
-        # 等待服務就緒（增加重試次數）
-        print(f'⏳ 等待 {combo_id} 啟動...')
-        max_attempts = 10
-        for attempt in range(max_attempts):
+        run_result = subprocess.run(run_cmd, capture_output=True, text=True, timeout=30)
+        
+        if run_result.returncode != 0:
+            return {'combo_id': combo_id, 'status': 'start_failed', 'error': run_result.stderr}
+        
+        # 強化健康檢查（最多等 60 秒）
+        ready = False
+        for attempt in range(40):  # 40 * 1.5 = 60 秒
             try:
-                r = requests.get(url, timeout=5)
-                if r.status_code < 500:  # 任何非 5xx 錯誤都算成功
-                    print(f'✅ {combo_id} 成功! Server: {r.headers.get("Server", "N/A")}')
-                    return {
-                        'combo_id': combo_id, 
-                        'status': 'running', 
-                        'image': config['image'], 
-                        'url': url,
-                        'http_status': r.status_code, 
-                        'server_header': r.headers.get('Server', 'N/A'), 
-                        'content_length': len(r.text),
-                        'expected_l3': combo_id.replace('_ood', '').replace('ood_001', 'apache').replace('ood_002', 'nginx').replace('ood_003', 'caddy')
-                    }
-            except requests.RequestException:
-                if attempt < max_attempts - 1:
-                    time.sleep(3)
-                    continue
+                response = requests.get(url, timeout=3)
+                if response.status_code < 500:
+                    ready = True
+                    break
+            except:
+                pass
+            time.sleep(1.5)
+            
+            # 每 10 秒顯示等待進度
+            if (attempt + 1) % 7 == 0:
+                print(f'   ⏳ {combo_id} 等待中... ({attempt + 1}/40)')
         
-        return {'combo_id': combo_id, 'status': 'not_ready', 
-               'error': 'Service failed to become ready after multiple attempts'}
-        
-    except subprocess.TimeoutExpired:
-        return {'combo_id': combo_id, 'status': 'timeout', 'error': 'Docker compose timeout'}
+        if ready:
+            r = requests.get(url, timeout=5)
+            print(f'✅ {combo_id} 成功! Server: {r.headers.get("Server", "N/A")}')
+            return {
+                'combo_id': combo_id, 
+                'status': 'running', 
+                'image': config['image'], 
+                'url': url,
+                'http_status': r.status_code, 
+                'server_header': r.headers.get('Server', 'N/A'), 
+                'content_length': len(r.text),
+                'container_name': container_name,  # 記錄容器名稱供後續清理
+                'expected_l3': combo_id.replace('_ood', '').replace('ood_001', 'apache').replace('ood_002', 'nginx').replace('ood_003', 'caddy')
+            }
+        else:
+            # 健康檢查失敗，清理容器
+            subprocess.run(['docker', 'stop', container_name], capture_output=True)
+            return {'combo_id': combo_id, 'status': 'health_failed', 'error': 'healthcheck_timeout'}
+            
     except Exception as e:
-        return {'combo_id': combo_id, 'status': 'script_error', 'error': str(e)}
+        return {'combo_id': combo_id, 'status': 'exception', 'error': str(e)}
 
 
 def load_combinations_data():
