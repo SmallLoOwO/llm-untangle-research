@@ -19,34 +19,51 @@ HTTP_TIMEOUT = 8
 HEALTH_RETRIES = 15
 HEALTH_SLEEP = 1.5
 
-# 更可靠的映像選擇
+# 论文标准的9种服务器类型映像配置
 IMAGE_MAP = {
-    'apache': 'httpd:2.4-alpine',
-    'nginx': 'nginx:alpine', 
-    'caddy': 'caddy:alpine',
-    'lighttpd': 'sebp/lighttpd:latest',
-    'tomcat': 'tomcat:10.1-jdk17',
-    'openlitespeed': 'httpd:2.4-alpine'  # 暫時用 Apache 代替有問題的 OpenLiteSpeed
-}
-
-# 針對問題映像的備選方案
-FALLBACK_IMAGES = {
-    'openlitespeed': ['litespeedtech/openlitespeed:1.7-lsphp81', 'httpd:2.4-alpine', 'nginx:alpine'],
-    'lighttpd': ['sebp/lighttpd:1.4', 'httpd:2.4-alpine']
+    # L1层 (CDN/Front)
+    'nginx_l1': 'nginx:1.20',
+    'haproxy_l1': 'haproxy:2.4',
+    'traefik_l1': 'traefik:2.5',
+    
+    # L2层 (Proxy/Cache)
+    'varnish_l2': 'varnish:7.0',
+    'varnish': 'varnish:7.0',
+    'squid_l2': 'ubuntu/squid:latest',
+    'squid': 'ubuntu/squid:latest',
+    'apache_l2': 'httpd:2.4',
+    'apache': 'httpd:2.4',
+    
+    # L3层 (App/Origin) - 论文重点
+    'tomcat': 'tomcat:9.0',
+    'flask': 'llm-untangle-flask:latest',
+    'express': 'llm-untangle-express:latest',
+    
+    # 通用兼容
+    'nginx': 'nginx:1.20'
 }
 
 # 服務器內部端口對應
 INTERNAL_PORT_MAP = {
     'tomcat': 8080,
-    'openlitespeed': 8088,
+    'flask': 5000,
+    'express': 3000,
+    'squid': 3128,
+    'squid_l2': 3128,
+    'varnish': 80,
+    'varnish_l2': 80,
     'default': 80
 }
 
 # 服務就緒等待時間（秒）
 STARTUP_WAIT_MAP = {
     'tomcat': 15,  # Tomcat 需要較長啟動時間
-    'openlitespeed': 10,
-    'lighttpd': 5,
+    'flask': 8,    # Flask 需要中等啟動時間
+    'express': 8,  # Express 需要中等啟動時間
+    'varnish': 5,
+    'varnish_l2': 5,
+    'squid': 6,
+    'squid_l2': 6,
     'default': 3
 }
 
@@ -175,69 +192,76 @@ def docker_run_with_fallback(image: str, name: str, host_port: int, server_type:
     
     return False, image
 
-def extract_server(headers: dict, body: str, status_code: int = 200) -> str:
+def extract_server(headers: dict, body: str, status_code: int = 200, expected_layer: str = 'L3') -> str:
     """
-    從 HTTP 回應提取服務器類型（Untangle 指紋識別邏輯）
-    增強 Tomcat, LiteSpeed, Lighttpd 識別
+    根据论文的9种伺服器类型进行指纹识别
+    重点关注L3层：Tomcat, Flask, Express
     """
     server = headers.get('server', '').lower()
     body_l = body.lower() if isinstance(body, str) else ''
     
-    # === Tomcat 特殊識別邏輯 ===
-    # Tomcat 常常不顯示 Server header 或顯示為空
-    tomcat_indicators = [
-        'apache tomcat' in body_l,
-        'catalina' in body_l,
-        'tomcat/' in body_l,
-        status_code == 404 and 'status report' in body_l,
-        status_code == 404 and 'type status report' in body_l,
-        'http status 404' in body_l and 'apache' not in server and 'nginx' not in server,
-        '/manager' in body_l,
-        'java.lang' in body_l,
-        'servlet' in body_l and 'nginx' not in server and 'apache' not in server
-    ]
-    
-    if any(tomcat_indicators):
-        # 確保不是 Apache 或 Nginx 誤判
-        if 'apache' not in server and 'nginx' not in server and 'httpd' not in server:
+    # L3层识别（论文重点）
+    if expected_layer == 'L3':
+        # Tomcat 识别
+        tomcat_indicators = [
+            'tomcat' in server,
+            'catalina' in server,
+            'coyote' in server,
+            'apache tomcat' in body_l,
+            'catalina' in body_l,
+            'tomcat/' in body_l,
+            status_code == 404 and 'status report' in body_l and 'tomcat' in body_l,
+            '/manager' in body_l,
+            'java.lang' in body_l,
+            'servlet' in body_l and 'nginx' not in server and 'apache' not in server
+        ]
+        if any(tomcat_indicators):
             return 'tomcat'
+            
+        # Flask 识别
+        flask_indicators = [
+            'flask' in server,
+            'werkzeug' in server,
+            'flask application server' in body_l,
+            'python/flask' in body_l,
+            'werkzeug' in body_l and 'python' in body_l
+        ]
+        if any(flask_indicators):
+            return 'flask'
+            
+        # Express 识别 
+        express_indicators = [
+            'express' in server,
+            'node' in server and 'express' in body_l,
+            'express application server' in body_l,
+            'node.js/express' in body_l,
+            'cannot get' in body_l and 'express' in body_l
+        ]
+        if any(express_indicators):
+            return 'express'
     
-    # === LiteSpeed 特殊識別邏輯 ===
-    litespeed_indicators = [
-        'litespeed' in server,
-        'openlitespeed' in server,
-        'lsws' in server,
-        'litespeed' in body_l,
-        'x-powered-by' in headers and 'litespeed' in headers.get('x-powered-by', '').lower()
-    ]
+    # L2层识别
+    elif expected_layer == 'L2':
+        if 'varnish' in server:
+            return 'varnish_l2'
+        if 'squid' in server or 'proxy' in server:
+            return 'squid_l2'  
+        if ('apache' in server or 'httpd' in server) and 'proxy' in body_l:
+            return 'apache_l2'
     
-    if any(litespeed_indicators):
-        return 'openlitespeed'
+    # L1层识别
+    elif expected_layer == 'L1':
+        if 'nginx' in server:
+            return 'nginx_l1'
+        if 'haproxy' in server:
+            return 'haproxy_l1'
+        if 'traefik' in server:
+            return 'traefik_l1'
     
-    # === Lighttpd 特殊識別邏輯 ===
-    if 'lighttpd' in server or 'lighttpd' in body_l:
-        return 'lighttpd'
-    
-    # === 標準 Server header 判斷 ===
-    server_patterns = {
-        'nginx': ['nginx'],
-        'apache': ['apache', 'httpd'],  # Apache 在 Tomcat 之後判斷
-        'caddy': ['caddy'],
-        'tomcat': ['tomcat', 'coyote']  # 保留作為備用
-    }
-    
-    for server_type, patterns in server_patterns.items():
-        for pattern in patterns:
-            if pattern in server:
-                return server_type
-    
-    # === 內容判斷（最後手段） ===
-    if 'nginx' in body_l:
-        return 'nginx'
-    if 'caddy' in body_l:
-        return 'caddy'
-    if 'apache' in body_l and 'tomcat' not in body_l:
-        return 'apache'
+    # 通用回退识别（基于base_name）
+    for server_type in ['tomcat', 'flask', 'express', 'varnish', 'squid', 'nginx', 'apache', 'haproxy', 'traefik']:
+        if server_type in server or server_type in body_l:
+            return server_type
     
     return 'unknown'
 
@@ -339,10 +363,13 @@ def run_batch(batch_targets):
         
         try:
             r = requests.get(url, timeout=HTTP_TIMEOUT, headers=UA, allow_redirects=True)
+            # 从目标信息中获取期望的层级（默认为L3）
+            expected_layer = 'L3'  # 论文重点关注L3层
             predicted = extract_server(
                 {k.lower():v for k,v in r.headers.items()}, 
                 r.text,
-                r.status_code
+                r.status_code,
+                expected_layer
             )
             
             results.append({
