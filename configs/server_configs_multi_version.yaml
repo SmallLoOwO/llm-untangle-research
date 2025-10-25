@@ -1,0 +1,279 @@
+# LLM-UnTangle 多版本擴展策略配置檔 (方案 A)
+# 透過部署同一伺服器的多個版本，將組合數從 96 擴展至 780+
+# 組合數公式：L1_instances × L2_instances × L3_instances = 6 × 13 × 10 = 780 組
+
+servers:
+  l1_cdns:  # 第一層：CDN/前端代理（6 個實例）
+    # Cloudflare 模擬（2 個變體）
+    - name: cloudflare_standard
+      image: nginx:1.25-alpine
+      config: cloudflare_standard.conf
+      description: "標準 Cloudflare Headers 模擬"
+      features:
+        - "CF-Cache-Status Header"
+        - "CF-RAY Header" 
+        - "CF-Request-ID Header"
+        - "自訂 403/503 錯誤頁面"
+    
+    - name: cloudflare_strict
+      image: nginx:1.26-alpine
+      config: cloudflare_strict.conf
+      description: "Cloudflare + 嚴格 CORS 政策"
+      features:
+        - "所有標準 Headers"
+        - "額外安全 Headers (X-Frame-Options, CSP)"
+        - "更嚴格的錯誤訊息"
+        - "Bot Challenge 模擬"
+    
+    # AWS CloudFront 模擬（2 個變體）
+    - name: cloudfront_standard
+      image: nginx:1.25-alpine
+      config: cloudfront_standard.conf
+      description: "標準 CloudFront Headers"
+      features:
+        - "X-Amz-Cf-Pop Header"
+        - "X-Amz-Cf-Id Header"
+        - "X-Cache Header"
+        - "Via Header"
+    
+    - name: cloudfront_shield
+      image: nginx:1.26-alpine
+      config: cloudfront_shield.conf
+      description: "CloudFront + AWS Shield Headers"
+      features:
+        - "Shield 專屬 Headers"
+        - "AWS WAF 整合模擬"
+        - "更詳細的 Cache 狀態"
+    
+    # Fastly 模擬（1 個）
+    - name: fastly
+      image: varnish:7.4
+      config: fastly.vcl
+      description: "Fastly CDN 使用 Varnish"
+      features:
+        - "X-Served-By Header"
+        - "X-Cache Header (HIT, MISS, PASS)"
+        - "X-Timer Header"
+        - "Fastly-Debug-Digest Header"
+    
+    # Akamai 模擬（1 個）
+    - name: akamai
+      image: nginx:1.25-alpine
+      config: akamai.conf
+      description: "Akamai 基本特徵"
+      features:
+        - "X-Akamai-Request-ID Header"
+        - "X-Cache-Key Header"
+        - "Akamai 特有錯誤格式"
+  
+  l2_proxies:  # 第二層：反向代理/快取（13 個實例）
+    # Nginx（3 個版本）
+    - name: nginx
+      versions: ["1.24", "1.25", "1.26"]
+      image: nginx:{version}-alpine
+      ports: [80, 443]
+      description: "Nginx 反向代理"
+      version_info:
+        "1.24":
+          released: "2023-04"
+          status: "Stable"
+          features: ["HTTP/2", "Reverse Proxy", "Load Balancing", "SSL Termination"]
+        "1.25":
+          released: "2023-10"
+          status: "Mainline"
+          features: ["HTTP/3 (QUIC)", "所有 1.24 功能"]
+        "1.26":
+          released: "2024-04"
+          status: "Latest Stable"
+          features: ["效能優化", "所有 1.25 功能"]
+    
+    # Varnish（2 個版本）
+    - name: varnish
+      versions: ["7.3", "7.4"]
+      image: varnish:{version}
+      ports: [80, 6081]
+      description: "Varnish HTTP 快取"
+      version_info:
+        "7.3":
+          released: "2023-03"
+          status: "LTS"
+          features: ["HTTP 快取", "VCL 4.1", "ESI 支援"]
+        "7.4":
+          released: "2023-09"
+          status: "Current"
+          features: ["所有 7.3 功能", "效能改進"]
+    
+    # HAProxy（2 個版本）
+    - name: haproxy
+      versions: ["2.6", "2.8"]
+      image: haproxy:{version}
+      ports: [80, 443]
+      description: "HAProxy 負載均衡器"
+      version_info:
+        "2.6":
+          released: "2022-05"
+          status: "LTS"
+          features: ["Load Balancing", "SSL Termination", "Health Checks"]
+        "2.8":
+          released: "2023-05"
+          status: "Latest LTS"
+          features: ["HTTP/2", "所有 2.6 功能"]
+    
+    # Squid（1 個版本）
+    - name: squid
+      versions: ["5.2"]
+      image: ubuntu/squid:{version}-22.04_beta
+      ports: [3128, 8080]
+      description: "Squid 代理快取"
+      version_info:
+        "5.2":
+          released: "2023-01"
+          status: "Maintained"
+          features: ["Forward Proxy", "Reverse Proxy", "HTTP 快取"]
+    
+    # Traefik（2 個版本）
+    - name: traefik
+      versions: ["2.10", "3.0"]
+      image: traefik:v{version}
+      ports: [80, 443, 8080]
+      description: "Traefik 反向代理"
+      version_info:
+        "2.10":
+          released: "2023-04"
+          status: "v2 Latest"
+          features: ["自動服務發現", "Let's Encrypt 整合", "Dashboard"]
+        "3.0":
+          released: "2024-04"
+          status: "v3 Stable"
+          features: ["HTTP/3", "所有 v2 功能", "效能改進"]
+    
+    # Envoy（2 個版本）
+    - name: envoy
+      versions: ["1.27", "1.28"]
+      image: envoyproxy/envoy:v{version}-latest
+      ports: [10000, 9901]
+      description: "Envoy 代理"
+      version_info:
+        "1.27":
+          released: "2023-07"
+          status: "Stable"
+          features: ["gRPC Proxy", "HTTP/2", "Advanced Load Balancing"]
+        "1.28":
+          released: "2023-10"
+          status: "Current"
+          features: ["所有 1.27 功能", "WASM 支援"]
+    
+    # Apache Traffic Server（1 個版本）
+    - name: ats
+      versions: ["9.2"]
+      image: apache/trafficserver:{version}.0
+      ports: [8080, 8443]
+      description: "Apache Traffic Server"
+      version_info:
+        "9.2":
+          released: "2023-03"
+          status: "Current"
+          features: ["HTTP 快取", "Reverse Proxy", "Forward Proxy"]
+  
+  l3_servers:  # 第三層：後端伺服器（10 個實例）
+    # Apache HTTP Server（3 個版本）
+    - name: apache
+      versions: ["2.4.54", "2.4.57", "2.4.58"]
+      image: httpd:{version}
+      ports: [80, 443]
+      description: "Apache HTTP Server"
+      version_info:
+        "2.4.54":
+          released: "2022-06"
+          status: "Older Stable"
+          features: ["Static Content", "CGI/FastCGI", ".htaccess", "Modules System"]
+        "2.4.57":
+          released: "2023-04"
+          status: "Current Stable"
+          features: ["所有 2.4.54 功能", "安全性改進"]
+        "2.4.58":
+          released: "2023-10"
+          status: "Latest Stable"
+          features: ["所有 2.4.57 功能", "效能優化"]
+    
+    # Tomcat（2 個版本）
+    - name: tomcat
+      versions: ["9.0", "10.1"]
+      image: tomcat:{version}
+      ports: [8080, 8443]
+      description: "Apache Tomcat"
+      version_info:
+        "9.0":
+          released: "2018-01"
+          status: "Jakarta EE 8"
+          features: ["Servlet 4.0", "JSP 2.3", "WebSocket 1.1"]
+        "10.1":
+          released: "2022-09"
+          status: "Jakarta EE 10"
+          features: ["Servlet 6.0", "JSP 3.1", "WebSocket 2.1"]
+    
+    # Nginx（2 個版本，作為後端）
+    - name: nginx_backend
+      versions: ["1.24", "1.25"]
+      image: nginx:{version}-alpine
+      ports: [80, 443]
+      description: "Nginx 後端伺服器模式"
+      version_info:
+        "1.24":
+          released: "2023-04"
+          status: "Backend server mode"
+          features: ["Static Files", "FastCGI", "HTTP/2"]
+        "1.25":
+          released: "2023-05"
+          status: "Backend server mode"
+          features: ["所有 1.24 功能", "HTTP/3 support"]
+    
+    # Caddy（2 個版本）
+    - name: caddy
+      versions: ["2.6", "2.7"]
+      image: caddy:{version}-alpine
+      ports: [80, 443]
+      description: "Caddy Web 伺服器"
+      version_info:
+        "2.6":
+          released: "2023-01"
+          status: "HTTP/3 support"
+          features: ["自動 HTTPS", "HTTP/3", "JSON 配置"]
+        "2.7":
+          released: "2023-07"
+          status: "Current stable"
+          features: ["所有 2.6 功能", "效能改進"]
+    
+    # OpenLiteSpeed（1 個版本）
+    - name: openlitespeed
+      versions: ["1.7"]
+      image: litespeedtech/openlitespeed:{version}-lsphp81
+      ports: [80, 443, 7080]
+      description: "OpenLiteSpeed Web 伺服器"
+      version_info:
+        "1.7":
+          released: "2023-03"
+          status: "High performance"
+          features: ["HTTP/3", "LSCache", "WebAdmin Console"]
+
+# 多版本擴展配置
+combination_rules:
+  target_count: 780  # 目標組合數量 (6 × 13 × 10)
+  max_combinations: 780  # 理論最大組合數
+  sampling_strategy: "multi_version_expansion"  # 多版本擴展策略
+  ensure_coverage: true  # 確保每種技術都有覆蓋
+  version_distribution: "balanced"  # 版本分佈策略
+  
+# 測試配置
+testing:
+  selected_combinations: 300  # 實際測試的組合數（從 780 中抽樣）
+  probe_count: 12  # HTTP 探針數量
+  timeout: 30  # 每個探針的超時時間（秒）
+  
+# 網路配置
+network:
+  base_port: 8000  # 起始端口號
+  port_range: 1000  # 端口範圍
+  l1_offset: 0     # L1 層端口偏移
+  l2_offset: 1000  # L2 層端口偏移 
+  l3_offset: 2000  # L3 層端口偏移
