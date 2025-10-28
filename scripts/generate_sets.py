@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """
-生成 250-300 組三層架構組合，輸出到 data/combinations.json
-修正版：
-- 自動從 scripts/ 目錄執行時回到專案根目錄
-- 正確尋找 configs/server_configs.yaml
-- 確保每個 L1|L2_base|L3_base 分層鍵至少 2 筆，避免分層抽樣孤立類別
+生成三層架構組合，輸出到 data/combinations.json
+修正版（1x1x9 或一般情況皆適用）：
+- 嚴格依照 configs/server_configs.yaml 的 servers 列表完全枚舉 L1×L2×L3
+- 不再使用分層隨機抽樣，避免重複挑選同一個 L3 導致覆蓋不均
+- 若 combination_rules.target_count 小於全量，依序取前 target_count 筆，保證每個 L3 最少取 1 次（若 target < L3 種數，則報錯）
+- 從 scripts/ 目錄執行時自動切回專案根目錄
 """
 import yaml
 import itertools
-import random
 import json
 import os
 from pathlib import Path
@@ -25,76 +25,86 @@ def load_server_configs():
     with open(CONFIG_PATH, encoding='utf-8') as f:
         return yaml.safe_load(f)
 
+
 def expand_servers(servers_config):
     expanded = {'l1': [], 'l2': [], 'l3': []}
+    # L1
     for cdn in servers_config['l1_cdns']:
-        expanded['l1'].append({'name': cdn['name'], 'image': cdn['image'], 'config': cdn.get('config','default.conf')})
+        expanded['l1'].append({
+            'name': cdn['name'],
+            'image': cdn['image'],
+            'config': cdn.get('config', 'default.conf')
+        })
+    # L2
     for proxy in servers_config['l2_proxies']:
-        for version in proxy.get('versions', ['latest']):
-            expanded['l2'].append({'name': f"{proxy['name']}_{version}", 'base_name': proxy['name'], 'version': version, 'image': proxy['image'].format(version=version)})
+        versions = proxy.get('versions', ['latest'])
+        for version in versions:
+            expanded['l2'].append({
+                'name': f"{proxy['name']}_{version}",
+                'base_name': proxy['name'],
+                'version': version,
+                'image': proxy['image'].format(version=version)
+            })
+    # L3
     for server in servers_config['l3_servers']:
-        for version in server.get('versions', ['latest']):
-            expanded['l3'].append({'name': f"{server['name']}_{version}", 'base_name': server['name'], 'version': version, 'image': server['image'].format(version=version)})
+        versions = server.get('versions', ['latest'])
+        for version in versions:
+            expanded['l3'].append({
+                'name': f"{server['name']}_{version}",
+                'base_name': server['name'],
+                'version': version,
+                'image': server['image'].format(version=version)
+            })
     return expanded
 
-def _key(l1,l2,l3):
-    return (l1['name'], l2['base_name'], l3['base_name'])
 
-def stratified_sampling_balanced(all_combinations, target_count=280, seed=42):
-    random.seed(seed)
-    groups = defaultdict(list)
-    for (l1,l2,l3) in all_combinations:
-        groups[_key(l1,l2,l3)].append((l1,l2,l3))
+def generate_all_combos(expanded):
+    return list(itertools.product(expanded['l1'], expanded['l2'], expanded['l3']))
 
-    selected = []
-    # 先讓每一個分層鍵至少選 2 筆（若該組只有 1 筆，允許重複抽樣同一組，避免孤立類別）
-    for combos in groups.values():
-        if len(selected) >= target_count:
-            break
-        if len(combos) >= 2:
-            picked = random.sample(combos, 2)
-            selected.extend(picked)
-        else:
-            selected.append(combos[0])
-            selected.append(combos[0])
 
-    if len(selected) > target_count:
-        selected = selected[:target_count]
-    elif len(selected) < target_count:
-        remaining = [c for c in all_combinations]
-        need = target_count - len(selected)
-        selected.extend(random.sample(remaining, need))
+def choose_combos_complete(cfg, all_combos, expanded):
+    target = cfg.get('combination_rules', {}).get('target_count', len(all_combos))
+    # 驗證：target 需至少等於獨特 L3 的數量，否則必然有 L3 未覆蓋
+    unique_l3 = {c[2]['name'] for c in all_combos}
+    if target < len(unique_l3):
+        raise ValueError(f"target_count={target} 小於 L3 類型數量 {len(unique_l3)}，將導致部分 L3 未被覆蓋。請將 target_count >= {len(unique_l3)}。")
 
-    return selected[:target_count]
+    # 完全枚舉，依序取前 target 筆即可（配置已限制 L1=1, L2=1, L3=9）
+    chosen = all_combos[:target]
+
+    # 最後一次保險：若 target==len(all_combos) 但仍擔心 YAML 編輯錯，加入覆蓋性檢查
+    covered_l3 = {c[2]['name'] for c in chosen}
+    missing = unique_l3 - covered_l3
+    if missing:
+        raise RuntimeError(f"選擇的組合未涵蓋所有 L3：缺少 {sorted(missing)}。請檢查 configs/server_configs.yaml。")
+
+    return chosen
+
 
 def generate_and_save():
-    print('🔧 LLM-UnTangle 組合生成器（根目錄路徑修正版）')
+    print('🔧 LLM-UnTangle 組合生成器（完全枚舉版）')
     cfg = load_server_configs()
     expanded = expand_servers(cfg['servers'])
-    all_combos = list(itertools.product(expanded['l1'], expanded['l2'], expanded['l3']))
+    all_combos = generate_all_combos(expanded)
 
-    target = cfg.get('combination_rules',{}).get('target_count',280)
-    chosen = stratified_sampling_balanced(all_combos, target_count=target)
+    chosen = choose_combos_complete(cfg, all_combos, expanded)
 
     combos = []
-    used_counts = defaultdict(int)
-    for idx, (l1,l2,l3) in enumerate(chosen, start=1):
-        k = _key(l1,l2,l3)
-        used_counts[k] += 1
-        suffix = '' if used_counts[k] == 1 else f"_{used_counts[k]}"
+    for idx, (l1, l2, l3) in enumerate(chosen, start=1):
         combos.append({
             'id': f"combo_{idx:03d}",
             'l1': l1,
             'l2': l2,
             'l3': l3,
             'url': f"http://localhost:{8000+idx}",
-            'replicate_tag': suffix,
-            'status':'pending'
+            'replicate_tag': '',
+            'status': 'pending'
         })
 
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_PATH.write_text(json.dumps(combos, ensure_ascii=False, indent=2), encoding='utf-8')
     print(f"✓ 已生成 {len(combos)} 組並儲存到 {OUTPUT_PATH}")
+
 
 if __name__ == '__main__':
     # 無論在根目錄或 scripts 內執行，都以 ROOT 為準
