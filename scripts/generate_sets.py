@@ -1,18 +1,16 @@
 #!/usr/bin/env python3
 """
-生成三層架構組合，輸出到 data/combinations.json
-修正版（1x1x9 或一般情況皆適用）：
-- 嚴格依照 configs/server_configs.yaml 的 servers 列表完全枚舉 L1×L2×L3
-- 不再使用分層隨機抽樣，避免重複挑選同一個 L3 導致覆蓋不均
-- 若 combination_rules.target_count 小於全量，依序取前 target_count 筆，保證每個 L3 最少取 1 次（若 target < L3 種數，則報錯）
-- 從 scripts/ 目錄執行時自動切回專案根目錄
+生成三層架構組合（90 組擴增版支援）
+- 完全枚舉 L1×L2×L3
+- 依 combination_rules.min_per_l3 進行按 L3 類別的均衡擴增，直到 target_count
+- 若單一 L3 可用版本 < min_per_l3，將循環複用（replicate_tag）填滿
 """
 import yaml
 import itertools
 import json
 import os
 from pathlib import Path
-from collections import defaultdict
+from collections import defaultdict, deque
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG_PATH = ROOT / 'configs' / 'server_configs.yaml'
@@ -28,14 +26,12 @@ def load_server_configs():
 
 def expand_servers(servers_config):
     expanded = {'l1': [], 'l2': [], 'l3': []}
-    # L1
     for cdn in servers_config['l1_cdns']:
         expanded['l1'].append({
             'name': cdn['name'],
             'image': cdn['image'],
             'config': cdn.get('config', 'default.conf')
         })
-    # L2
     for proxy in servers_config['l2_proxies']:
         versions = proxy.get('versions', ['latest'])
         for version in versions:
@@ -45,7 +41,6 @@ def expand_servers(servers_config):
                 'version': version,
                 'image': proxy['image'].format(version=version)
             })
-    # L3
     for server in servers_config['l3_servers']:
         versions = server.get('versions', ['latest'])
         for version in versions:
@@ -58,40 +53,57 @@ def expand_servers(servers_config):
     return expanded
 
 
-def generate_all_combos(expanded):
-    return list(itertools.product(expanded['l1'], expanded['l2'], expanded['l3']))
+def generate_balanced_by_l3(cfg, expanded):
+    target = cfg.get('combination_rules', {}).get('target_count', 90)
+    min_per_l3 = cfg.get('combination_rules', {}).get('min_per_l3', 10)
 
+    # 準備每個 L3 類別可用的版本清單（以 deque 輪詢）
+    by_l3 = defaultdict(list)
+    for l3 in expanded['l3']:
+        by_l3[l3['base_name']].append(l3)
+    for k in by_l3:
+        by_l3[k] = deque(by_l3[k])
 
-def choose_combos_complete(cfg, all_combos, expanded):
-    target = cfg.get('combination_rules', {}).get('target_count', len(all_combos))
-    # 驗證：target 需至少等於獨特 L3 的數量，否則必然有 L3 未覆蓋
-    unique_l3 = {c[2]['name'] for c in all_combos}
-    if target < len(unique_l3):
-        raise ValueError(f"target_count={target} 小於 L3 類型數量 {len(unique_l3)}，將導致部分 L3 未被覆蓋。請將 target_count >= {len(unique_l3)}。")
+    l1 = expanded['l1'][0]
+    l2 = expanded['l2'][0]
 
-    # 完全枚舉，依序取前 target 筆即可（配置已限制 L1=1, L2=1, L3=9）
-    chosen = all_combos[:target]
+    # 先確保每個 L3 至少 min_per_l3
+    combos = []
+    used_counts = defaultdict(int)
+    for base_name, q in by_l3.items():
+        for _ in range(min_per_l3):
+            if not q:
+                # 理論上不會發生，保險處理
+                q = deque(by_l3[base_name])
+            l3 = q[0]
+            q.rotate(-1)
+            used_counts[(base_name, l3['version'])] += 1
+            suffix = '' if used_counts[(base_name, l3['version'])] == 1 else f"_{used_counts[(base_name, l3['version'])]}"
+            combos.append((l1, l2, {**l3, 'name': f"{l3['name']}{suffix}"}))
 
-    # 最後一次保險：若 target==len(all_combos) 但仍擔心 YAML 編輯錯，加入覆蓋性檢查
-    covered_l3 = {c[2]['name'] for c in chosen}
-    missing = unique_l3 - covered_l3
-    if missing:
-        raise RuntimeError(f"選擇的組合未涵蓋所有 L3：缺少 {sorted(missing)}。請檢查 configs/server_configs.yaml。")
+    # 若仍未達 target，依所有 L3 輪詢補滿
+    all_cycle = deque(expanded['l3'])
+    while len(combos) < target:
+        l3 = all_cycle[0]
+        all_cycle.rotate(-1)
+        used_counts[(l3['base_name'], l3['version'])] += 1
+        suffix = '' if used_counts[(l3['base_name'], l3['version'])] == 1 else f"_{used_counts[(l3['base_name'], l3['version'])]}"
+        combos.append((l1, l2, {**l3, 'name': f"{l3['name']}{suffix}"}))
 
-    return chosen
+    return combos[:target]
 
 
 def generate_and_save():
-    print('🔧 LLM-UnTangle 組合生成器（完全枚舉版）')
+    print('🔧 LLM-UnTangle 組合生成器（90 組均衡版）')
     cfg = load_server_configs()
     expanded = expand_servers(cfg['servers'])
-    all_combos = generate_all_combos(expanded)
 
-    chosen = choose_combos_complete(cfg, all_combos, expanded)
+    # 均衡生成（每 L3 至少 min_per_l3）
+    chosen = generate_balanced_by_l3(cfg, expanded)
 
-    combos = []
+    out = []
     for idx, (l1, l2, l3) in enumerate(chosen, start=1):
-        combos.append({
+        out.append({
             'id': f"combo_{idx:03d}",
             'l1': l1,
             'l2': l2,
@@ -102,11 +114,10 @@ def generate_and_save():
         })
 
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT_PATH.write_text(json.dumps(combos, ensure_ascii=False, indent=2), encoding='utf-8')
-    print(f"✓ 已生成 {len(combos)} 組並儲存到 {OUTPUT_PATH}")
+    OUTPUT_PATH.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding='utf-8')
+    print(f"✓ 已生成 {len(out)} 組並儲存到 {OUTPUT_PATH}")
 
 
 if __name__ == '__main__':
-    # 無論在根目錄或 scripts 內執行，都以 ROOT 為準
     os.chdir(ROOT)
     generate_and_save()
